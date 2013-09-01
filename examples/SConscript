@@ -1,0 +1,6 @@
+Import('*')
+
+lib_env = lib_env.Clone()
+
+test = bin_env.Program("test", Split('test.c'), LIBS=Split("reprint m"));
+bin_env.Install(bin_env.BinDest, test)
