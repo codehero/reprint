@@ -34,7 +34,7 @@ static const reprint_uint_t s_16_powers[INTERNAL_16_POWER_COUNT] = {
 };
 
 static inline reprint_reg_t s_arch_calc_msb(reprint_uint_t v){
-	/* TODO Power of 2 base. Determine greatest 1 bit position.
+	/* Power of 2 base. Determine greatest 1 bit position.
 	 * Shamelessly ripped from bit twiddling hacks:
 	 * http://graphics.stanford.edu/~seander/bithacks.html#IntegerLog
 	 *
@@ -56,11 +56,13 @@ static inline reprint_reg_t s_arch_calc_r10_digits(reprint_uint_t v){
 	while(tmp > 0){
 		if(v >= s_10_powers[tmp - 1])
 			break;
+		--tmp;
 	}
 	return tmp;
 }
 
 
+/* NOTE expecting all our data types to be limited to 16 bits. */
 static inline const void* s_arch_align_ptr(const void* p, size_t size){
 	if(1 == size)
 		return p;

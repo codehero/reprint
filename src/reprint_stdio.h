@@ -64,6 +64,23 @@ int refprintpf(FILE* output, const char* fmt, const uint8_t* data);
 /** @brief Print byte packed data to stdout. */
 static int reprintpf(const char* fmt, const uint8_t* data);
 
+/* Marshalling functions. */
+
+/** @brief Marshall an unsigned integer value.
+ *  @return pointer to byte following last written byte. NULL if speci*/
+void* reprint_marshall_unsigned(void* dest, uint8_t specifier, unsigned value);
+
+/** @brief Marshall a signed integer value.
+ *  @return pointer to byte following last written byte. */
+void* reprint_marshall_signed(void* dest, uint8_t specifier, signed value);
+
+/** @brief Marshall a binary floating point value.
+ *  @return pointer to byte following last written byte. */
+void* reprint_marshall_bin_floating_pt(void* dest, uint8_t specifier, double value);
+
+/** @brief Marshall a pointer, including string pointers.
+ *  @return pointer to byte following last written byte. */
+void* reprint_marshall_pointer(void* dest, uint8_t specifier, const void* ptr);
 
 /* Inlines. */
 static inline int reprintsf(const char* fmt, const void* data){

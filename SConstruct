@@ -8,7 +8,7 @@ mydir = os.getcwd()
 default_env = Environment(ENV = os.environ)
 default_env.Append(CPPPATH = [mydir + '/include'])
 default_env.Append(CCFLAGS = ' -Wall -std=gnu1x')
-default_env.Append(CCFLAGS = ' -O0 -g -DARCH_MSP430')
+default_env.Append(CCFLAGS = ' -O0 -g -DARCH_X86_64')
 #default_env.Append(CCFLAGS = ' -O2 -fomit-frame-pointer')
 
 default_env.LibDest = mydir + '/lib'
@@ -25,4 +25,4 @@ lib_env = default_env.Clone()
 lib_env.Append(LINKFLAGS = ['-fPIC'])
 
 SConscript('src/SConscript', exports='bin_env lib_env', variant_dir='build/reprint', duplicate = 0)
-SConscript('examples/SConscript', exports='bin_env lib_env', variant_dir='build/examples', duplicate = 0)
+SConscript('tests/SConscript', exports='bin_env lib_env', variant_dir='build/examples', duplicate = 0)

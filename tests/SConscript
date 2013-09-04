@@ -1,0 +1,7 @@
+
+Import('*')
+
+#lib_env.Install(lib_env.IncDest, Split('pull.hh'))
+step = bin_env.Program("checker", Split('checker.cpp posix.cpp'), LIBS=Split("benejson reprint m"));
+bin_env.Install(bin_env.BinDest, step)
+

@@ -172,10 +172,10 @@ enum {
 	,FQ_MR_PREFIX_DEFINED = FLAG_MINI_REG_2_DEFINED
 
 	/* Force display of sign '+' or '-' */
-	,FQ_MR_PREFIX_FORCE_SIGN = FLAG_MINI_REG_1_VAL_0
+	,FQ_MR_PREFIX_FORCE_SIGN = FLAG_MINI_REG_2_VAL_0
 
 	/* Display prefix if not base10.  */
-	,FQ_MR_PREFIX_SHOW = FLAG_MINI_REG_1_VAL_1
+	,FQ_MR_PREFIX_SHOW = FLAG_MINI_REG_2_VAL_1
 
 	,FQB_REG_BCOUNT = 2
 	,FQB_REG_BDROP = 3
@@ -362,7 +362,7 @@ BEGIN:
 	if(*i & ESCAPE_SELECT){
 		rs->mini_regs |= FORMAT_BIT;
 
-		/* Default pad char is a ' ' when integers are formatted.*/
+		/* Default pad char is a ' '.*/
 		rs->registers[FS_REG_PAD_CHAR] = ' ';
 	}
 
@@ -485,8 +485,38 @@ BEGIN:
 					rs->cur_label = &&CHAR;
 				}
 				else{
-					/* TODO calculate string length, determine if it exceeds padding. */
-					/* TODO assign rs->cur_data.text. */
+					/* Align to ptr and assign rs->cur_data.text. */
+					if(FLAG_REG_STRUCT_PACK & rs->reg_flags){
+						rs->data = s_arch_align_ptr(rs->data, sizeof(const uint8_t*));
+						rs->cur_data.text = (const uint8_t*)(rs->data);
+					}
+					else{
+						memcpy(&rs->cur_data.text, rs->data, sizeof(rs->cur_data.text));
+					}
+					rs->data += sizeof(rs->cur_data.text);
+
+					/* Trying to avoid strlen call if at all possible. */
+
+					/* If start range is specified, add to the start pointer.
+					 * ASSUME user did not put start past actual string length!! */
+					if(rs->reg_flags & (1 << TS_REG_START)){
+						rs->data += rs->registers[TS_REG_START];
+					}
+
+					/* Trust the user on its length.
+					 * TODO maybe do strlen to double check??*/
+					if(rs->reg_flags & (1 << TS_REG_LENGTH)){
+						total_len = rs->registers[TS_REG_LENGTH];
+					}
+
+					if(rs->mini_regs & FORMAT_BIT){
+						if(rs->registers[FS_REG_FIELD_WIDTH] && !total_len){
+							/* Calculate string length, determine if it exceeds padding.
+							 * Assuming UTF-8 string for now.
+							 * TODO support char16_t, char32_t, wchar_t. */
+							total_len = strlen((char*)rs->cur_data.text);
+						}
+					}
 				}
 			}
 			else{

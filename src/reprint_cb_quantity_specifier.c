@@ -22,9 +22,13 @@ if(!(*i & 0x10)){
 
 	if(rs->mini_regs & FORMAT_BIT){
 
-		/* Default pad char is a '0' when formatting integers.*/
-		if(!(rs->reg_flags & (1 << FS_REG_PAD_CHAR)))
+		/* Default pad char is a '0' when formatting integers AND
+		 * the value is right aligned. */
+		if(!(rs->reg_flags & (1 << FS_REG_PAD_CHAR))
+			&& rs->mini_regs & FS_FLAG_RIGHT_ALIGN)
+		{
 			rs->registers[FS_REG_PAD_CHAR] = '0';
+		}
 
 		/* Check if signed and negate if necessary. */
 		if(*i & 0x08){
@@ -86,6 +90,7 @@ if(!(*i & 0x10)){
 				case 4:
 					{
 						/* 128 bit integers, TODO someday; not important now. */
+						assert(0);
 					}
 					break;
 #endif
@@ -100,17 +105,14 @@ if(!(*i & 0x10)){
 		reprint_reg_t all_digits;
 #if (RP_CFG_Q_RADIX & ~(RP_CFG_Q_RADIX_10))
 		if(FQS_MR_RADIX_DEFINED & rs->mini_regs){
-			/* TODO Power of 2 base. Determine greatest 1 bit position.
-			 * Take from bit twiddling hacks:
-			 *
-			 * */
-			all_digits = s_arch_calc_msb(rs->cur_data.binary);
+			all_digits = s_arch_calc_msb(rs->cur_data.binary) + 1;
 			switch(rs->mini_regs & FQ_MR_RADIX_MASK){
 
 #if (RP_CFG_Q_RADIX & RP_CFG_Q_RADIX_16)
 				case FQ_MR_RADIX_16:
 					all_digits += 0xF;
 					all_digits >>= 4;
+					++all_digits;
 					break;
 #endif
 
@@ -118,6 +120,7 @@ if(!(*i & 0x10)){
 				case FQ_MR_RADIX_8:
 					all_digits += 0x7;
 					all_digits >>= 3;
+					++all_digits;
 					break;
 #endif
 
@@ -249,6 +252,7 @@ if(!(*i & 0x10)){
 	}
 	else{
 		/* TODO Output is in binary */
+		assert(0);
 	}
 }
 else{
@@ -270,9 +274,11 @@ else{
 	}
 	else if(*i != Q_ARBITRARY){
 		/* TODO Floating point... */
+		assert(0);
 	}
 	else{
 		/* TODO This is arbitrary precision.... */
+		assert(0);
 	}
 }
 

@@ -44,6 +44,14 @@
  *  @return Pointer to first byte following last packed byte. */
 void* reprint_init_pack(const char* fmt, void* pack, ...);
 
+/** @brief Append a datum to to data array, as tight as possible.
+ *  @return next available byte in dest. */
+void* reprint_marshall_packed(void* dest, uint8_t specifier, const void* datum);
+
+/** @brief Append a datum to to data array, struct style.
+ *  @return next available byte in dest. */
+void* reprint_marshall_struct(void* dest, uint8_t specifier, const void* datum);
+
 /** @brief  */
 void reprint_init(const char* fmt, const void* data, uint8_t struct_pack);
 

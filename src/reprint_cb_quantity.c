@@ -22,7 +22,7 @@ QUANT_SIGN:
 
 QUANT_CHECK_PREFIX:
 	if(rs->mini_regs & FQ_MR_PREFIX_FORCE_SIGN){
-		/* Obviously if we are here, we should not have a non-decimal base. */
+		/* Obviously if we are here, we should have a non-decimal base. */
 
 		if(FQ_MR_RADIX_2 == (rs->mini_regs & FQ_MR_RADIX_MASK)){
 			*dest = 'b';
@@ -60,53 +60,71 @@ QUANT_DECIMAL:
 		return 1;
 	}
 
+	rs->cur_label = &&QUANT_SIGFIGS;
 QUANT_SIGFIGS:
 	{
 		/* Must have at least one sigfig to be in this section. */
 		assert(rs->registers[FQS_REG_SIGFIGS]);
 
-		const reprint_uint_t *power_arr;
+		/* Obviously, the general case for calculating what digit
+		 * to print is faster using a division based method on
+		 * most platforms. The key is MOST. I would like this to
+		 * work on MSP430 and AVR without code bloat. */
 
-		/* TODO optimize based on radix; base 2 and 16 could be a lot faster... */
+		/* Will store the highest radix power into the delta value,
+		 * which is computed based on number of sigfigs. */
+		reprint_uint_t delta = rs->registers[FQS_REG_SIGFIGS] - 1;
 		if(FQS_MR_RADIX_DEFINED & rs->mini_regs){
 			uint16_t radix = rs->mini_regs & FQ_MR_RADIX_MASK;
 			switch(radix){
+#if (RP_CFG_Q_RADIX & RP_CFG_Q_RADIX_16)
 				case FQ_MR_RADIX_16:
-					power_arr = s_16_powers;
+					assert(delta < INTERNAL_16_POWER_COUNT);
+					delta = s_16_powers[rs->registers[FQS_REG_SIGFIGS] - 1];
 					break;
+#endif
 
+#if (RP_CFG_Q_RADIX & RP_CFG_Q_RADIX_8)
 				case FQ_MR_RADIX_8:
-					power_arr = s_8_powers;
+					assert(delta < INTERNAL_8_POWER_COUNT);
+					delta = s_8_powers[rs->registers[FQS_REG_SIGFIGS] - 1];
 					break;
+#endif
 
+#if (RP_CFG_Q_RADIX & RP_CFG_Q_RADIX_2)
 				case FQ_MR_RADIX_2:
-					/* FIXME Unsupported as of yet.*/
-					assert(0);
+					assert(delta <= sizeof(reprint_uint_t));
+					delta = 1 << (rs->registers[FQS_REG_SIGFIGS] - 1);
 					break;
+#endif
 
 				default:
-					break;
+					assert(0);
 			}
 		}
-		else{
-			power_arr = s_10_powers;
+		else
+		{
+#if (RP_CFG_Q_RADIX & RP_CFG_Q_RADIX_10)
+			assert(delta < INTERNAL_10_POWER_COUNT);
+			delta = s_10_powers[delta];
+#endif
 		}
 
 		/* Select increment value. */
-		reprint_uint_t delta = power_arr[rs->registers[FQS_REG_SIGFIGS] - 1];
-		reprint_uint_t tmp = delta;
+		reprint_uint_t tmp = 0;
 
 		/* Compute digit by incrementing until we exceed current value. */
 		uint8_t output = '0';
-		if(rs->cur_data.binary > tmp){
-			while(1){
-				++output;
-				if(rs->cur_data.binary - tmp < delta)
-					break;
-				tmp += delta;
-			}
-			rs->cur_data.binary -= tmp;
+
+		while(rs->cur_data.binary - tmp >= delta){
+			++output;
+			tmp += delta;
 		}
+		rs->cur_data.binary -= tmp;
+
+		/* Shift to capital letters. */
+		if(output > '9')
+			output += 7;
 
 		/* TODO If this was the last digit to output, (and something is left)
 		 * need to do proper rounding. */
@@ -243,8 +261,18 @@ EXPONENT:
 		/* Break when finished with sigfigs. */
 		rs->registers[FQW_REG_BREAK] = 0;
 
-		/* Output the letter. TODO select 'p' for hex and other radices. */
-		*dest = 'e';
+		/* Output the letter. select 'p' for power of 2 radices. */
+#if (RP_CFG_Q_RADIX & ~(RP_CFG_Q_RADIX_10))
+		if(FQS_MR_RADIX_DEFINED & rs->mini_regs){
+			*dest = 'p';
+		}
+		else
+#endif
+		{
+#if (RP_CFG_Q_RADIX & RP_CFG_Q_RADIX_10)
+			*dest = 'e';
+#endif
+		}
 		return 1;
 	}
 }
