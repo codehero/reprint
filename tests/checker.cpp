@@ -167,17 +167,18 @@ int main(int argc, const char* argv[]){
 			if(output_len < 0)
 				throw std::runtime_error("Error in resnprintpf!");
 
-			write(1, key, keylen);
-			write(1, "\n", 1);
-			write(1, buffer, output_len);
-			write(1, expected, expected_length);
-			write(1, "\n", 1);
-
-			if(expected_length != output_len)
-				throw std::runtime_error("Output length differed from expected!");
-
-			if(memcmp(buffer, expected, expected_length))
-				throw std::runtime_error("Output differed from expected!");
+			if(expected_length != output_len
+				|| memcmp(buffer, expected, expected_length))
+			{
+				static const char failed[] = "FAILED: ";
+				write(1, failed, sizeof(failed) - 1);
+				write(1, key, keylen);
+				write(1, "\n'", 2);
+				write(1, buffer, output_len);
+				write(1, "'\n'", 3);
+				write(1, expected, expected_length);
+				write(1, "'\n\n", 3);
+			}
 		}
 	}
 	catch(const std::exception& e){
