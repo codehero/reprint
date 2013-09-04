@@ -1,0 +1,14 @@
+{
+	"test_pad_binary" :{
+		"expr":["\f&A", 33]
+		,"expected":"100001"
+	}
+	,"test_pad_hex" :{
+		"expr":["\f$A", 28]
+		,"expected":"1C"
+	}
+	,"test_pad_octal" :{
+		"expr":["\f%A", 33]
+		,"expected":"41"
+	}
+}

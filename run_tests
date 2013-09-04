@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for x in `ls -1 tests/*.json`; do
+	echo $x
+	./bin/checker < $x
+done

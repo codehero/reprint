@@ -1,0 +1,22 @@
+{
+	"test_string_offset" :{
+		"expr":["\f5<`", "TEST_STRING"]
+		,"expected":"STRING"
+	}
+
+	,"test_string_length" :{
+		"expr":["\f4;`", "TEST_STRING"]
+		,"expected":"TEST"
+	}
+
+	,"test_string_offset_length" :{
+		"expr":["\f4;2<`", "TEST_STRING"]
+		,"expected":"ST_S"
+	}
+
+	,"test_string" :{
+		"expr":["\f`", "TEST_STRING"]
+		,"expected":"TEST_STRING"
+	}
+
+}
