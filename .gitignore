@@ -1,0 +1,6 @@
+include
+lib
+bin
+build
+.sconsign.dblite
+*.swp
