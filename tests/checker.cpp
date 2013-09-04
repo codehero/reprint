@@ -167,7 +167,7 @@ int main(int argc, const char* argv[]){
 			if(output_len < 0)
 				throw std::runtime_error("Error in resnprintpf!");
 
-			if(expected_length != output_len
+			if(expected_length != (unsigned)output_len
 				|| memcmp(buffer, expected, expected_length))
 			{
 				static const char failed[] = "FAILED: ";
