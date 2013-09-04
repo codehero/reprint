@@ -485,13 +485,15 @@ BEGIN:
 					rs->cur_label = &&CHAR;
 				}
 				else{
+					/* This is a string. */
+
 					/* Align to ptr and assign rs->cur_data.text. */
 					if(FLAG_REG_STRUCT_PACK & rs->reg_flags){
 						rs->data = s_arch_align_ptr(rs->data, sizeof(const uint8_t*));
 						rs->cur_data.text = (const uint8_t*)(rs->data);
 					}
 					else{
-						memcpy(&rs->cur_data.text, rs->data, sizeof(rs->cur_data.text));
+						copy_bytes(&rs->cur_data.text, rs->data, sizeof(rs->cur_data.text));
 					}
 					rs->data += sizeof(rs->cur_data.text);
 
@@ -500,7 +502,7 @@ BEGIN:
 					/* If start range is specified, add to the start pointer.
 					 * ASSUME user did not put start past actual string length!! */
 					if(rs->reg_flags & (1 << TS_REG_START)){
-						rs->data += rs->registers[TS_REG_START];
+						rs->cur_data.text += rs->registers[TS_REG_START];
 					}
 
 					/* Trust the user on its length.
@@ -517,6 +519,8 @@ BEGIN:
 							total_len = strlen((char*)rs->cur_data.text);
 						}
 					}
+
+					rs->cur_label = &&TEXT;
 				}
 			}
 			else{
@@ -567,15 +571,25 @@ BEGIN:
 #include "reprint_cb_quantity.c"
 #undef REPRINT_GUARD_reprint_cb_QUANTITY
 
-	if(0){
 TEXT:
-CHAR:
-		if(!rs->registers[FTC_REG_REPEAT])
+	if(!*rs->cur_data.text)
+		goto FIELD_DONE;
+	if(rs->reg_flags & (1 << TS_REG_LENGTH)){
+		if(0 == rs->registers[TS_REG_LENGTH])
 			goto FIELD_DONE;
-		*dest = rs->cur_data.binary;
-		--rs->registers[FTC_REG_REPEAT];
-		return 1;
+		--rs->registers[TS_REG_LENGTH];
 	}
+
+	*dest = *rs->cur_data.text;
+	++rs->cur_data.text;
+	return 1;
+
+CHAR:
+	if(!rs->registers[FTC_REG_REPEAT])
+		goto FIELD_DONE;
+	*dest = rs->cur_data.binary;
+	--rs->registers[FTC_REG_REPEAT];
+	return 1;
 
 	if(0){
 MISC:
