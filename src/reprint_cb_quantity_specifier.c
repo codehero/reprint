@@ -7,10 +7,26 @@
  * */
 #ifdef REPRINT_GUARD_reprint_cb_QUANTITY_SPECIFIER
 /* Branch on integer vs noninteger. */
-if(!(*i & 0x10)){
+uint8_t num = *i;
+if((num & 0xF0) == 0x40){
+	if((num & 0x7) >= 0x5){
+		/* This is an arch dependent int param. Translate to the proper size. */
+		if((num & 0xF) > 8)
+			num -= 0xD;
+		else
+			num -= 0x5;
+		
+		num = s_arch_translate[num];
+	}
+}
+else if(num == 0x58){
+	num = s_arch_translate[6];
+}
+
+if(!(num & 0x10)){
 
 	{
-		const unsigned int_size = 1 << (*i & 0x7);
+		const unsigned int_size = 1 << (num & 0x7);
 
 		/* If using struct packing, then align the pointer to the datatype. */
 		if(rs->reg_flags & FLAG_REG_STRUCT_PACK)
@@ -31,8 +47,8 @@ if(!(*i & 0x10)){
 		}
 
 		/* Check if signed and negate if necessary. */
-		if(*i & 0x08){
-			switch(*i & 0x7){
+		if(num & 0x08){
+			switch(num & 0x7){
 #if (RP_CFG_Q_INT_SIZE_MASK & RP_CFG_Q_INT_SIZE_8)
 				case 0:
 					{
@@ -152,7 +168,7 @@ if(!(*i & 0x10)){
 			 * Instead all digits are considered significant but we go
 			 * back to looking for a new field. */
 			if(!rs->registers[FQS_REG_SIGFIGS]){
-				rs->registers[FQS_REG_SIGFIGS] = (1 << (*i & 0x7)) << 3;
+				rs->registers[FQS_REG_SIGFIGS] = (1 << (num & 0x7)) << 3;
 				goto BEGIN;
 			}
 
@@ -256,7 +272,7 @@ if(!(*i & 0x10)){
 	}
 }
 else{
-	if(!(*i & 0xF)){
+	if(!(num & 0xF)){
 		/* Outputting bit field. First drop bits if necessary. */
 		if(rs->reg_flags & (1 << FQB_REG_BDROP)){
 			/* If dropping more bits than we have, this is an error. */
@@ -272,12 +288,8 @@ else{
 		rs->registers[FQW_REG_BREAK] = rs->registers[FQS_REG_SIGFIGS];
 
 	}
-	else if(*i != Q_ARBITRARY){
-		/* TODO Floating point... */
-		assert(0);
-	}
 	else{
-		/* TODO This is arbitrary precision.... */
+		/* TODO Floating point... */
 		assert(0);
 	}
 }

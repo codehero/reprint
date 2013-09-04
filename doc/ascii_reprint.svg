@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="ascii_reprintf_inkscape.svg"
+   sodipodi:docname="ascii_reprint.svg"
    inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
    inkscape:export-xdpi="100"
    inkscape:export-ydpi="100">
@@ -27,16 +27,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.3232707"
-     inkscape:cx="527.56482"
-     inkscape:cy="506.1054"
+     inkscape:zoom="4.6465414"
+     inkscape:cx="630.44371"
+     inkscape:cy="677.55094"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      units="mm"
-     inkscape:window-width="1200"
-     inkscape:window-height="1578"
-     inkscape:window-x="2560"
+     inkscape:window-width="1440"
+     inkscape:window-height="878"
+     inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      showguides="true"
@@ -82,7 +82,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1750,7 +1750,7 @@
          height="35.433071"
          width="70.866142"
          id="rect2985-8-8-4-0-8-1"
-         style="fill:#c5c5c5;fill-opacity:1;stroke:#000000;stroke-width:1.0629921;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+         style="fill:#fa7d7d;fill-opacity:1;stroke:#000000;stroke-width:1.06299210000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
       <text
          sodipodi:linespacing="125%"
          id="text4972-5-4-4-8-67-2"
@@ -3085,13 +3085,13 @@
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-       x="-521.33246"
+       x="-592.78345"
        y="472.11099"
        id="text4224-5-98-5-5-8"
        sodipodi:linespacing="125%"
        transform="matrix(0,-1,1,0,0,0)"><tspan
          sodipodi:role="line"
-         x="-521.33246"
+         x="-592.78345"
          y="472.11099"
          style="font-size:16px;font-weight:bold;-inkscape-font-specification:DejaVu Sans Bold"
          id="tspan4730-61-2-9-6">Unsigned Integers</tspan></text>
@@ -3449,7 +3449,7 @@
          height="35.433071"
          width="70.866142"
          id="rect2985-8-8-4-3-1"
-         style="fill:#c5c5c5;fill-opacity:1;stroke:#000000;stroke-width:1.0629921;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+         style="fill:#fa7d7d;fill-opacity:1;stroke:#000000;stroke-width:1.06299210000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
       <text
          sodipodi:linespacing="125%"
          id="text4972-5-4-4-8-35"
@@ -3488,12 +3488,12 @@
       <text
          sodipodi:linespacing="125%"
          id="text4997-9-5-2-9-6-7-3"
-         y="366.80792"
+         y="364.871"
          x="563.81073"
          style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
          xml:space="preserve"><tspan
            style="font-style:oblique;-inkscape-font-specification:Nimbus Mono L Oblique"
-           y="366.80792"
+           y="364.871"
            x="563.81073"
            id="tspan4999-5-3-6-8-2-6-9"
            sodipodi:role="line">bitfield</tspan></text>
@@ -3530,7 +3530,7 @@
          height="35.433071"
          width="70.866142"
          id="rect2985-8-7-9-6-6-01"
-         style="fill:#c5c5c5;fill-opacity:1;stroke:#000000;stroke-width:1.0629921;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+         style="fill:#fa7d7d;fill-opacity:1;stroke:#000000;stroke-width:1.06299210000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
       <text
          sodipodi:linespacing="125%"
          id="text4972-5-4-4-8-9"
@@ -3895,14 +3895,14 @@
          sodipodi:linespacing="125%"
          id="text4997-9-5-2-9-6-7-3-7-1"
          y="757.02606"
-         x="494.24405"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
+         x="514.57831"
+         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
          xml:space="preserve"><tspan
-           style="font-style:oblique;-inkscape-font-specification:Nimbus Mono L Oblique"
+           style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
            y="757.02606"
-           x="494.24405"
+           x="514.57831"
            id="tspan4999-5-3-6-8-2-6-9-12-7"
-           sodipodi:role="line">uint_t</tspan></text>
+           sodipodi:role="line">unsigned</tspan></text>
     </g>
     <g
        id="g4535"
@@ -3913,7 +3913,7 @@
          height="35.433071"
          width="70.866142"
          id="rect2985-8-5-8-0-1"
-         style="fill:#fa7d7d;fill-opacity:1;stroke:#000000;stroke-width:1.0629921;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+         style="fill:#fa7d7d;fill-opacity:1;stroke:#000000;stroke-width:1.06299210000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
       <text
          sodipodi:linespacing="125%"
          id="text4972-5-4-4-8-3-96"
@@ -3937,7 +3937,7 @@
            y="757.02606"
            x="595.34967"
            id="tspan4999-5-3-6-8-2-6-9-12-8"
-           sodipodi:role="line">signed_t</tspan></text>
+           sodipodi:role="line">signed</tspan></text>
     </g>
     <g
        id="g4609"
@@ -3971,7 +3971,7 @@
          height="35.433071"
          width="70.866142"
          id="rect2985-8-3-8-0-1"
-         style="fill:#c5c5c5;fill-opacity:1;stroke:#000000;stroke-width:1.06299210000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+         style="fill:#fa7d7d;fill-opacity:1;stroke:#000000;stroke-width:1.06299210000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
       <text
          sodipodi:linespacing="125%"
          id="text4972-5-4-4-8-79"
@@ -4136,7 +4136,7 @@
            height="51.220894"
            x="845.35999"
            y="392.68005" /></flowRegion><flowPara
-         id="flowPara9395"></flowPara></flowRoot>    <text
+         id="flowPara9395" /></flowRoot>    <text
        sodipodi:linespacing="125%"
        id="text4997-9-5-2-9-5-3-8"
        y="757.30865"
@@ -4171,7 +4171,7 @@
          y="714.27063"
          x="593.16064"
          id="tspan4999-5-3-6-8-8-4-5-9-3-8-5"
-         sodipodi:role="line">arb. prec</tspan></text>
+         sodipodi:role="line">ptrdiff_t</tspan></text>
     <text
        sodipodi:linespacing="125%"
        id="text4997-9-5-2-9-6-7-3-7-6"
@@ -4184,5 +4184,53 @@
          x="774.32739"
          id="tspan4999-5-3-6-8-2-6-9-12-1"
          sodipodi:role="line">discard</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4997-9-5-2-9-6-7-3-7-1-3"
+       y="626.28424"
+       x="515.15796"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
+       xml:space="preserve"><tspan
+         style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
+         y="626.28424"
+         x="515.15796"
+         id="tspan4999-5-3-6-8-2-6-9-12-7-8"
+         sodipodi:role="line">uintmax_t</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4997-9-5-2-9-6-7-3-7-1-3-2"
+       y="668.83209"
+       x="515.94397"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
+       xml:space="preserve"><tspan
+         style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
+         y="668.83209"
+         x="515.94397"
+         id="tspan4999-5-3-6-8-2-6-9-12-7-8-3"
+         sodipodi:role="line">size_t</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4997-9-5-2-9-6-7-3-7-1-3-2-6"
+       y="973.57495"
+       x="515.72461"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
+       xml:space="preserve"><tspan
+         style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
+         y="973.57495"
+         x="515.72461"
+         id="tspan4999-5-3-6-8-2-6-9-12-7-8-3-3"
+         sodipodi:role="line">intmax_t</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4997-9-5-2-9-6-7-3-7-1-3-2-6-3"
+       y="1017.8829"
+       x="516.01599"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
+       xml:space="preserve"><tspan
+         style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
+         y="1017.8829"
+         x="516.01599"
+         id="tspan4999-5-3-6-8-2-6-9-12-7-8-3-3-2"
+         sodipodi:role="line">ssize_t</tspan></text>
   </g>
 </svg>

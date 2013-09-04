@@ -14,7 +14,7 @@
    id="svg4454"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="reprintf_modifiers.svg"
+   sodipodi:docname="reprint_modifiers.svg"
    inkscape:export-filename="/stuff/dbender/src/reprint/doc/reprint_modifiers.png"
    inkscape:export-xdpi="100"
    inkscape:export-ydpi="100">
@@ -27,18 +27,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4437189"
-     inkscape:cx="503.62133"
-     inkscape:cy="431.46206"
+     inkscape:zoom="2.8874378"
+     inkscape:cx="847.16174"
+     inkscape:cy="688.98338"
      inkscape:current-layer="layer1"
      id="namedview4458"
      showgrid="false"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:window-width="1731"
-     inkscape:window-height="1348"
-     inkscape:window-x="284"
-     inkscape:window-y="20"
+     inkscape:window-width="1440"
+     inkscape:window-height="900"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="0">
     <sodipodi:guide
        orientation="1,0"
@@ -197,7 +197,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -461,7 +461,7 @@
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1.35000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="M 749.32185,102.3891 749.32185,726.87322"
+       d="m 700.48963,102.3891 0,624.48412"
        id="path4631-7-16-8"
        inkscape:connector-curvature="0" />
     <path
@@ -2912,7 +2912,7 @@
            height="17.316391"
            x="554.12451"
            y="210.18286" /></flowRegion><flowPara
-         id="flowPara10523"></flowPara></flowRoot>    <text
+         id="flowPara10523" /></flowRoot>    <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Sans Bold"
        x="0.93669832"

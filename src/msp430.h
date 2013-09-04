@@ -29,8 +29,3 @@ typedef uint16_t reprint_uint_t;
 
 #undef  RP_CFG_P_FEATURES
 #define RP_CFG_P_FEATURES 0x0
-
-
-#define RP_size_t    "A"
-#define RP_ptrdiff_t "A"
-#define RP_uint_t    "A"
