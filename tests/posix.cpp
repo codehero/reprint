@@ -1,6 +1,7 @@
 /* Copyright (c) 2010 David Bender assigned to Benegon Enterprises LLC
  * See the file LICENSE for full license information. */
 
+#include <unistd.h>
 #include <errno.h>
 #include "posix.hh"
 
