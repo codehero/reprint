@@ -28,7 +28,6 @@
 #include <stdarg.h>
 #include "reprint.h"
 #include "arch_internal.h"
-#include "reprint_internal.h"
 
 #ifdef NO_ASSERT
 #define assert(x)
@@ -183,7 +182,7 @@ enum {
 
 
 	/* Common formatted character */
-	,FTC_REG_REPEAT = 2
+	,FTC_REG_REPEAT = 3
 
 	/* Common text (regardless of formatted)*/
 	,TS_REG_LENGTH = 2
@@ -251,8 +250,6 @@ typedef struct {
 	reprint_reg_t registers[REPRINTF_REGISTER_COUNT];
 
 	uint8_t reg_flags;
-
-	uint8_t input_specifier;
 
 } reprint_state;
 
@@ -502,10 +499,10 @@ BEGIN:
 			assert(0);
 
 		if(*i < 0x68){
-			input_flags|= (*i & 0x7);
+			input_flags |= (*i & 0x7);
 		}
 		else if(*i < 0x6C){
-			input_flags|= (*i & 0x3) << 3;
+			input_flags |= (*i & 0x3) << 3;
 		}
 		else{
 			input_flags |= (*i & 0x3) << 5;
@@ -535,13 +532,13 @@ BEGIN:
 			else{
 				/* This is a non-integer value. */
 
-				if(*(rs->fmt) & 0x2){
+				if((input_flags & 0x7) == 0x6){
 					/* TODO This is a float. */
 					assert(0);
 				}
 				else{
 					/* This is a string or char. */
-					if(*(rs->fmt) & 0x1){
+					if((input_flags & 0x7) == 0x5){
 						/* Assuming 8-bit character.
 						 * TODO support wchar_t and unicode point ids.
 						 * On some platforms (Linux et al) these will be the same types

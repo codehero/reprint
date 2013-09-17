@@ -218,7 +218,7 @@ void* reprint_marshall_pointer(void* dest, uint16_t specifier, const void* ptr){
 void* reprint_marshall_char(void* dest, uint16_t specifier, unsigned code_point){
 	switch(specifier){
 		/* char */
-		case 0x24:
+		case 0x50:
 			{
 				char v = code_point;
 				*(char*)dest = v;

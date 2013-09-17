@@ -53,5 +53,8 @@ void* reprint_marshall_bin_floating_pt(void* dest, uint16_t specifier, double va
  *  @return pointer to byte following last written byte. */
 void* reprint_marshall_pointer(void* dest, uint16_t specifier, const void* ptr);
 
+/** @brief Marshall a single character.
+ *  @return pointer to byte following last written byte. */
+void* reprint_marshall_char(void* dest, uint16_t specifier, unsigned code_point);
 
 #endif

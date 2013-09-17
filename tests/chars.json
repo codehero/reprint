@@ -1,0 +1,6 @@
+{
+	"repeat_char" : {
+		"expr" : ["\f7<ep", "a"]
+		,"expected":"aaaaaaaa"
+	}
+}

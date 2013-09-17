@@ -123,9 +123,15 @@ int main(int argc, const char* argv[]){
 									uint8_t* str = new uint8_t[len + 1];
 									parser.ChunkRead8((char*)str, len + 1);
 
-									out = reprint_marshall_pointer(out, specifier, str);
-									if(!out)
-										throw PullParser::invalid_value("Type mismatch!", parser);
+									/* If character specifier, marshall the first char. */
+									if(((specifier >> 4) & 0x7) == 0x5){
+										out = reprint_marshall_char(out, specifier, str[0]);
+									}
+									else{
+										out = reprint_marshall_pointer(out, specifier, str);
+										if(!out)
+											throw PullParser::invalid_value("Type mismatch!", parser);
+									}
 								}
 								else{
 									/* Can't do anything with this, reject. */
