@@ -31,6 +31,10 @@ static inline reprint_reg_t s_arch_calc_r10_digits(reprint_uint_t v);
 
 static inline const void* s_arch_align_ptr(const void* p, size_t size);
 
+uint8_t s_arch_int_amb_size[8];
+
+uint8_t s_arch_int_conc_size[24];
+
 #ifdef ARCH_MSP430
 #include "msp430_internal.c"
 #endif

@@ -28,6 +28,7 @@
 #include <stdarg.h>
 #include "reprint.h"
 #include "arch_internal.h"
+#include "reprint_internal.h"
 
 #ifdef NO_ASSERT
 #define assert(x)
@@ -45,8 +46,8 @@
 #define REPRINTF_BCD_BUFF_SIZE 10
 #define REPRINTF_REGISTER_COUNT 7
 
-#define Q_BITFIELD 0x50
-#define Q_ARBITRARY 'X'
+#define Q_BITFIELD 0x79
+#define Q_POINTER 0x78
 
 /* These enums identify bits in the registers. */
 enum {
@@ -251,6 +252,8 @@ typedef struct {
 
 	uint8_t reg_flags;
 
+	uint8_t input_specifier;
+
 } reprint_state;
 
 static const uint16_t s_mini_reg_bits[16] = {
@@ -277,6 +280,47 @@ static const uint16_t s_mini_reg_bits[16] = {
 	,FLAG_2
 	/* '/' */
 	,FLAG_3
+};
+
+uint8_t s_arch_int_amb_size[8] = {
+	sizeof(char)
+	,sizeof(short)
+	,sizeof(int)
+	,sizeof(long)
+	,sizeof(long long)
+	,sizeof(ptrdiff_t)
+	,sizeof(intptr_t)
+	,sizeof(intmax_t)
+};
+
+/* FIXME */
+uint8_t s_arch_int_conc_size[24] = {
+	1
+	,2
+	,4
+	,8
+	,16
+	,0
+	,0
+	,0
+
+	,sizeof(uint_fast8_t)
+	,sizeof(uint_fast16_t)
+	,sizeof(uint_fast32_t)
+	,sizeof(uint_fast64_t)
+	,16
+	,0
+	,0
+	,0
+
+	,sizeof(uint_least8_t)
+	,sizeof(uint_least16_t)
+	,sizeof(uint_least32_t)
+	,sizeof(uint_least64_t)
+	,16
+	,0
+	,0
+	,0
 };
 
 static reprint_state s_rs;
@@ -369,6 +413,7 @@ BEGIN:
 	/* Go onto next character. */
 	++i;
 
+	/* Parse modifiers. */
 	{
 		/* Do not write to output in this scope of code. */
 		const uint8_t* dest = NULL;
@@ -449,6 +494,29 @@ BEGIN:
 		}
 	}
 
+	/* Parse input specifier flags. */
+	uint8_t input_flags = 0;
+	while(*i < 0x70){
+		/* This is an error. */
+		if(*i < 0x60)
+			assert(0);
+
+		if(*i < 0x68){
+			input_flags|= (*i & 0x7);
+		}
+		else if(*i < 0x6C){
+			input_flags|= (*i & 0x3) << 3;
+		}
+		else{
+			input_flags |= (*i & 0x3) << 5;
+		}
+		++i;
+	}
+
+	/* Catch up to i. */
+	rs->fmt = i;
+
+	/* Load data according to specifier. */
 	{
 		/* Track total length of field (if necessary) */
 		unsigned total_len = 0;
@@ -456,97 +524,107 @@ BEGIN:
 		/* Do not write to output in this scope of code. */
 		const uint8_t* dest = NULL;
 
-		/* First branch on quantitative or not. */
-		if(!(*i & 0x20)){
-			/* Yes, I did just do that. */
+		/* First branch on Integer or not. */
+		if(*(rs->fmt) < 0x78){
+			if(!(input_flags & 0x4)){
+				/* Yes, I did just do that. Go look at the included .c file. */
 #define REPRINT_GUARD_reprint_cb_QUANTITY_SPECIFIER
 #include "reprint_cb_quantity_specifier.c"
 #undef REPRINT_GUARD_reprint_cb_QUANTITY_SPECIFIER
-		}
-		else{
-			/* This is a non-quantitative value. */
-
-			/* Check if this is text. */
-			if(*i < 0x70){
-				/* Check if this is a single character input. */
-				if(*i & 0x8){
-					/* Assuming 8-bit character.
-					 * TODO support wchar_t and unicode point ids.
-					 * On some platforms (Linux et al) these will be the same types
-					 * On Windows char_t is 16 bit. */
-
-					rs->cur_data.binary = *(uint8_t*)(rs->data);
-					++rs->data;
-
-					/* Increment the repeat register.
-					 * Initialized to zero with user intervention. */
-					++rs->registers[FTC_REG_REPEAT];
-					total_len = rs->registers[FTC_REG_REPEAT];
-					rs->cur_label = &&CHAR;
-				}
-				else{
-					/* This is a string. */
-
-					/* Align to ptr and assign rs->cur_data.text. */
-					if(FLAG_REG_STRUCT_PACK & rs->reg_flags){
-						rs->data = s_arch_align_ptr(rs->data, sizeof(const uint8_t*));
-						rs->cur_data.text = (const uint8_t*)(rs->data);
-					}
-					else{
-						copy_bytes(&rs->cur_data.text, rs->data, sizeof(rs->cur_data.text));
-					}
-					rs->data += sizeof(rs->cur_data.text);
-
-					/* Trying to avoid strlen call if at all possible. */
-
-					/* If start range is specified, add to the start pointer.
-					 * ASSUME user did not put start past actual string length!! */
-					if(rs->reg_flags & (1 << TS_REG_START)){
-						rs->cur_data.text += rs->registers[TS_REG_START];
-					}
-
-					/* Trust the user on its length.
-					 * TODO maybe do strlen to double check??*/
-					if(rs->reg_flags & (1 << TS_REG_LENGTH)){
-						total_len = rs->registers[TS_REG_LENGTH];
-					}
-
-					if(rs->mini_regs & FORMAT_BIT){
-						if(rs->registers[FS_REG_FIELD_WIDTH] && !total_len){
-							/* Calculate string length, determine if it exceeds padding.
-							 * Assuming UTF-8 string for now.
-							 * TODO support char16_t, char32_t, wchar_t. */
-							total_len = strlen((char*)rs->cur_data.text);
-						}
-					}
-
-					rs->cur_label = &&TEXT;
-				}
 			}
 			else{
-				switch(*i & 0xF){
-					case 0x0:
-						/* Pointer value. */
-						if(rs->mini_regs & FMP_MR_LOAD_MASK){
-							/* TODO: support both printing and loading. */
-						}
-						break;
+				/* This is a non-integer value. */
 
-					case 0x1:
-						/* Only consuming data. */
-						break;
-
-					default:
-						assert(0);
-						/* Undefined... */
-						break;
+				if(*(rs->fmt) & 0x2){
+					/* TODO This is a float. */
+					assert(0);
 				}
-				/* Otherwise this is special. */
+				else{
+					/* This is a string or char. */
+					if(*(rs->fmt) & 0x1){
+						/* Assuming 8-bit character.
+						 * TODO support wchar_t and unicode point ids.
+						 * On some platforms (Linux et al) these will be the same types
+						 * On Windows char_t is 16 bit. */
+
+						rs->cur_data.binary = *(uint8_t*)(rs->data);
+						++rs->data;
+
+						/* Increment the repeat register.
+						 * Initialized to zero with user intervention. */
+						++rs->registers[FTC_REG_REPEAT];
+						total_len = rs->registers[FTC_REG_REPEAT];
+						rs->cur_label = &&CHAR;
+					}
+					else{
+						/* This is a string. */
+
+						/* Align to ptr and assign rs->cur_data.text. */
+						if(FLAG_REG_STRUCT_PACK & rs->reg_flags){
+							rs->data = s_arch_align_ptr(rs->data, sizeof(const uint8_t*));
+							rs->cur_data.text = (const uint8_t*)(rs->data);
+						}
+						else{
+							copy_bytes(&rs->cur_data.text, rs->data, sizeof(rs->cur_data.text));
+						}
+						rs->data += sizeof(rs->cur_data.text);
+
+						/* Trying to avoid strlen call if at all possible. */
+
+						/* If start range is specified, add to the start pointer.
+						 * ASSUME user did not put start past actual string length!! */
+						if(rs->reg_flags & (1 << TS_REG_START)){
+							rs->cur_data.text += rs->registers[TS_REG_START];
+						}
+
+						/* Trust the user on its length.
+						 * TODO maybe do strlen to double check??*/
+						if(rs->reg_flags & (1 << TS_REG_LENGTH)){
+							total_len = rs->registers[TS_REG_LENGTH];
+						}
+
+						if(rs->mini_regs & FORMAT_BIT){
+							if(rs->registers[FS_REG_FIELD_WIDTH] && !total_len){
+								/* Calculate string length, determine if it exceeds padding.
+								 * Assuming UTF-8 string for now.
+								 * TODO support char16_t, char32_t, wchar_t. */
+								total_len = strlen((char*)rs->cur_data.text);
+							}
+						}
+
+						rs->cur_label = &&TEXT;
+					}
+				}
 			}
 		}
+		else{
+			/* This is a special specifier. */
+			if(*(rs->fmt) == Q_BITFIELD){
+				/* Outputting bit field. First drop bits if necessary. */
+				if(rs->reg_flags & (1 << FQB_REG_BDROP)){
+					/* If dropping more bits than we have, this is an error. */
+					if(rs->registers[FQS_REG_SIGFIGS] < rs->registers[FQB_REG_BDROP]){
+						assert(0);
+					}
+					rs->registers[FQS_REG_SIGFIGS] -= rs->registers[FQB_REG_BDROP];
+					reprint_uint_t mask = (1 << rs->registers[FQS_REG_SIGFIGS]) - 1;
+					rs->cur_data.binary &= mask;
+				}
 
-		/* Catch up to i. */
-		rs->fmt = i;
+				/* Now set the break. */
+				rs->registers[FQW_REG_BREAK] = rs->registers[FQS_REG_SIGFIGS];
+
+				/* Output just like an integer now. */
+				rs->cur_label = &&QUANT_CHECK_PREFIX;
+			}
+			else if(*(rs->fmt) == Q_POINTER){
+				/* TODO */
+				assert(0);
+			}
+			else{
+				assert(0);
+			}
+		}
 
 		/* If total length exceeds the fieldwidth then zero fieldwidth;
 		 * otherwise subtract the char count from fieldwidth. */

@@ -1,23 +1,23 @@
 {
 	"test_multiple" :{
-		"expr":["\fB,\fB,\fB", 1, 12345, 12345678]
+		"expr":["\fr,\fr,\fr", 1, 12345, 12345678]
 		,"expected":"1,12345,12345678"
 	}
 	,"test_multiple_different" :{
-		"expr":["\f@,\fA,\fB", 1, 12345, 123456789]
+		"expr":["\fp,\fq,\fr", 1, 12345, 123456789]
 		,"expected":"1,12345,123456789"
 	}
 
 	,"test_pad_uint8_t" :{
-		"expr":["\f,4@", 12]
+		"expr":["\f,4p", 12]
 		,"expected":"0012"
 	}
 	,"test_pad_uint16_t" :{
-		"expr":["\f,4A", 12]
+		"expr":["\f,4q", 12]
 		,"expected":"0012"
 	}
 	,"test_pad_uint32_t" :{
-		"expr":["\f,4B", 12]
+		"expr":["\f,4r", 12]
 		,"expected":"0012"
 	}
 }

@@ -1,0 +1,68 @@
+------------------------------------
+Declaration of Formatted Text Reform
+------------------------------------
+
+printf is anglo-centric. Translations of "floating point" into other languages
+do not necessarily begin with the 'f' sound, nor does "integer" begin with
+'i'. The input specifiers should be arranged in a more logical way.
+
+
+Organization of literals should be governed by the following principles:
+-Internationally recognized standards
+	* Arabic numerals
+	* acronyms (UTF-8, UTF-16, UCS-4)
+	* ASCII Table
+-Powers of 2
+-Incremental progression
+
+Goals
+-Strive for brevity
+-Accessible to those learning programming
+-Protect pollution of the Input Specifier namespace
+-Allow for custom extensions
+-Easy to fork the spec and merge back
+
+-------
+Headers
+-------
+
+Headers indicate what kind of
+
+Formatted
+---------
+
+Binary
+------
+
+There are two aspects to binary encoding: bit encoding and translating values
+to bits. Bit encoding preserves the ordering of the bits in some fasion,
+either through direct binary data, ASCII hexadecimal encoding, or base64
+encoding. Transforming values to binary involves determining byte endianness, data
+format in the case of decimal floats.
+
+---------
+Modifiers
+---------
+
+Flags
+---------
+
+The '-' sign's ubiquity is not subordinate to the modifier scheme. The '-'
+modifies both register values and field definitions.
+
+
+----------
+Adaptation
+----------
+
+Experience from printf shows implementers will add new features over time. The
+reprintf spec anticipates this phenomenon with the following understanding:
+-Reserved characters may be allocated to new kinds of input specifiers
+-Existing specifiers may incorporate unused flags and (mini)registers
+-No characters may signify new (mini)registers or flags
+
+Custom Specifiers
+-----------------
+After the custom character will follow a character whose value >= 128. The
+lower six bits of the character will map to an existing input specifier. If
+the lower six bits of the character == 0x7F, then it is a new kind of specifier.

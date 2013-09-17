@@ -4,6 +4,6 @@ lib_env = lib_env.Clone()
 
 lib_env.IncDest += '/reprint'
 
-lt = lib_env.SharedLibrary('reprint', Split('reprint.c reprint_stdio.c'))
+lt = lib_env.SharedLibrary('reprint', Split('reprint.c reprint_stdio.c reprint_aux.c'))
 li = lib_env.Install(bin_env.LibDest, lt)
-lh = lib_env.Install(lib_env.IncDest, Split('reprint.h reprint_stdio.h arch.h msp430.h x86_64.h'))
+lh = lib_env.Install(lib_env.IncDest, Split('reprint.h reprint_aux.h reprint_stdio.h arch.h msp430.h x86_64.h'))

@@ -61,7 +61,7 @@ int main(int argc, const char* argv[]){
 			/* Marshall the data into this array. */
 			uint8_t data[MAX_STRING];
 
-			uint8_t exprbuffer[MAX_STRING];
+			char exprbuffer[MAX_STRING];
 			/* Look for specific entries. */
 			while(parser.Pull(s_keys, COUNT_KEYS) != PullParser::ST_ASCEND_MAP){
 				switch(parser.GetValue().key_enum){
@@ -77,68 +77,60 @@ int main(int argc, const char* argv[]){
 							void* out = data;
 
 							/* Iterate through the expression, looking for input specifiers. */
-							const uint8_t* i = exprbuffer;
-							while(*i){
-								if(*i >= 0x40){
-									/* Skip over discard and the bits */
-									if(*i == 0x81 || *i == 0x58){
-										++i;
-										continue;
-									}
+							const char* i = exprbuffer;
+							uint16_t specifier;
+							while((i = reprint_get_specifier(&specifier, i))){
 
-									/* Pull data from JSON. */
-									if(PullParser::ST_DATUM != parser.Pull())
-										throw PullParser::invalid_value("Early end of array!", parser);
-									const bnj_val& v = parser.GetValue();
-									unsigned val_type = bnj_val_type(&v);
-									if(BNJ_NUMERIC == val_type){
-										/* If value had a minus, then read it as signed int. Otherwise
-										 * read it as unsigned. */
-										if(BNJ_VFLAG_NEGATIVE_SIGNIFICAND & v.type){
-											int x;
-											BNJ::Get(x, parser);
+								/* Pull data from JSON. */
+								if(PullParser::ST_DATUM != parser.Pull())
+									throw PullParser::invalid_value("Early end of array!", parser);
+								const bnj_val& v = parser.GetValue();
+								unsigned val_type = bnj_val_type(&v);
+								if(BNJ_NUMERIC == val_type){
+									/* If value had a minus, then read it as signed int. Otherwise
+									 * read it as unsigned. */
+									if(BNJ_VFLAG_NEGATIVE_SIGNIFICAND & v.type){
+										int x;
+										BNJ::Get(x, parser);
 
-											out = reprint_marshall_signed(out, *i, x);
-											if(!out)
-												throw PullParser::invalid_value("Type mismatch!", parser);
-										}
-										else{
-											unsigned u;
-											BNJ::Get(u, parser);
-
-											out = reprint_marshall_unsigned(out, *i, u);
-											if(!out)
-												throw PullParser::invalid_value("Type mismatch!", parser);
-										}
-									}
-									else if(BNJ_SPECIAL == val_type){
-										/* Only accept NaN or +- Infinity */
-										double d;
-										BNJ::Get(d, parser);
-
-										out = reprint_marshall_bin_floating_pt(out, *i, d);
-										if(!out)
-											throw PullParser::invalid_value("Type mismatch!", parser);
-									}
-									else if(BNJ_STRING == val_type){
-										/* Get the length and just dynamically allocate a string.
-										 * And we'll be lazy and rely on program exit to reap
-										 * dynamically allocated memory.*/
-										const unsigned len = bnj_strlen8(&v);
-										uint8_t* str = new uint8_t[len + 1];
-										parser.ChunkRead8((char*)str, len + 1);
-
-										out = reprint_marshall_pointer(out, *i, str);
+										out = reprint_marshall_signed(out, specifier, x);
 										if(!out)
 											throw PullParser::invalid_value("Type mismatch!", parser);
 									}
 									else{
-										/* Can't do anything with this, reject. */
-										throw PullParser::invalid_value("Unusable data type!", parser);
+										unsigned u;
+										BNJ::Get(u, parser);
+
+										out = reprint_marshall_unsigned(out, specifier, u);
+										if(!out)
+											throw PullParser::invalid_value("Type mismatch!", parser);
 									}
 								}
+								else if(BNJ_SPECIAL == val_type){
+									/* Only accept NaN or +- Infinity */
+									double d;
+									BNJ::Get(d, parser);
 
-								++i;
+									out = reprint_marshall_bin_floating_pt(out, specifier, d);
+									if(!out)
+										throw PullParser::invalid_value("Type mismatch!", parser);
+								}
+								else if(BNJ_STRING == val_type){
+									/* Get the length and just dynamically allocate a string.
+									 * And we'll be lazy and rely on program exit to reap
+									 * dynamically allocated memory.*/
+									const unsigned len = bnj_strlen8(&v);
+									uint8_t* str = new uint8_t[len + 1];
+									parser.ChunkRead8((char*)str, len + 1);
+
+									out = reprint_marshall_pointer(out, specifier, str);
+									if(!out)
+										throw PullParser::invalid_value("Type mismatch!", parser);
+								}
+								else{
+									/* Can't do anything with this, reject. */
+									throw PullParser::invalid_value("Unusable data type!", parser);
+								}
 							}
 
 							/* Verify we reached end of array. */
@@ -162,7 +154,7 @@ int main(int argc, const char* argv[]){
 
 			/* Print to buffer */
 			int output_len =
-				resnprintpf((char*)buffer, MAX_STRING, (char*)exprbuffer, data);
+				resnprintpf((char*)buffer, MAX_STRING, exprbuffer, data);
 
 			if(output_len < 0)
 				throw std::runtime_error("Error in resnprintpf!");

@@ -58,16 +58,6 @@ static const reprint_uint_t s_16_powers[INTERNAL_16_POWER_COUNT] = {
 	,0x1000
 };
 
-static uint8_t s_arch_translate[7] = {
-	0x42
-	,0x43
-	,0x43
-	,0x42
-	,0x43
-	,0x43
-	,0x43
-};
-
 static inline reprint_reg_t s_arch_calc_msb(reprint_uint_t v){
 	/* Power of 2 base. Determine greatest 1 bit position.
 	 * Shamelessly ripped from bit twiddling hacks:
