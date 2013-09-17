@@ -251,6 +251,8 @@ typedef struct {
 
 	uint8_t reg_flags;
 
+	uint8_t input_flags;
+
 } reprint_state;
 
 static const uint16_t s_mini_reg_bits[16] = {
@@ -347,7 +349,6 @@ BEGIN:
 	assert(dest);
 	reprint_state* rs = &s_rs;
 
-	const uint8_t* i = rs->fmt;
 
 	/* If processing an input specifier then handle that. */
 	if(rs->cur_label){
@@ -368,150 +369,153 @@ BEGIN:
 		goto *rs->cur_label;
 	}
 
-	/* If fmt char is null terminator, just return. */
-	if(*i == '\0')
-		return 0;
-
-	/* Check if this is a field header. */
-	if(ESCAPE_MASK != (*i & ~ESCAPE_SELECT)){
-		/* Copy character to output and advance format state. */
-		*dest = *i;
-		++rs->fmt;
-		return 1;
-	}
-
-	/* Check for double \b\b or \f\f, which means just 
-	 * send that char. */
-	if(*i == *(i + 1)){
-		*dest = *i;
-		rs->fmt += 2;
-		return 1;
-	}
-
-	/* Zero the state. Don't clear registers that are already set. */
-	rs->mini_regs = 0;
 	{
-		uint8_t f = rs->reg_flags;
-		for(unsigned k = 0; k < REPRINTF_REGISTER_COUNT; ++k){
-			if(!(f & 1))
-				rs->registers[k] = 0;
-			f >>= 1;
+		const uint8_t* i = rs->fmt;
+		/* If fmt char is null terminator, just return. */
+		if(*i == '\0')
+			return 0;
+
+		/* Check if this is a field header. */
+		if(ESCAPE_MASK != (*i & ~ESCAPE_SELECT)){
+			/* Copy character to output and advance format state. */
+			*dest = *i;
+			++rs->fmt;
+			return 1;
 		}
-	}
 
+		/* Check for double \b\b or \f\f, which means just 
+		 * send that char. */
+		if(*i == *(i + 1)){
+			*dest = *i;
+			rs->fmt += 2;
+			return 1;
+		}
 
-	if(*i & ESCAPE_SELECT){
-		rs->mini_regs |= FORMAT_BIT;
-
-		/* Default pad char is a ' '.*/
-		rs->registers[FS_REG_PAD_CHAR] = ' ';
-	}
-
-	/* Go onto next character. */
-	++i;
-
-	/* Parse modifiers. */
-	{
-		/* Do not write to output in this scope of code. */
-		const uint8_t* dest = NULL;
-
-		reprint_reg_t reg_value = 0;
-		/* Otherwise, found an escape character. Parse the field. */
-		while(*i < 0x40){
-			if(*i < 0x20)
-				assert(0);
-
-			if(*i < 0x30){
-				/* In the 0x20 column. */
-				rs->mini_regs |= s_mini_reg_bits[*i & 0xF];
+		/* Zero the state. Don't clear registers that are already set. */
+		rs->mini_regs = 0;
+		{
+			uint8_t f = rs->reg_flags;
+			for(unsigned k = 0; k < REPRINTF_REGISTER_COUNT; ++k){
+				if(!(f & 1))
+					rs->registers[k] = 0;
+				f >>= 1;
 			}
-			else{
-				/* FIXME: this does not handle the ':' and ';' characters
-				 * (which are so far undefined...) */
+		}
 
-				/* If user specified value in fmt string, set this flag. */
-				uint8_t user_flag = 0;
-				if(*i <= 0x39){
-					user_flag = 1;
-					/* If leading zero with digit, then octal. */
-					if(*i == 0x30){
-						++i;
 
-						/* Parse octal value. If no digits, then value is just zero.
-						 * 8 and 9 are not expected; then will just wrap around...
-						 * */
-						while(*i <= 0x39){
-							/* Should not mix mini-registers and flags inside a reg value. */
-							assert(*i >= 0x30);
+		if(*i & ESCAPE_SELECT){
+			rs->mini_regs |= FORMAT_BIT;
 
-							reg_value <<= 3;
-							reg_value += (*i & 0x7);
+			/* Default pad char is a ' '.*/
+			rs->registers[FS_REG_PAD_CHAR] = ' ';
+		}
+
+		/* Go onto next character. */
+		++i;
+
+		/* Parse modifiers. */
+		{
+			/* Do not write to output in this scope of code. */
+			const uint8_t* dest = NULL;
+
+			reprint_reg_t reg_value = 0;
+			/* Otherwise, found an escape character. Parse the field. */
+			while(*i < 0x40){
+				if(*i < 0x20)
+					assert(0);
+
+				if(*i < 0x30){
+					/* In the 0x20 column. */
+					rs->mini_regs |= s_mini_reg_bits[*i & 0xF];
+				}
+				else{
+					/* FIXME: this does not handle the ':' and ';' characters
+					 * (which are so far undefined...) */
+
+					/* If user specified value in fmt string, set this flag. */
+					uint8_t user_flag = 0;
+					if(*i <= 0x39){
+						user_flag = 1;
+						/* If leading zero with digit, then octal. */
+						if(*i == 0x30){
 							++i;
+
+							/* Parse octal value. If no digits, then value is just zero.
+							 * 8 and 9 are not expected; then will just wrap around...
+							 * */
+							while(*i <= 0x39){
+								/* Should not mix mini-registers and flags inside a reg value. */
+								assert(*i >= 0x30);
+
+								reg_value <<= 3;
+								reg_value += (*i & 0x7);
+								++i;
+							}
+						}
+						else{
+							/* Parse decimal value into reg_value. */
+							while(*i <= 0x39){
+								/* Should not mix mini-registers and flags inside a reg value. */
+								assert(*i >= 0x30);
+								reg_value *= 10;
+								reg_value += (*i & 0xF);
+
+								++i;
+							}
 						}
 					}
 					else{
-						/* Parse decimal value into reg_value. */
-						while(*i <= 0x39){
-							/* Should not mix mini-registers and flags inside a reg value. */
-							assert(*i >= 0x30);
-							reg_value *= 10;
-							reg_value += (*i & 0xF);
-
-							++i;
+						/* Registers  without a preceding numeric value are to have 
+						 * their values loaded from the data. */
+						if(*i < 0x40){
+							reprint_reg_t* u = (reprint_reg_t*)(rs->data);
+							reg_value = *u;
+							rs->data += sizeof(*u);
 						}
 					}
-				}
-				else{
-					/* Registers  without a preceding numeric value are to have 
-					 * their values loaded from the data. */
-					if(*i < 0x40){
-						reprint_reg_t* u = (reprint_reg_t*)(rs->data);
-						reg_value = *u;
-						rs->data += sizeof(*u);
+
+					if(*i >= 0x40){
+						/* Copy register value and break to specifier section. */
+						if(user_flag){
+							rs->reg_flags |= FLAG_REG_0_DEFINED;
+							rs->registers[0] = reg_value;
+						}
+						break;
+					}
+					else if(*i >= 0x3A){
+						unsigned id = *i - 0x39;
+						rs->reg_flags |= 1 << id;
+						rs->registers[id] = reg_value;
+						reg_value = 0;
 					}
 				}
 
-				if(*i >= 0x40){
-					/* Copy register value and break to specifier section. */
-					if(user_flag){
-						rs->reg_flags |= FLAG_REG_0_DEFINED;
-						rs->registers[0] = reg_value;
-					}
-					break;
-				}
-				else if(*i >= 0x3A){
-					unsigned id = *i - 0x39;
-					rs->reg_flags |= 1 << id;
-					rs->registers[id] = reg_value;
-					reg_value = 0;
-				}
+				++i;
 			}
+		}
 
+		/* Parse input specifier flags. */
+		rs->input_flags = 0;
+		while(*i < 0x70){
+			/* This is an error. */
+			if(*i < 0x60)
+				assert(0);
+
+			if(*i < 0x68){
+				rs->input_flags |= (*i & 0x7);
+			}
+			else if(*i < 0x6C){
+				rs->input_flags |= (*i & 0x3) << 3;
+			}
+			else{
+				rs->input_flags |= (*i & 0x3) << 5;
+			}
 			++i;
 		}
+
+		/* Catch up to i. */
+		rs->fmt = i;
 	}
-
-	/* Parse input specifier flags. */
-	uint8_t input_flags = 0;
-	while(*i < 0x70){
-		/* This is an error. */
-		if(*i < 0x60)
-			assert(0);
-
-		if(*i < 0x68){
-			input_flags |= (*i & 0x7);
-		}
-		else if(*i < 0x6C){
-			input_flags |= (*i & 0x3) << 3;
-		}
-		else{
-			input_flags |= (*i & 0x3) << 5;
-		}
-		++i;
-	}
-
-	/* Catch up to i. */
-	rs->fmt = i;
 
 	/* Load data according to specifier. */
 	{
@@ -523,7 +527,7 @@ BEGIN:
 
 		/* First branch on Integer or not. */
 		if(*(rs->fmt) < 0x78){
-			if(!(input_flags & 0x4)){
+			if(!(rs->input_flags & 0x4)){
 				/* Yes, I did just do that. Go look at the included .c file. */
 #define REPRINT_GUARD_reprint_cb_QUANTITY_SPECIFIER
 #include "reprint_cb_quantity_specifier.c"
@@ -532,13 +536,13 @@ BEGIN:
 			else{
 				/* This is a non-integer value. */
 
-				if((input_flags & 0x7) == 0x6){
+				if((rs->input_flags & 0x7) == 0x6){
 					/* TODO This is a float. */
 					assert(0);
 				}
 				else{
 					/* This is a string or char. */
-					if((input_flags & 0x7) == 0x5){
+					if((rs->input_flags & 0x7) == 0x5){
 						/* Assuming 8-bit character.
 						 * TODO support wchar_t and unicode point ids.
 						 * On some platforms (Linux et al) these will be the same types

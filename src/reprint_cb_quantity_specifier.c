@@ -27,7 +27,6 @@
  * The inherited variables from the reprint_cb() context are
  *
  * reprint_state* rs;   (reprint state)
- * uint8_t input_flags; (qualifies the input. )
  * unsigned total_len;  (the number of characters required to print value)
  *
  * */
@@ -38,11 +37,11 @@
 {
 	unsigned int_size;
 
-	if(!(input_flags & 0x2)){
+	if(!(rs->input_flags & 0x2)){
 		int_size = s_arch_int_amb_size[*(rs->fmt) & 0x7];
 	}
-	else if(input_flags & 0x14){
-		uint8_t x = input_flags & 0x14;
+	else if(rs->input_flags & 0x14){
+		uint8_t x = rs->input_flags & 0x14;
 		x -= 0x4;
 		x |= *(rs->fmt) & 0x7;
 		int_size = s_arch_int_conc_size[*(rs->fmt) & 0x7];
@@ -72,7 +71,7 @@ if(rs->mini_regs & FORMAT_BIT){
 	}
 
 	/* Check if signed and negate if necessary. */
-	if(input_flags & 0x1){
+	if(rs->input_flags & 0x1){
 		switch(*(rs->fmt) & 0x7){
 #if (RP_CFG_Q_INT_SIZE_MASK & RP_CFG_Q_INT_SIZE_8)
 			case 0:

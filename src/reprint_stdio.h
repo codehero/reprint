@@ -47,32 +47,32 @@ int reprintf(const char* fmt, ...);
 
 
 /** @brief Print struct packed data to string. */
-int resnprintsf(char* dest, unsigned dest_len, const char* fmt, const void* data);
+int resnprintf_struct(char* dest, unsigned dest_len, const char* fmt, const void* data);
 
 /** @brief Print struct packed data to file. */
-int refprintsf(FILE* output, const char* fmt, const void* data); 
+int refprintf_struct(FILE* output, const char* fmt, const void* data); 
 
 /** @brief Print struct packed data to stdout. */
-static int reprintsf(const char* fmt, const void* data);
+static int reprintf_struct(const char* fmt, const void* data);
 
 
 /** @brief Print byte packed data to string. */
-int resnprintpf(char* dest, unsigned dest_len, const char* fmt, const uint8_t* data);
+int resnprintf_packed(char* dest, unsigned dest_len, const char* fmt, const uint8_t* data);
 
 /** @brief Print byte packed data to file. */
-int refprintpf(FILE* output, const char* fmt, const uint8_t* data); 
+int refprintf_packed(FILE* output, const char* fmt, const uint8_t* data); 
 
 /** @brief Print byte packed data to stdout. */
-static int reprintpf(const char* fmt, const uint8_t* data);
+static int reprintf_packed(const char* fmt, const uint8_t* data);
 
 
 /* Inlines. */
-static inline int reprintsf(const char* fmt, const void* data){
-	return refprintsf(stdout, fmt, data);
+static inline int reprintf_struct(const char* fmt, const void* data){
+	return refprintf_struct(stdout, fmt, data);
 }
 
-static inline int reprintpf(const char* fmt, const uint8_t* data){
-	return refprintpf(stdout, fmt, data);
+static inline int reprintf_packed(const char* fmt, const uint8_t* data){
+	return refprintf_packed(stdout, fmt, data);
 }
 
 #endif

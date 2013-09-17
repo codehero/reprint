@@ -47,7 +47,7 @@ int reprintf(const char* fmt, ...){
 }
 
 
-int resnprintsf(char* dest, unsigned dest_len, const char* fmt, const void* data){
+int resnprintf_struct(char* dest, unsigned dest_len, const char* fmt, const void* data){
 	/* Expect at least 1 char sized output. */
 	if(dest_len < 1)
 		return -1;
@@ -67,7 +67,7 @@ int resnprintsf(char* dest, unsigned dest_len, const char* fmt, const void* data
 	return dest - end;
 }
 
-int refprintsf(FILE* output, const char* fmt, const void* data){
+int refprintf_struct(FILE* output, const char* fmt, const void* data){
 	reprint_init(fmt, data, 1);
 	char buffer[BUFFER_SIZE];
 	int acc = 0;
@@ -89,7 +89,7 @@ int refprintsf(FILE* output, const char* fmt, const void* data){
 }
 
 
-int resnprintpf(char* dest, unsigned dest_len, const char* fmt, const uint8_t* data){
+int resnprintf_packed(char* dest, unsigned dest_len, const char* fmt, const uint8_t* data){
 	/* Expect at least 1 char sized output. */
 	if(dest_len < 1)
 		return -1;
@@ -110,7 +110,7 @@ int resnprintpf(char* dest, unsigned dest_len, const char* fmt, const uint8_t* d
 	return o - dest;
 }
 
-int refprintpf(FILE* output, const char* fmt, const uint8_t* data){
+int refprintf_packed(FILE* output, const char* fmt, const uint8_t* data){
 	/* lazy whitebox job from refprintsf...only changed 3rd parameter. */
 	reprint_init(fmt, data, 0);
 	char buffer[BUFFER_SIZE];

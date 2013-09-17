@@ -160,7 +160,7 @@ int main(int argc, const char* argv[]){
 
 			/* Print to buffer */
 			int output_len =
-				resnprintpf((char*)buffer, MAX_STRING, exprbuffer, data);
+				resnprintf_packed((char*)buffer, MAX_STRING, exprbuffer, data);
 
 			if(output_len < 0)
 				throw std::runtime_error("Error in resnprintpf!");
