@@ -26,13 +26,42 @@
 #include "reprint_aux.h"
 #include "arch_internal.h"
 
-const char* reprint_get_specifier(uint16_t* dest, const char* fmt){
-	/* Find first format character. */
-	while(*fmt && *fmt < 0x60)
+const char* reprint_get_next_param(uint16_t* dest, const char* fmt){
+	/* Find header. */
+	if(!(*dest & REP_FLAG_SPECIFIER_IS_REGISTER)){
+		while(*fmt && *fmt != '\b' && *fmt != '\f')
+			++fmt;
+
+		if(!*fmt)
+			return NULL;
 		++fmt;
+	}
+
+	/* Find format character. */
+	while(*fmt && *fmt < 0x60){
+
+		/* Registers without assigned numeric values expect
+		 * their values from the user. */
+		if(*fmt < 0x40){
+			if(*fmt > 0x39){
+				*dest = REP_FLAG_SPECIFIER_IS_REGISTER;
+				++fmt;
+				return fmt;
+			}
+
+			while(*fmt && *fmt <= 0x39)
+				++fmt;
+
+			if(!*fmt || *fmt >= 0x60)
+				break;
+		}
+
+		++fmt;
+	}
 
 	if(!*fmt)
 		return NULL;
+
 
 	*dest = 0;
 	while(*fmt < 0x70){
@@ -229,4 +258,279 @@ void* reprint_marshall_char(void* dest, uint16_t specifier, unsigned code_point)
 			return NULL;
 	}
 
+}
+
+#define VA_GET(type) {\
+	if(dest_len - (out - dest) < sizeof(type)) \
+		return NULL; \
+	type x = va_arg(ap, type); \
+	memcpy(out, &x, sizeof(x)); \
+	out += sizeof(x); \
+}
+
+#define VA_GET2(type, type2) {\
+	if(dest_len - (out - dest) < sizeof(type)) \
+		return NULL; \
+	type x = va_arg(ap, type2); \
+	memcpy(out, &x, sizeof(x)); \
+	out += sizeof(x); \
+}
+
+
+void* reprint_pack_va(void* dest, unsigned dest_len, const char* fmt, va_list ap){
+	const char* i = fmt;
+	uint16_t specifier = 0;
+	void* out = dest;
+	while(1){
+
+		/* Otherwise hit a specifier. */
+		i = reprint_get_next_param(&specifier, i);
+		if(!i)
+			break;
+
+		if(specifier & REP_FLAG_SPECIFIER_IS_REGISTER){
+			VA_GET2(reprint_reg_t, int);
+			continue;
+		}
+
+		switch((specifier >> 4) & 0x7){
+			/* Ambiguous Signed. */
+			case 0x0:
+				switch(specifier & 0x7){
+					case 0:
+						VA_GET2(char, int);
+						break;
+
+					case 1:
+						VA_GET2(short, int);
+						break;
+
+					case 2:
+						VA_GET(int);
+						break;
+
+					case 3:
+						VA_GET(long);
+						break;
+
+					case 4:
+						VA_GET(long long);
+						break;
+
+					case 5:
+						VA_GET(ptrdiff_t);
+						break;
+
+					case 6:
+						VA_GET(intptr_t);
+						break;
+
+					case 7:
+						VA_GET(intmax_t);
+						break;
+				}
+				break;
+
+			/* Ambiguous Unsigned. */
+			case 0x1:
+				switch(specifier & 0x7){
+					case 0:
+						VA_GET2(unsigned char, int);
+						break;
+
+					case 1:
+						VA_GET2(unsigned short, int);
+						break;
+
+					case 2:
+						VA_GET(unsigned int);
+						break;
+
+					case 3:
+						VA_GET(unsigned long);
+						break;
+
+					case 4:
+						VA_GET(unsigned long long);
+						break;
+
+					case 5:
+						VA_GET(size_t);
+						break;
+
+					case 6:
+						VA_GET(uintptr_t);
+						break;
+
+					case 7:
+						VA_GET(uintmax_t);
+						break;
+				}
+				break;
+
+			/* Concrete Signed. */
+			case 0x2:
+				switch(((specifier & 0x180) >> 3) | (specifier & 0x7)){
+					case 0:
+						VA_GET2(int8_t, int);
+						break;
+
+					case 1:
+						VA_GET2(int16_t, int);
+						break;
+
+					case 2:
+						VA_GET(int32_t);
+						break;
+
+					case 3:
+						VA_GET(int64_t);
+						break;
+
+					case 0x10:
+						VA_GET2(int_fast8_t, int);
+						break;
+
+					case 0x11:
+						VA_GET2(int_fast16_t, int);
+						break;
+
+					case 0x12:
+						VA_GET(int_fast32_t);
+						break;
+
+					case 0x13:
+						VA_GET(int_fast64_t);
+						break;
+
+					case 0x20:
+						VA_GET2(int_least8_t, int);
+						break;
+
+					case 0x21:
+						VA_GET2(int_least16_t, int);
+						break;
+
+					case 0x22:
+						VA_GET(int_least32_t);
+						break;
+
+					case 0x23:
+						VA_GET(int_least64_t);
+						break;
+
+					default:
+						return NULL;
+				}
+				break;
+
+			/* Concrete Unsigned. */
+			case 0x3:
+				switch(((specifier & 0x180) >> 3) | (specifier & 0x7)){
+					case 0x0:
+						VA_GET2(uint8_t, int);
+						break;
+
+					case 0x1:
+						VA_GET2(uint16_t, int);
+						break;
+
+					case 0x2:
+						VA_GET(uint32_t);
+						break;
+
+					case 0x3:
+						VA_GET(uint64_t);
+						break;
+
+					case 0x10:
+						VA_GET2(uint_fast8_t, int);
+						break;
+
+					case 0x11:
+						VA_GET2(uint_fast16_t, int);
+						break;
+
+					case 0x12:
+						VA_GET(uint_fast32_t);
+						break;
+
+					case 0x13:
+						VA_GET(uint_fast64_t);
+						break;
+
+					case 0x20:
+						VA_GET2(uint_least8_t, int);
+						break;
+
+					case 0x21:
+						VA_GET2(uint_least16_t, int);
+						break;
+
+					case 0x22:
+						VA_GET(uint_least32_t);
+						break;
+
+					case 0x23:
+						VA_GET(uint_least64_t);
+						break;
+
+					default:
+						return NULL;
+				}
+				break;
+
+			/* Strings. */
+			case 0x4:
+				switch(specifier & 0x7){
+					case 0:
+						VA_GET(char*);
+						break;
+
+					/* TODO other types. */
+					default:
+						return NULL;
+				}
+				break;
+
+			/* Chars. */
+			case 0x5:
+				switch(specifier & 0x7){
+					case 0:
+						VA_GET2(char, int);
+						break;
+
+					default:
+						return NULL;
+				}
+				break;
+
+			/* Floats. */
+			case 0x6:
+				switch(specifier & 0x7){
+					/* half precision*/
+					case 0x1:
+						{
+							/* TODO */
+							return NULL;
+						}
+
+					/* 32 bit fp*/
+					case 0x2:
+						VA_GET2(float, double);
+						break;
+
+					/* 64 bit. */
+					case 0x3:
+						VA_GET(double);
+						break;
+
+					default:
+						return NULL;
+				}
+				break;
+		}
+	}
+
+	return out;
 }

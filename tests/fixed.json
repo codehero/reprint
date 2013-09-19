@@ -3,4 +3,8 @@
 		"expr":["\f2<r", 12345678]
 		,"expected":"123456.78"
 	}
+	,"test_fixed_reg_pass" :{
+		"expr":["\f<r", 2, 12345678]
+		,"expected":"123456.78"
+	}
 }

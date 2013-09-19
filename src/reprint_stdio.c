@@ -25,25 +25,55 @@
 #define _GNU_SOURCE
 #include <math.h>
 #include <string.h>
-#include <stdarg.h>
 #include <assert.h>
 #include "reprint_stdio.h"
 
 #define BUFFER_SIZE 1024
 
+/* Assuming not too much craziness going on, though there has to be
+ * a better solution...*/
+#define DATA_BUFFER_SIZE 512
+
 int resnprintf(char* dest, unsigned dest_len, const char* fmt, ...){
-	/* TODO function to pack va_args data into array with no gaps. */
-	return -1;
+	va_list ap;
+	va_start(ap, fmt);
+
+	uint8_t data_buff[DATA_BUFFER_SIZE];
+	if(!reprint_pack_va(data_buff, DATA_BUFFER_SIZE, fmt, ap)){
+		va_end(ap);
+		return -1;
+	}
+	va_end(ap);
+
+	return resnprintf_packed(dest, dest_len, fmt, data_buff);
 }
 
 int refprintf(FILE* output, const char* fmt, ...){
-	/* same TODO as resnprintf */
-	return -1;
+	va_list ap;
+	va_start(ap, fmt);
+
+	uint8_t data_buff[DATA_BUFFER_SIZE];
+	if(!reprint_pack_va(data_buff, DATA_BUFFER_SIZE, fmt, ap)){
+		va_end(ap);
+		return -1;
+	}
+	va_end(ap);
+
+	return refprintf_packed(output, fmt, data_buff);
 }
 
 int reprintf(const char* fmt, ...){
-	/* same TODO as resnprintf */
-	return -1;
+	va_list ap;
+	va_start(ap, fmt);
+
+	uint8_t data_buff[DATA_BUFFER_SIZE];
+	if(!reprint_pack_va(data_buff, DATA_BUFFER_SIZE, fmt, ap)){
+		va_end(ap);
+		return -1;
+	}
+	va_end(ap);
+
+	return refprintf_packed(stdout, fmt, data_buff);
 }
 
 

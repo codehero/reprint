@@ -78,30 +78,41 @@ int main(int argc, const char* argv[]){
 
 							/* Iterate through the expression, looking for input specifiers. */
 							const char* i = exprbuffer;
-							uint16_t specifier;
-							while((i = reprint_get_specifier(&specifier, i))){
+							uint16_t specifier = 0;
+							while((i = reprint_get_next_param(&specifier, i))){
 
 								/* Pull data from JSON. */
 								if(PullParser::ST_DATUM != parser.Pull())
 									throw PullParser::invalid_value("Early end of array!", parser);
+
 								const bnj_val& v = parser.GetValue();
 								unsigned val_type = bnj_val_type(&v);
 								if(BNJ_NUMERIC == val_type){
 									/* If value had a minus, then read it as signed int. Otherwise
 									 * read it as unsigned. */
-									if(BNJ_VFLAG_NEGATIVE_SIGNIFICAND & v.type){
-										int x;
-										BNJ::Get(x, parser);
+									if(!(specifier & REP_FLAG_SPECIFIER_IS_REGISTER)){
+										if(BNJ_VFLAG_NEGATIVE_SIGNIFICAND & v.type){
+											int x;
+											BNJ::Get(x, parser);
 
-										out = reprint_marshall_signed(out, specifier, x);
-										if(!out)
-											throw PullParser::invalid_value("Type mismatch!", parser);
+											out = reprint_marshall_signed(out, specifier, x);
+											if(!out)
+												throw PullParser::invalid_value("Type mismatch!", parser);
+										}
+										else{
+											unsigned u;
+											BNJ::Get(u, parser);
+
+											out = reprint_marshall_unsigned(out, specifier, u);
+											if(!out)
+												throw PullParser::invalid_value("Type mismatch!", parser);
+										}
 									}
 									else{
 										unsigned u;
 										BNJ::Get(u, parser);
 
-										out = reprint_marshall_unsigned(out, specifier, u);
+										out = reprint_marshall_unsigned(out, REP_REGISTER_SPECIFIER, u);
 										if(!out)
 											throw PullParser::invalid_value("Type mismatch!", parser);
 									}
@@ -168,6 +179,10 @@ int main(int argc, const char* argv[]){
 			if(expected_length != (unsigned)output_len
 				|| memcmp(buffer, expected, expected_length))
 			{
+				reprintf("FAILED: \f=dp\n'\f=dp'\n'\f=dp'\n\n",
+					keylen, key, output_len, buffer, expected_length, expected);
+
+#if 0
 				static const char failed[] = "FAILED: ";
 				write(1, failed, sizeof(failed) - 1);
 				write(1, key, keylen);
@@ -176,6 +191,7 @@ int main(int argc, const char* argv[]){
 				write(1, "'\n'", 3);
 				write(1, expected, expected_length);
 				write(1, "'\n\n", 3);
+#endif
 			}
 		}
 	}

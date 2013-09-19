@@ -185,8 +185,8 @@ enum {
 	,FTC_REG_REPEAT = 3
 
 	/* Common text (regardless of formatted)*/
-	,TS_REG_LENGTH = 2
 	,TS_REG_START = 3
+	,TS_REG_LENGTH = 4
 
 	/* Common formatted pointer */
 	,FMP_FLAG_BASE_2 = FLAG_2
@@ -292,7 +292,6 @@ uint8_t s_arch_int_amb_size[8] = {
 	,sizeof(intmax_t)
 };
 
-/* FIXME */
 uint8_t s_arch_int_conc_size[24] = {
 	1
 	,2

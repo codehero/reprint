@@ -25,14 +25,22 @@
 #ifndef __REPRINT_AUX_H__
 #define __REPRINT_AUX_H__
 
+#include <stdarg.h>
 #include "reprint.h"
 
-/** @brief Find next specifier field.
- *  @param dest Where to store specifier parameters.
+enum {
+	REP_FLAG_SPECIFIER_IS_REGISTER = 0x8000
+};
+
+/** @brief Search format string for next input specifier.
+ *  @param dest Where to store input specifier
  *  @param fmt format string
  *  @return NULL if no specifier found;
- *  pointer to first char succeeding specifier otherwise. */
-const char* reprint_get_specifier(uint16_t* dest, const char* fmt);
+ *  pointer to first char succeeding specifier otherwise.
+ *
+ *  If REP_FLAG_SPECIFIER_IS_REGISTER is set then expecting a register value,
+ *  not an input specifier value. */
+const char* reprint_get_next_param(uint16_t* dest, const char* fmt);
 
 
 /* Marshalling functions. */
@@ -56,5 +64,14 @@ void* reprint_marshall_pointer(void* dest, uint16_t specifier, const void* ptr);
 /** @brief Marshall a single character.
  *  @return pointer to byte following last written byte. */
 void* reprint_marshall_char(void* dest, uint16_t specifier, unsigned code_point);
+
+/** @brief Marshall parameters from va list into packed form.
+ *  @param dest Where to store packed parameters
+ *  @param dest_len available space.
+ *  @param fmt Format string containing specifiers
+ *  @param ap Parameters from stack
+ *  @return Pointer to first byte after last packed;
+ *  if NULL, then bad specifier or insufficient space.*/
+void* reprint_pack_va(void* dest, unsigned dest_len, const char* fmt, va_list ap);
 
 #endif
