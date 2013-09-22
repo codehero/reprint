@@ -232,6 +232,9 @@ ST_QUANT_ZERO_PAD:
 			/* Matched the break, so clear it. */
 			rs->registers[FQW_REG_BREAK] = 0;
 		}
+		else if(rs->registers[FQW_REG_ZEROS]){
+			return 1;
+		}
 
 		/* If there are sigfigs to print, then go onto that state. */
 		if(rs->registers[FQS_REG_SIGFIGS]){
