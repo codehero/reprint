@@ -27,6 +27,7 @@
 #include "arch_internal.h"
 
 const char* reprint_get_next_param(uint16_t* dest, const char* fmt){
+BEGIN:
 	/* Find header. */
 	if(!(*dest & REP_FLAG_SPECIFIER_IS_REGISTER)){
 		while(*fmt && *fmt != '\b' && *fmt != '\f')
@@ -84,6 +85,10 @@ const char* reprint_get_next_param(uint16_t* dest, const char* fmt){
 	*dest <<= 4;
 	*dest |= *fmt & 0xF;
 	++fmt;
+
+	/* If this is a bitfield, the no param necessary; continue */
+	if((*dest & 0x7F) == 0x37)
+		goto BEGIN;
 
 	return fmt;
 }

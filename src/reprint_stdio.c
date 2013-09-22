@@ -34,7 +34,9 @@
  * a better solution...*/
 #define DATA_BUFFER_SIZE 512
 
-int resnprintf(char* dest, unsigned dest_len, const char* fmt, ...){
+static reprint_state s_rs;
+
+int resnprintf(uint8_t* dest, unsigned dest_len, const char* fmt, ...){
 	va_list ap;
 	va_start(ap, fmt);
 
@@ -77,15 +79,17 @@ int reprintf(const char* fmt, ...){
 }
 
 
-int resnprintf_struct(char* dest, unsigned dest_len, const char* fmt, const void* data){
+int resnprintf_struct(uint8_t* dest, unsigned dest_len, const char* fmt,
+	const void* data)
+{
 	/* Expect at least 1 char sized output. */
 	if(dest_len < 1)
 		return -1;
 
-	reprint_init(fmt, data, 1);
-	char* end = dest + dest_len - 1;
+	reprint_init(&s_rs, fmt, data, 1);
+	uint8_t* end = dest + dest_len - 1;
 	while(dest != end){
-		int ret = reprint_cb(dest);
+		int ret = reprint_cb(&s_rs, dest);
 		++dest;
 		if(!ret)
 			break;
@@ -98,13 +102,13 @@ int resnprintf_struct(char* dest, unsigned dest_len, const char* fmt, const void
 }
 
 int refprintf_struct(FILE* output, const char* fmt, const void* data){
-	reprint_init(fmt, data, 1);
-	char buffer[BUFFER_SIZE];
+	reprint_init(&s_rs, fmt, data, 1);
+	uint8_t buffer[BUFFER_SIZE];
 	int acc = 0;
 	while(1){
-		char *x;
+		uint8_t *x;
 		for(x = buffer; x != buffer + BUFFER_SIZE; ++x){
-			if(!reprint_cb(x))
+			if(!reprint_cb(&s_rs, x))
 				break;
 		}
 		int ret = fwrite(buffer, 1, x - buffer, output);
@@ -119,16 +123,18 @@ int refprintf_struct(FILE* output, const char* fmt, const void* data){
 }
 
 
-int resnprintf_packed(char* dest, unsigned dest_len, const char* fmt, const uint8_t* data){
+int resnprintf_packed(uint8_t* dest, unsigned dest_len, const char* fmt,
+	const uint8_t* data)
+{
 	/* Expect at least 1 char sized output. */
 	if(dest_len < 1)
 		return -1;
 
-	reprint_init(fmt, data, 0);
-	char* end = dest + dest_len - 1;
-	char* o = dest;
+	reprint_init(&s_rs, fmt, data, 0);
+	uint8_t* end = dest + dest_len - 1;
+	uint8_t* o = dest;
 	while(o != end){
-		int ret = reprint_cb(o);
+		int ret = reprint_cb(&s_rs, o);
 		if(!ret)
 			break;
 		++o;
@@ -142,13 +148,13 @@ int resnprintf_packed(char* dest, unsigned dest_len, const char* fmt, const uint
 
 int refprintf_packed(FILE* output, const char* fmt, const uint8_t* data){
 	/* lazy whitebox job from refprintsf...only changed 3rd parameter. */
-	reprint_init(fmt, data, 0);
-	char buffer[BUFFER_SIZE];
+	reprint_init(&s_rs, fmt, data, 0);
+	uint8_t buffer[BUFFER_SIZE];
 	int acc = 0;
 	while(1){
-		char *x;
+		uint8_t *x;
 		for(x = buffer; x != buffer + BUFFER_SIZE; ++x){
-			if(!reprint_cb(x))
+			if(!reprint_cb(&s_rs, x))
 				break;
 		}
 		int ret = fwrite(buffer, 1, x - buffer, output);

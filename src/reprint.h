@@ -29,32 +29,43 @@
 
 #include "arch.h"
 
-/** @brief reprint_reg_t  */
+#define REPRINTF_REGISTER_COUNT 8
 
 /** @brief reprint_uint_t is the maximum signed integer type size
  * supported by the reprint implementation.
  *
  * This may be smaller than the * maximum size supported by the platform
  * (for efficiency reasons). */
+typedef struct reprint_state_s {
+	/** @brief Format string. Points to current character. */
+	const uint8_t* fmt;
 
-/** @brief reprint_uint_t is the maximum integer type size
- * supported by the reprint implementation.  */
+	/** @brief Packed data for reprint */
+	const void* data;
 
-/** @brief Init, but pack with no gaps between each datum.
- *  @return Pointer to first byte following last packed byte. */
-void* reprint_init_pack(const char* fmt, void* pack, ...);
+	/** @brief Where to jump into the reprint_cb function.
+	 * Only valid if nonzero. */
+	const void* cur_label;
 
-/** @brief Append a datum to to data array, as tight as possible.
- *  @return next available byte in dest. */
-void* reprint_marshall_packed(void* dest, uint8_t specifier, const void* datum);
+	union {
+		const uint8_t* text;
+		reprint_uint_t binary;
+	} cur_data;
 
-/** @brief Append a datum to to data array, struct style.
- *  @return next available byte in dest. */
-void* reprint_marshall_struct(void* dest, uint8_t specifier, const void* datum);
+	reprint_reg_t registers[REPRINTF_REGISTER_COUNT];
+
+	uint16_t mini_regs;
+
+	uint8_t reg_flags;
+
+	uint8_t input_flags;
+
+} reprint_state;
 
 /** @brief  */
-void reprint_init(const char* fmt, const void* data, uint8_t struct_pack);
+void reprint_init(reprint_state* rs, const char* fmt, const void* data
+	,uint8_t struct_pack);
 
-int reprint_cb(char* dest);
+int reprint_cb(reprint_state* rs, uint8_t* dest);
 
 #endif

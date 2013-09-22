@@ -36,8 +36,8 @@
 /* Note: sprintf has broken semantics. Will never be emulated by reprint.
  * snprintf semantics are "repaired". */
 
-/** @brief Print var args data to string. */
-int resnprintf(char* dest, unsigned dest_len, const char* fmt, ...);
+/** @brief Print var args data to byte string. */
+int resnprintf(uint8_t* dest, unsigned dest_len, const char* fmt, ...);
 
 /** @brief Print var args to file. */
 int refprintf(FILE* output, const char* fmt, ...);
@@ -47,7 +47,8 @@ int reprintf(const char* fmt, ...);
 
 
 /** @brief Print struct packed data to string. */
-int resnprintf_struct(char* dest, unsigned dest_len, const char* fmt, const void* data);
+int resnprintf_struct(uint8_t* dest, unsigned dest_len, const char* fmt,
+	const void* data);
 
 /** @brief Print struct packed data to file. */
 int refprintf_struct(FILE* output, const char* fmt, const void* data); 
@@ -57,7 +58,8 @@ static int reprintf_struct(const char* fmt, const void* data);
 
 
 /** @brief Print byte packed data to string. */
-int resnprintf_packed(char* dest, unsigned dest_len, const char* fmt, const uint8_t* data);
+int resnprintf_packed(uint8_t* dest, unsigned dest_len, const char* fmt,
+	const uint8_t* data);
 
 /** @brief Print byte packed data to file. */
 int refprintf_packed(FILE* output, const char* fmt, const uint8_t* data); 

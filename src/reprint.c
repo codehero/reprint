@@ -43,10 +43,9 @@
 #define ESCAPE_MASK 0x08
 #define ESCAPE_SELECT 0x04
 #define REPRINTF_BCD_BUFF_SIZE 10
-#define REPRINTF_REGISTER_COUNT 7
 
-#define Q_BITFIELD 0x79
 #define Q_POINTER 0x78
+#define Q_RECURSE 0x79
 
 /* These enums identify bits in the registers. */
 enum {
@@ -182,7 +181,7 @@ enum {
 
 
 	/* Common formatted character */
-	,FTC_REG_REPEAT = 3
+	,FTC_REG_REPEAT = 4
 
 	/* Common text (regardless of formatted)*/
 	,TS_REG_START = 3
@@ -218,42 +217,6 @@ enum {
 };
 #define INTERNAL_HACK_MINUS_FLAG FLAG_MINI_REG_RESERVED_8000
 
-
-typedef union {
-	const uint8_t* text;
-	reprint_uint_t binary;
-} reprint_variant_t;
-
-/* On MSP430, this is
- * 2 + 2 + 2 + 2
- * 7
- * + 2 + 1
- *
- * 20 bytes of RAM consumed
- *
- * */
-typedef struct {
-	/** @brief Format string. Points to current character. */
-	const uint8_t* fmt;
-
-	/** @brief Packed data for reprint */
-	const void* data;
-
-	/** @brief Where to jump into the reprint_cb function.
-	 * Only valid if nonzero. */
-	const void* cur_label;
-
-	reprint_variant_t cur_data;
-
-	uint16_t mini_regs;
-
-	reprint_reg_t registers[REPRINTF_REGISTER_COUNT];
-
-	uint8_t reg_flags;
-
-	uint8_t input_flags;
-
-} reprint_state;
 
 static const uint16_t s_mini_reg_bits[16] = {
 	FLAG_MINI_REG_0_DEFINED
@@ -321,9 +284,6 @@ uint8_t s_arch_int_conc_size[24] = {
 	,0
 };
 
-static reprint_state s_rs;
-
-
 static inline void set_bytes(void* dest, uint8_t b, size_t size){
 	for(unsigned i = 0; i < size; ++i)
 		*(uint8_t*)(dest++) = b;
@@ -334,22 +294,23 @@ static inline void copy_bytes(void* dest, const void* src, size_t size){
 		*(uint8_t*)(dest++) = *(const uint8_t*)(src++);
 }
 
-void reprint_init(const char* fmt, const void* data, uint8_t struct_pack){
-	set_bytes(&s_rs, 0, sizeof(s_rs));
-	s_rs.fmt = (const uint8_t*)fmt;
-	s_rs.data = data;
+void reprint_init(reprint_state* rs, const char* fmt, const void* data
+	,uint8_t struct_pack)
+{
+	set_bytes(rs, 0, sizeof(reprint_state));
+	rs->fmt = (const uint8_t*)fmt;
+	rs->data = data;
 	if(struct_pack)
-		s_rs.reg_flags |= FLAG_REG_RESERVED_80;
+		rs->reg_flags |= FLAG_REG_RESERVED_80;
 }
 
 __attribute__((__noinline__,__noclone__))
-int reprint_cb(char* dest){
+int reprint_cb(reprint_state* rs, uint8_t* dest){
 BEGIN:
 	assert(dest);
-	reprint_state* rs = &s_rs;
-
 
 	/* If processing an input specifier then handle that. */
+	/* rs->cur_label is only assigned labels with ST_ prefixed. */
 	if(rs->cur_label){
 
 		/* Decrement field width if non-zero */
@@ -393,10 +354,13 @@ BEGIN:
 		/* Zero the state. Don't clear registers that are already set. */
 		rs->mini_regs = 0;
 		{
-			uint8_t f = rs->reg_flags;
-			for(unsigned k = 0; k < REPRINTF_REGISTER_COUNT; ++k){
-				if(!(f & 1))
-					rs->registers[k] = 0;
+			/* Invert the set registers. */
+			uint_fast8_t f = ~rs->reg_flags & 0x7F;
+			reprint_reg_t* r = rs->registers;
+			while(f){
+				if(f & 1)
+					*r = 0;
+				++r;
 				f >>= 1;
 			}
 		}
@@ -428,11 +392,8 @@ BEGIN:
 					rs->mini_regs |= s_mini_reg_bits[*i & 0xF];
 				}
 				else{
-					/* FIXME: this does not handle the ':' and ';' characters
-					 * (which are so far undefined...) */
-
 					/* If user specified value in fmt string, set this flag. */
-					uint8_t user_flag = 0;
+					uint_fast8_t user_flag = 0;
 					if(*i <= 0x39){
 						user_flag = 1;
 						/* If leading zero with digit, then octal. */
@@ -525,7 +486,7 @@ BEGIN:
 		const uint8_t* dest = NULL;
 
 		/* First branch on Integer or not. */
-		if(*(rs->fmt) < 0x78){
+		if(!(*rs->fmt & 0x8)){
 			if(!(rs->input_flags & 0x4)){
 				/* Yes, I did just do that. Go look at the included .c file. */
 #define REPRINT_GUARD_reprint_cb_QUANTITY_SPECIFIER
@@ -536,8 +497,9 @@ BEGIN:
 				/* This is a non-integer value. */
 
 				if((rs->input_flags & 0x7) == 0x6){
-					/* TODO This is a float. */
-					assert(0);
+#define REPRINT_GUARD_reprint_cb_FLOAT_SPECIFIER
+#include "reprint_cb_float_specifier.c"
+#undef REPRINT_GUARD_reprint_cb_FLOAT_SPECIFIER
 				}
 				else{
 					/* This is a string or char. */
@@ -554,7 +516,7 @@ BEGIN:
 						 * Initialized to zero with user intervention. */
 						++rs->registers[FTC_REG_REPEAT];
 						total_len = rs->registers[FTC_REG_REPEAT];
-						rs->cur_label = &&CHAR;
+						rs->cur_label = &&ST_CHAR;
 					}
 					else{
 						/* This is a string. */
@@ -592,34 +554,17 @@ BEGIN:
 							}
 						}
 
-						rs->cur_label = &&TEXT;
+						rs->cur_label = &&ST_TEXT;
 					}
 				}
 			}
 		}
 		else{
-			/* This is a special specifier. */
-			if(*(rs->fmt) == Q_BITFIELD){
-				/* Outputting bit field. First drop bits if necessary. */
-				if(rs->reg_flags & (1 << FQB_REG_BDROP)){
-					/* If dropping more bits than we have, this is an error. */
-					if(rs->registers[FQS_REG_SIGFIGS] < rs->registers[FQB_REG_BDROP]){
-						assert(0);
-					}
-					rs->registers[FQS_REG_SIGFIGS] -= rs->registers[FQB_REG_BDROP];
-					reprint_uint_t mask = (1 << rs->registers[FQS_REG_SIGFIGS]) - 1;
-					rs->cur_data.binary &= mask;
-				}
-
-				/* Now set the break. */
-				rs->registers[FQW_REG_BREAK] = rs->registers[FQS_REG_SIGFIGS];
-
-				/* Output just like an integer now. */
-				rs->cur_label = &&QUANT_CHECK_PREFIX;
-			}
-			else if(*(rs->fmt) == Q_POINTER){
+			if(*(rs->fmt) == Q_POINTER){
 				/* TODO */
 				assert(0);
+			}
+			else if(*(rs->fmt) == Q_RECURSE){
 			}
 			else{
 				assert(0);
@@ -633,7 +578,7 @@ BEGIN:
 				if(total_len < rs->registers[FS_REG_FIELD_WIDTH]){
 					rs->registers[FS_REG_FIELD_WIDTH] -= total_len;
 					--rs->registers[FS_REG_FIELD_WIDTH];
-					goto WRITE_CHAR;
+					goto ST_WRITE_CHAR;
 				}
 				else{
 					rs->registers[FS_REG_FIELD_WIDTH] = 0;
@@ -649,12 +594,12 @@ BEGIN:
 #include "reprint_cb_quantity.c"
 #undef REPRINT_GUARD_reprint_cb_QUANTITY
 
-TEXT:
+ST_TEXT:
 	if(!*rs->cur_data.text)
-		goto FIELD_DONE;
+		goto ST_FIELD_DONE;
 	if(rs->reg_flags & (1 << TS_REG_LENGTH)){
 		if(0 == rs->registers[TS_REG_LENGTH])
-			goto FIELD_DONE;
+			goto ST_FIELD_DONE;
 		--rs->registers[TS_REG_LENGTH];
 	}
 
@@ -662,25 +607,20 @@ TEXT:
 	++rs->cur_data.text;
 	return 1;
 
-CHAR:
+ST_CHAR:
 	if(!rs->registers[FTC_REG_REPEAT])
-		goto FIELD_DONE;
+		goto ST_FIELD_DONE;
 	*dest = rs->cur_data.binary;
 	--rs->registers[FTC_REG_REPEAT];
 	return 1;
 
-	if(0){
-MISC:
-		return 0;
-	}
-
-FIELD_DONE:
+ST_FIELD_DONE:
 	{
-		rs->cur_label = &&WRITE_PAD;
-WRITE_PAD:
+		rs->cur_label = &&ST_WRITE_PAD;
+ST_WRITE_PAD:
 		if(rs->mini_regs & FORMAT_BIT){
 			if(rs->registers[FS_REG_FIELD_WIDTH]){
-	WRITE_CHAR:
+	ST_WRITE_CHAR:
 				*dest = rs->registers[FS_REG_PAD_CHAR];
 				return 1;
 			}

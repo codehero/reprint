@@ -8,8 +8,9 @@ mydir = os.getcwd()
 default_env = Environment(ENV = os.environ)
 default_env.Append(CPPPATH = [mydir + '/include'])
 default_env.Append(CFLAGS = ' -Wall -std=gnu1x')
-default_env.Append(CFLAGS = ' -O0 -g -DARCH_X86_64')
 default_env.Append(CXXFLAGS = ' -Wall -std=gnu++0x')
+
+default_env.Append(CFLAGS = ' -O0 -g -DARCH_X86_64')
 default_env.Append(CXXFLAGS = ' -O0 -g -DARCH_X86_64')
 
 default_env.LibDest = mydir + '/lib'

@@ -171,7 +171,7 @@ int main(int argc, const char* argv[]){
 
 			/* Print to buffer */
 			int output_len =
-				resnprintf_packed((char*)buffer, MAX_STRING, exprbuffer, data);
+				resnprintf_packed(buffer, MAX_STRING, exprbuffer, data);
 
 			if(output_len < 0)
 				throw std::runtime_error("Error in resnprintpf!");
@@ -181,24 +181,11 @@ int main(int argc, const char* argv[]){
 			{
 				reprintf("FAILED: \f=dp\n'\f=dp'\n'\f=dp'\n\n",
 					keylen, key, output_len, buffer, expected_length, expected);
-
-#if 0
-				static const char failed[] = "FAILED: ";
-				write(1, failed, sizeof(failed) - 1);
-				write(1, key, keylen);
-				write(1, "\n'", 2);
-				write(1, buffer, output_len);
-				write(1, "'\n'", 3);
-				write(1, expected, expected_length);
-				write(1, "'\n\n", 3);
-#endif
 			}
 		}
 	}
 	catch(const std::exception& e){
-		char buffer[1024];
-		const char* end = stpcpy(buffer, e.what());
-		write(2, buffer, end - buffer);
+		refprintf(stderr, "\fdp\n", e.what());
 		return 1;
 	}
 

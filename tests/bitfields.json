@@ -1,0 +1,6 @@
+{
+	"test_bitfield_src is 0x5555AAAA" :{
+		"expr":["\f0=crresult:{'10':\f%10;cw '7':\f$7;cw '3':\f&3;cw '6':\f6;cw '6':\f%cw}", 1431677610]
+		,"expected":"result:{'10':1252 '7':6A '3':010 '6':21 '6':25}"
+	}
+}

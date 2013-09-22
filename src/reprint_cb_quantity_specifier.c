@@ -32,32 +32,185 @@
  * */
 #ifdef REPRINT_GUARD_reprint_cb_QUANTITY_SPECIFIER
 
-/* Ambiguous values are either ambiguous integers
- * or concrete integers with ambiguous specifier (fast or least). */
-{
-	unsigned int_size;
+#if 0
+			/* This is a special specifier. */
+#endif
 
+/* Ignore break flag. */
+rs->reg_flags &= ~(1 << FQW_REG_BREAK);
+
+/* Populate the data field and advance the pointer.
+ * Note: if this is a bitfield, just the use the value already present. */
+{
+	unsigned int_size = 0;
+
+	/* Ambiguous values are either ambiguous integers
+	 * or concrete integers with ambiguous specifier (fast or least). */
 	if(!(rs->input_flags & 0x2)){
 		int_size = s_arch_int_amb_size[*(rs->fmt) & 0x7];
 	}
-	else if(rs->input_flags & 0x14){
-		uint8_t x = rs->input_flags & 0x14;
-		x -= 0x4;
-		x |= *(rs->fmt) & 0x7;
-		int_size = s_arch_int_conc_size[*(rs->fmt) & 0x7];
+	else if((*rs->fmt & 0x7) != 7){
+		/* This is a non bitfield concrete type. */
+		if(rs->input_flags & 0x14){
+			uint8_t x = rs->input_flags & 0x14;
+			x -= 0x4;
+			x |= *(rs->fmt) & 0x7;
+			int_size = s_arch_int_conc_size[*(rs->fmt) & 0x7];
+		}
+		else{
+			int_size = 1 << (*(rs->fmt) & 0x7);
+		}
+	}
+
+	if(int_size){
+		/* If using struct packing, then align the pointer to the datatype. */
+		if(rs->reg_flags & FLAG_REG_STRUCT_PACK)
+			rs->data = s_arch_align_ptr(rs->data, int_size);
+
+		/* TODO apply endian transformation from EE flags if concrete. */
+		copy_bytes(&rs->cur_data.binary, rs->data, int_size);
+		rs->data += int_size;
+
+		/* Check if signed and negate if necessary. */
+		if((rs->mini_regs & FORMAT_BIT) && (rs->input_flags & 0x1)){
+			switch(*(rs->fmt) & 0x7){
+#if (RP_CFG_Q_INT_SIZE_MASK & RP_CFG_Q_INT_SIZE_8)
+				case 0:
+					{
+						int8_t* x = (int8_t*)(&rs->cur_data.binary);
+						if(*x < 0){
+							*x = -*x;
+							rs->mini_regs |= INTERNAL_HACK_MINUS_FLAG;
+							++total_len;
+						}
+					}
+					break;
+#endif
+
+#if (RP_CFG_Q_INT_SIZE_MASK & RP_CFG_Q_INT_SIZE_16)
+				case 1:
+					{
+						int16_t* x = (int16_t*)(&rs->cur_data.binary);
+						if(*x < 0){
+							*x = -*x;
+							rs->mini_regs |= INTERNAL_HACK_MINUS_FLAG;
+							++total_len;
+						}
+					}
+					break;
+#endif
+
+#if (RP_CFG_Q_INT_SIZE_MASK & RP_CFG_Q_INT_SIZE_32)
+				case 2:
+					{
+						int32_t* x = (int32_t*)(&rs->cur_data.binary);
+						if(*x < 0){
+							*x = -*x;
+							rs->mini_regs |= INTERNAL_HACK_MINUS_FLAG;
+							++total_len;
+						}
+					}
+					break;
+#endif
+
+#if (RP_CFG_Q_INT_SIZE_MASK & RP_CFG_Q_INT_SIZE_64)
+				case 3:
+					{
+						int64_t* x = (int64_t*)(&rs->cur_data.binary);
+						if(*x < 0){
+							*x = -*x;
+							rs->mini_regs |= INTERNAL_HACK_MINUS_FLAG;
+							++total_len;
+						}
+					}
+					break;
+#endif
+
+#if (RP_CFG_Q_INT_SIZE_MASK & RP_CFG_Q_INT_SIZE_128)
+#error "128-bit support not yet implemented"
+				case 4:
+					{
+						/* 128 bit integers, TODO someday; not important now. */
+						assert(0);
+					}
+					break;
+#endif
+
+				default:
+					/* Unsupported type. */
+					assert(0);
+			}
+		}
+
 	}
 	else{
-		int_size = 1 << (*(rs->fmt) & 0x7);
+		/* This is a bitfield. Assume that the user loaded up
+		 * cur_data with a previous field. This section will
+		 * strip out only the bits we are interested in printing.
+		 * We will save the remaining bits in the last two registers,
+		 * use the normal numeric printing process, and after the bitfield
+		 * is done printing, restore the values in the registers to cur_data. */
+
+		/* Don't print bitfields in exponential form. Hust don't. */
+		if(rs->mini_regs & FQS_FLAG_EXPONENTIAL)
+			assert(0);
+
+		/* Outputting bit field. First drop bits if necessary. */
+		if(rs->reg_flags & (1 << FQB_REG_BDROP)){
+			/* If dropping more bits than we have, this is an error. */
+			if(rs->registers[FQS_REG_SIGFIGS] < rs->registers[FQB_REG_BDROP]){
+				assert(0);
+			}
+			rs->registers[FQS_REG_SIGFIGS] -= rs->registers[FQB_REG_BDROP];
+			rs->cur_data.binary >>= rs->registers[FQB_REG_BDROP];
+
+			/* No longer need this. */
+			rs->reg_flags &= ~(1 << FQB_REG_BDROP);
+			rs->registers[FQB_REG_BDROP] = 0;
+		}
+
+		/* Clear sigfigs flag (after bitfield prints, it will be set again
+		 * if any bits remain.
+		 * Precision also does not apply to bitfield values. */
+		rs->reg_flags &= ~((1 << FQS_REG_SIGFIGS) | (1 << FQS_REG_PRECISION));
+
+		/* If bit count is not set then just outputing the remaining bits. */
+		if(!(rs->reg_flags & (1 << FQB_REG_BCOUNT))){
+			rs->registers[FQB_REG_BCOUNT] = rs->registers[FQS_REG_SIGFIGS];
+		}
+		else{
+			/* Do not preserve this value. */
+			rs->reg_flags &= ~(1 << FQB_REG_BCOUNT);
+
+			/* Make sure there are enough bits left for the count. */
+			if(rs->registers[FQS_REG_SIGFIGS] < rs->registers[FQB_REG_BCOUNT])
+				assert(0);
+
+			/* If bitcount is zero, then do not print this bitfield */
+			if(!rs->registers[FQB_REG_BCOUNT]){
+				++rs->fmt;
+				goto BEGIN;
+			}
+		}
+
+		/* Compose bitfield value. */
+		reprint_uint_t bitfield = rs->cur_data.binary
+			& ((1 << rs->registers[FQB_REG_BCOUNT]) - 1);
+		reprint_reg_t tmp = rs->registers[FQB_REG_BCOUNT];
+
+		/* Shift out bitfield value. */
+		rs->cur_data.binary >>= rs->registers[FQB_REG_BCOUNT];
+		rs->registers[FQS_REG_SIGFIGS] -= rs->registers[FQB_REG_BCOUNT];
+
+		/* Remember the binary value and the sigfig count. */
+		rs->registers[2] = rs->registers[FQS_REG_SIGFIGS];
+		memcpy(rs->registers + 6, &rs->cur_data.binary
+			,sizeof(rs->cur_data.binary));
+
+		/* Ready bitfield value for printing. */
+		rs->cur_data.binary = bitfield;
+		rs->registers[FQS_REG_SIGFIGS] = tmp;
 	}
-
-
-	/* If using struct packing, then align the pointer to the datatype. */
-	if(rs->reg_flags & FLAG_REG_STRUCT_PACK)
-		rs->data = s_arch_align_ptr(rs->data, int_size);
-
-	/* TODO apply endian transformation from EE flags if concrete. */
-	copy_bytes(&rs->cur_data.binary, rs->data, int_size);
-	rs->data += int_size;
 }
 
 if(rs->mini_regs & FORMAT_BIT){
@@ -70,103 +223,46 @@ if(rs->mini_regs & FORMAT_BIT){
 		rs->registers[FS_REG_PAD_CHAR] = '0';
 	}
 
-	/* Check if signed and negate if necessary. */
-	if(rs->input_flags & 0x1){
-		switch(*(rs->fmt) & 0x7){
-#if (RP_CFG_Q_INT_SIZE_MASK & RP_CFG_Q_INT_SIZE_8)
-			case 0:
-				{
-					int8_t* x = (int8_t*)(&rs->cur_data.binary);
-					if(*x < 0){
-						*x = -*x;
-						rs->mini_regs |= INTERNAL_HACK_MINUS_FLAG;
-						++total_len;
-					}
-				}
-				break;
-#endif
-
-#if (RP_CFG_Q_INT_SIZE_MASK & RP_CFG_Q_INT_SIZE_16)
-			case 1:
-				{
-					int16_t* x = (int16_t*)(&rs->cur_data.binary);
-					if(*x < 0){
-						*x = -*x;
-						rs->mini_regs |= INTERNAL_HACK_MINUS_FLAG;
-						++total_len;
-					}
-				}
-				break;
-#endif
-
-#if (RP_CFG_Q_INT_SIZE_MASK & RP_CFG_Q_INT_SIZE_32)
-			case 2:
-				{
-					int32_t* x = (int32_t*)(&rs->cur_data.binary);
-					if(*x < 0){
-						*x = -*x;
-						rs->mini_regs |= INTERNAL_HACK_MINUS_FLAG;
-						++total_len;
-					}
-				}
-				break;
-#endif
-
-#if (RP_CFG_Q_INT_SIZE_MASK & RP_CFG_Q_INT_SIZE_64)
-			case 3:
-				{
-					int64_t* x = (int64_t*)(&rs->cur_data.binary);
-					if(*x < 0){
-						*x = -*x;
-						rs->mini_regs |= INTERNAL_HACK_MINUS_FLAG;
-						++total_len;
-					}
-				}
-				break;
-#endif
-
-#if (RP_CFG_Q_INT_SIZE_MASK & RP_CFG_Q_INT_SIZE_128)
-#error "128-bit support not yet implemented"
-			case 4:
-				{
-					/* 128 bit integers, TODO someday; not important now. */
-					assert(0);
-				}
-				break;
-#endif
-
-			default:
-				/* Unsupported type. */
-				assert(0);
-		}
-	}
-
 	/* Count the number of significant digits. */
 	reprint_reg_t all_digits;
+	unsigned pad_zeros = 0;
 #if (RP_CFG_Q_RADIX & ~(RP_CFG_Q_RADIX_10))
 	if(FQS_MR_RADIX_DEFINED & rs->mini_regs){
+		/* Note if this is a bitfield we will want to print ALL the bits
+		 * out. */
 		all_digits = s_arch_calc_msb(rs->cur_data.binary) + 1;
 		switch(rs->mini_regs & FQ_MR_RADIX_MASK){
 
 #if (RP_CFG_Q_RADIX & RP_CFG_Q_RADIX_16)
 			case FQ_MR_RADIX_16:
-				all_digits += 0xF;
-				all_digits >>= 4;
-				++all_digits;
+				all_digits += 3;
+				all_digits >>= 2;
+				if((rs->input_flags & 0x2) && (*rs->fmt & 0x7) == 7){
+					pad_zeros = rs->registers[FQS_REG_SIGFIGS] + 3;
+					pad_zeros >>= 2;
+					pad_zeros -= all_digits;
+				}
 				break;
 #endif
 
 #if (RP_CFG_Q_RADIX & RP_CFG_Q_RADIX_8)
 			case FQ_MR_RADIX_8:
-				all_digits += 0x7;
-				all_digits >>= 3;
-				++all_digits;
+				all_digits += 2;
+				all_digits /= 3;
+				if((rs->input_flags & 0x2) && (*rs->fmt & 0x7) == 7){
+					pad_zeros = rs->registers[FQS_REG_SIGFIGS] + 2;
+					pad_zeros /= 3;
+					pad_zeros -= all_digits;
+				}
 				break;
 #endif
 
 #if (RP_CFG_Q_RADIX & RP_CFG_Q_RADIX_2)
 			case FQ_MR_RADIX_2:
 				/* Nothing to do. */
+				if((rs->input_flags & 0x2) && (*rs->fmt & 0x7) == 7){
+					pad_zeros = rs->registers[FQS_REG_SIGFIGS] - all_digits;
+				}
 				break;
 #endif
 
@@ -186,14 +282,13 @@ if(rs->mini_regs & FORMAT_BIT){
 
 	/* If significant digits defined by user, then choose the smaller
 	 * of the two. */
-	unsigned pad_zeros = 0;
 	if(rs->reg_flags & (1 << FQS_REG_SIGFIGS)){
 		/* If the user specified zero sig figs, then we do not print anything at all.
 		 * Instead all digits are considered significant but we go
 		 * back to looking for a new field. */
 		if(!rs->registers[FQS_REG_SIGFIGS]){
 			rs->registers[FQS_REG_SIGFIGS] = (1 << (*(rs->fmt) & 0x7)) << 3;
-			goto BEGIN;
+			goto ST_FIELD_DONE;
 		}
 
 		if(all_digits < rs->registers[FQS_REG_SIGFIGS]){
@@ -206,11 +301,12 @@ if(rs->mini_regs & FORMAT_BIT){
 	}
 
 	/* Shifting will move the break check forward. */
-	unsigned break_check = 0;
 #if (RP_CFG_Q_FEATURES & RP_CFG_Q_FEATURES_EXPO_FORM)
 	if(rs->mini_regs & FQS_FLAG_EXPONENTIAL){
 		/* One sigfig precedes the decimal point. */
-		break_check = 1 | FQW_REG_BREAK_FLAG_SIG;
+
+		rs->reg_flags |= 1 << FQW_REG_BREAK;
+		rs->registers[FQW_REG_BREAK] = 1;
 
 		/* May have to truncate sigfigs or change zero pads
 		 * depending on precision. */
@@ -248,18 +344,15 @@ if(rs->mini_regs & FORMAT_BIT){
 	else 
 #endif
 	if(rs->reg_flags & ((1 << FQS_REG_SHIFT) | (1 << FQS_REG_PRECISION))){
-		/* TODO apply the precision register?? Definitely OK for
-		 * desktop systems, embedded systems probably don't need it. */
+		/* TODO apply the precision register?? */
 
+		unsigned break_check = 0;
 		/* If shift is greater than sigfigs + zeros, then we have
 		 * zeroes in front of the sig digits.  * */
 		if(rs->registers[FQS_REG_SHIFT] > all_digits){
 			/* Break value is number of leading zeros between sig figs
 			 * and decimal point. */
 			break_check = rs->registers[FQS_REG_SHIFT] - all_digits;
-
-			/* Make sure our we didn't reach into flag territory. */
-			assert(!(break_check & FQW_REG_BREAK_FLAG_SIG));
 
 			/* Print leading '0' */
 			rs->mini_regs |= FQW_REG_PRINT_LZ;
@@ -269,10 +362,7 @@ if(rs->mini_regs & FORMAT_BIT){
 			/* Shifting will split sigfigs. */
 			break_check = rs->registers[FQS_REG_SHIFT] - pad_zeros;
 
-			/* Make sure our we didn't reach into flag territory. */
-			assert(!(break_check & FQW_REG_BREAK_FLAG_SIG));
-
-			break_check |= FQW_REG_BREAK_FLAG_SIG;
+			rs->reg_flags |= 1 << FQW_REG_BREAK;
 			++total_len;
 		}
 		else if(rs->registers[FQS_REG_SHIFT] < pad_zeros){
@@ -280,12 +370,17 @@ if(rs->mini_regs & FORMAT_BIT){
 			break_check = rs->registers[FQS_REG_SHIFT];
 			++total_len;
 		}
-
+		rs->registers[FQW_REG_BREAK] = break_check;
 	}
 
-	rs->registers[FQW_REG_BREAK] = break_check;
 	rs->registers[FQW_REG_ZEROS] = pad_zeros;
-	rs->cur_label = &&QUANT_SIGN;
+
+	if((rs->input_flags & 0x2) && (*rs->fmt & 0x7) == 7 && pad_zeros){
+		rs->cur_label = &&ST_QUANT_ZERO_PAD;
+	}
+	else{
+		rs->cur_label = &&ST_QUANT_SIGN;
+	}
 
 	total_len +=
 		rs->registers[FQW_REG_ZEROS] + rs->registers[FQS_REG_SIGFIGS];

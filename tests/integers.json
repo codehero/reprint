@@ -1,7 +1,7 @@
 {
 	"test_multiple" :{
 		"expr":["\fr,\fr,\fr", 1, 12345, 12345678]
-		,"expected":" 1,12345,12345678"
+		,"expected":"1,12345,12345678"
 	}
 	,"test_multiple_different" :{
 		"expr":["\fp,\fq,\fr", 1, 12345, 123456789]
