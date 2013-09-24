@@ -91,21 +91,36 @@ int main(int argc, const char* argv[]){
 									/* If value had a minus, then read it as signed int. Otherwise
 									 * read it as unsigned. */
 									if(!(specifier & REP_FLAG_SPECIFIER_IS_REGISTER)){
-										if(BNJ_VFLAG_NEGATIVE_SIGNIFICAND & v.type){
-											int x;
-											BNJ::Get(x, parser);
+										/* If integral process as signed or unsigned.
+										 * Otherwise process as float. */
 
-											out = reprint_marshall_signed(out, specifier, x);
+										if(((specifier >> 4) & 0x7) < 4){
+											if(BNJ_VFLAG_NEGATIVE_SIGNIFICAND & v.type){
+												int x;
+												BNJ::Get(x, parser);
+
+												out = reprint_marshall_signed(out, specifier, x);
+												if(!out)
+													throw PullParser::invalid_value("Type mismatch!", parser);
+											}
+											else{
+												unsigned u;
+												BNJ::Get(u, parser);
+
+												out = reprint_marshall_unsigned(out, specifier, u);
+												if(!out)
+													throw PullParser::invalid_value("Type mismatch!", parser);
+											}
+										}
+										else if(((specifier >> 4) & 0x7) == 6){
+											double d;
+											BNJ::Get(d, parser);
+											out = reprint_marshall_bin_floating_pt(out, specifier, d);
 											if(!out)
 												throw PullParser::invalid_value("Type mismatch!", parser);
 										}
 										else{
-											unsigned u;
-											BNJ::Get(u, parser);
-
-											out = reprint_marshall_unsigned(out, specifier, u);
-											if(!out)
-												throw PullParser::invalid_value("Type mismatch!", parser);
+											throw PullParser::invalid_value("Type mismatch!", parser);
 										}
 									}
 									else{

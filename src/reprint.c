@@ -497,6 +497,7 @@ BEGIN:
 				/* This is a non-integer value. */
 
 				if((rs->input_flags & 0x7) == 0x6){
+				/* Yes, I did just do that. Go look at the included .c file. */
 #define REPRINT_GUARD_reprint_cb_FLOAT_SPECIFIER
 #include "reprint_cb_float_specifier.c"
 #undef REPRINT_GUARD_reprint_cb_FLOAT_SPECIFIER

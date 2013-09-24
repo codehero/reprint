@@ -1,0 +1,14 @@
+{
+	"test_float" :{
+		"expr":["\f.fr", 1.23]
+		,"expected":"1.230000e0"
+	}
+	,"test_float_e+" :{
+		"expr":["\f.fr", 123]
+		,"expected":"1.230000e2"
+	}
+	,"test_float_e-" :{
+		"expr":["\f.fr", 0.0123]
+		,"expected":"1.230000e-2"
+	}
+}

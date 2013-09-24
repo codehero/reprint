@@ -375,6 +375,8 @@ if(rs->mini_regs & FORMAT_BIT){
 
 	rs->registers[FQW_REG_ZEROS] = pad_zeros;
 
+	/* If this is a bitfield and there leading zeros, then just go directly
+	 * to printing zeros. (bitfields cannot print negative or fractional) */
 	if((rs->input_flags & 0x2) && (*rs->fmt & 0x7) == 7 && pad_zeros){
 		rs->cur_label = &&ST_QUANT_ZERO_PAD;
 	}

@@ -36,6 +36,7 @@
 ST_QUANT_SIGN:
 	if(rs->mini_regs & INTERNAL_HACK_MINUS_FLAG){
 		*dest = '-';
+		rs->mini_regs &= ~INTERNAL_HACK_MINUS_FLAG;
 		rs->cur_label = &&ST_QUANT_CHECK_PREFIX;
 		return 1;
 	}
@@ -168,6 +169,7 @@ ST_QUANT_SIGFIGS:
 			{
 				/* Matched the break, so clear it. */
 				rs->registers[FQW_REG_BREAK] = 0;
+				rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 
 				/* Printing decimal next. */
 				rs->cur_label = &&ST_QUANT_DECIMAL;
@@ -231,6 +233,7 @@ ST_QUANT_ZERO_PAD:
 
 			/* Matched the break, so clear it. */
 			rs->registers[FQW_REG_BREAK] = 0;
+			rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 		}
 		else if(rs->registers[FQW_REG_ZEROS]){
 			return 1;
@@ -267,14 +270,17 @@ ST_QUANT_ZERO_PAD:
 	{
 ST_EXPONENT:
 		/* Setup the number printing registers for the exponent. */
-		if(rs->registers[FQW_REG_EXP] < INTERNAL_MID_EXPONENT){
-			rs->cur_data.binary = INTERNAL_MID_EXPONENT - rs->registers[FQW_REG_EXP];
-			rs->cur_label = &&ST_QUANT_SIGN;
-			rs->mini_regs |= INTERNAL_HACK_MINUS_FLAG;
-		}
-		else{
-			rs->cur_data.binary = rs->registers[FQW_REG_EXP] - INTERNAL_MID_EXPONENT;
-			rs->cur_label = &&ST_QUANT_SIGFIGS;
+		{
+			int* exp = (int*)(rs->registers + FQW_REG_EXP);
+			if(*exp < 0){
+				rs->cur_data.binary = -*exp;
+				rs->cur_label = &&ST_QUANT_SIGN;
+				rs->mini_regs |= INTERNAL_HACK_MINUS_FLAG;
+			}
+			else{
+				rs->cur_data.binary = *exp;
+				rs->cur_label = &&ST_QUANT_SIGFIGS;
+			}
 		}
 
 		/* Determine exponent sig figs. Always Base 10. */
@@ -289,6 +295,10 @@ ST_EXPONENT:
 
 		/* Break when finished with sigfigs. */
 		rs->registers[FQW_REG_BREAK] = 0;
+		rs->reg_flags &= ~(1 << FQW_REG_BREAK);
+
+		/* Clear exponent flag. */
+		rs->mini_regs &= ~FQS_FLAG_EXPONENTIAL;
 
 		/* Output the letter. select 'p' for power of 2 radices. */
 #if (RP_CFG_Q_RADIX & ~(RP_CFG_Q_RADIX_10))
