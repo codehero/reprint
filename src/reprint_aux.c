@@ -71,18 +71,17 @@ BEGIN:
 			return NULL;
 
 		if(*fmt < 0x68){
-			*dest |= (*fmt & 0x7);
+			*dest |= (*fmt & 0x7) << REP_SPECIFIER_OFFSET_TYPE;
 		}
 		else if(*fmt < 0x6C){
-			*dest |= (*fmt & 0x3) << 3;
+			*dest |= (*fmt & 0x3) << REP_SPECIFIER_OFFSET_AUX1;
 		}
 		else{
-			*dest |= (*fmt & 0x3) << 5;
+			*dest |= (*fmt & 0x3) << REP_SPECIFIER_OFFSET_AUX2;
 		}
 		++fmt;
 	}
 
-	*dest <<= 4;
 	*dest |= *fmt & 0xF;
 	++fmt;
 
@@ -90,15 +89,22 @@ BEGIN:
 	if((*dest & 0x7F) == 0x37)
 		goto BEGIN;
 
+	/* Skip over recursion instructions that do not require pointers.  */
+	if(0x9 == (*dest & 0xF)
+			&& 1 == ((*dest >> REP_SPECIFIER_OFFSET_AUX1) & 0x3))
+	{
+		goto BEGIN;
+	}
+
 	return fmt;
 }
 
 void* reprint_marshall_unsigned(void* dest, uint16_t specifier, unsigned long long value){
 	/* Either dealing with ambiguous or concrete types. */
 	unsigned int_size;
-	if(specifier & 0x10){
-		/* Possibly concrete type. */
-		if(specifier & (0x3 << (2 + 3 + 3))){
+	if(specifier & (0x1 << REP_SPECIFIER_OFFSET_AUX1)){
+		/* If this is a variation, then this is not concrete. */
+		if(specifier & (0x3 << REP_SPECIFIER_OFFSET_AUX1)){
 			/* non concrete variation thereof. */
 			/* FIXME */
 			return NULL;
@@ -117,9 +123,9 @@ void* reprint_marshall_unsigned(void* dest, uint16_t specifier, unsigned long lo
 
 void* reprint_marshall_signed(void* dest, uint16_t specifier, signed long long value){
 	/* Either dealing with ambiguous or concrete types. */
-	if(specifier & 0x10){
+	if(specifier & (0x1 << REP_SPECIFIER_OFFSET_TYPE)){
 		/* Possibly concrete type. */
-		if(specifier & (0x3 << (2 + 3 + 3))){
+		if(specifier & (0x3 << REP_SPECIFIER_OFFSET_AUX1)){
 			/* non concrete variation thereof. */
 			/* FIXME */
 			return NULL;
@@ -298,7 +304,7 @@ void* reprint_pack_va(void* dest, unsigned dest_len, const char* fmt, va_list ap
 			continue;
 		}
 
-		switch((specifier >> 4) & 0x7){
+		switch((specifier >> REP_SPECIFIER_OFFSET_TYPE) & 0x7){
 			/* Ambiguous Signed. */
 			case 0x0:
 				switch(specifier & 0x7){
@@ -375,113 +381,128 @@ void* reprint_pack_va(void* dest, unsigned dest_len, const char* fmt, va_list ap
 
 			/* Concrete Signed. */
 			case 0x2:
-				switch(((specifier & 0x180) >> 3) | (specifier & 0x7)){
-					case 0:
-						VA_GET2(int8_t, int);
-						break;
+				{
+					/* Compose index for jump table. */
+					unsigned idx = specifier & 0x7;
+					idx |= ((specifier >> REP_SPECIFIER_OFFSET_AUX1) & 0x3) << 3;
+					switch((idx)){
+						case 0:
+							VA_GET2(int8_t, int);
+							break;
 
-					case 1:
-						VA_GET2(int16_t, int);
-						break;
+						case 1:
+							VA_GET2(int16_t, int);
+							break;
 
-					case 2:
-						VA_GET(int32_t);
-						break;
+						case 2:
+							VA_GET(int32_t);
+							break;
 
-					case 3:
-						VA_GET(int64_t);
-						break;
+						case 3:
+							VA_GET(int64_t);
+							break;
 
-					case 0x10:
-						VA_GET2(int_fast8_t, int);
-						break;
+						case 0x10:
+							VA_GET2(int_fast8_t, int);
+							break;
 
-					case 0x11:
-						VA_GET2(int_fast16_t, int);
-						break;
+						case 0x11:
+							VA_GET2(int_fast16_t, int);
+							break;
 
-					case 0x12:
-						VA_GET(int_fast32_t);
-						break;
+						case 0x12:
+							VA_GET(int_fast32_t);
+							break;
 
-					case 0x13:
-						VA_GET(int_fast64_t);
-						break;
+						case 0x13:
+							VA_GET(int_fast64_t);
+							break;
 
-					case 0x20:
-						VA_GET2(int_least8_t, int);
-						break;
+						case 0x20:
+							VA_GET2(int_least8_t, int);
+							break;
 
-					case 0x21:
-						VA_GET2(int_least16_t, int);
-						break;
+						case 0x21:
+							VA_GET2(int_least16_t, int);
+							break;
 
-					case 0x22:
-						VA_GET(int_least32_t);
-						break;
+						case 0x22:
+							VA_GET(int_least32_t);
+							break;
 
-					case 0x23:
-						VA_GET(int_least64_t);
-						break;
+						case 0x23:
+							VA_GET(int_least64_t);
+							break;
 
-					default:
-						return NULL;
+						default:
+							return NULL;
+					}
 				}
 				break;
 
 			/* Concrete Unsigned. */
 			case 0x3:
-				switch(((specifier & 0x180) >> 3) | (specifier & 0x7)){
-					case 0x0:
-						VA_GET2(uint8_t, int);
-						break;
+				{
+					/* Compose index for jump table. */
+					unsigned idx = specifier & 0x7;
+					idx |= ((specifier >> REP_SPECIFIER_OFFSET_AUX1) & 0x3) << 3;
+					switch((idx)){
+						case 0x0:
+							VA_GET2(uint8_t, int);
+							break;
 
-					case 0x1:
-						VA_GET2(uint16_t, int);
-						break;
+						case 0x1:
+							VA_GET2(uint16_t, int);
+							break;
 
-					case 0x2:
-						VA_GET(uint32_t);
-						break;
+						case 0x2:
+							VA_GET(uint32_t);
+							break;
 
-					case 0x3:
-						VA_GET(uint64_t);
-						break;
+						case 0x3:
+							VA_GET(uint64_t);
+							break;
 
-					case 0x10:
-						VA_GET2(uint_fast8_t, int);
-						break;
+						case 0x4:
+							return NULL;
 
-					case 0x11:
-						VA_GET2(uint_fast16_t, int);
-						break;
 
-					case 0x12:
-						VA_GET(uint_fast32_t);
-						break;
+						case 0x8:
+							VA_GET2(uint_fast8_t, int);
+							break;
 
-					case 0x13:
-						VA_GET(uint_fast64_t);
-						break;
+						case 0x9:
+							VA_GET2(uint_fast16_t, int);
+							break;
 
-					case 0x20:
-						VA_GET2(uint_least8_t, int);
-						break;
+						case 0xA:
+							VA_GET(uint_fast32_t);
+							break;
 
-					case 0x21:
-						VA_GET2(uint_least16_t, int);
-						break;
+						case 0xB:
+							VA_GET(uint_fast64_t);
+							break;
 
-					case 0x22:
-						VA_GET(uint_least32_t);
-						break;
 
-					case 0x23:
-						VA_GET(uint_least64_t);
-						break;
+						case 0xC:
+							VA_GET2(uint_least8_t, int);
+							break;
 
-					default:
-						return NULL;
+						case 0xD:
+							VA_GET2(uint_least16_t, int);
+							break;
+
+						case 0xE:
+							VA_GET(uint_least32_t);
+							break;
+
+						case 0xF:
+							VA_GET(uint_least64_t);
+							break;
+
+						default:
+							return NULL;
+					}
 				}
 				break;
 

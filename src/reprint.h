@@ -36,6 +36,9 @@
  *
  * This may be smaller than the * maximum size supported by the platform
  * (for efficiency reasons). */
+
+
+/* TODO make this fit in 64 bytes (only occupy 1 cache line) */
 typedef struct reprint_state_s {
 	/** @brief Format string. Points to current character. */
 	const uint8_t* fmt;

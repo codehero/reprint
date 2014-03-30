@@ -30,6 +30,9 @@
 
 enum {
 	REP_FLAG_SPECIFIER_IS_REGISTER = 0x8000
+	,REP_SPECIFIER_OFFSET_TYPE = 4
+	,REP_SPECIFIER_OFFSET_AUX1 = 7
+	,REP_SPECIFIER_OFFSET_AUX2 = 9
 };
 
 /** @brief Search format string for next input specifier.

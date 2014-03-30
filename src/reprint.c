@@ -260,7 +260,7 @@ uint8_t s_arch_int_conc_size[24] = {
 	,2
 	,4
 	,8
-	,16
+	,0
 	,0
 	,0
 	,0
@@ -269,7 +269,7 @@ uint8_t s_arch_int_conc_size[24] = {
 	,sizeof(uint_fast16_t)
 	,sizeof(uint_fast32_t)
 	,sizeof(uint_fast64_t)
-	,16
+	,0
 	,0
 	,0
 	,0
@@ -278,7 +278,7 @@ uint8_t s_arch_int_conc_size[24] = {
 	,sizeof(uint_least16_t)
 	,sizeof(uint_least32_t)
 	,sizeof(uint_least64_t)
-	,16
+	,0
 	,0
 	,0
 	,0
@@ -566,6 +566,8 @@ BEGIN:
 				assert(0);
 			}
 			else if(*(rs->fmt) == Q_RECURSE){
+				/* TODO */
+				assert(0);
 			}
 			else{
 				assert(0);

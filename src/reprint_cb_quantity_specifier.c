@@ -371,6 +371,7 @@ if(rs->mini_regs & FORMAT_BIT){
 			++total_len;
 		}
 		rs->registers[FQW_REG_BREAK] = break_check;
+		rs->reg_flags |= 1 << FQW_REG_BREAK;
 	}
 
 	rs->registers[FQW_REG_ZEROS] = pad_zeros;
