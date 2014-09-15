@@ -301,11 +301,11 @@ void reprint_init(reprint_state* rs, const char* fmt, const void* data
 	rs->fmt = (const uint8_t*)fmt;
 	rs->data = data;
 	if(struct_pack)
-		rs->reg_flags |= FLAG_REG_RESERVED_80;
+		rs->reg_flags |= FLAG_REG_STRUCT_PACK;
 }
 
 __attribute__((__noinline__,__noclone__))
-int reprint_cb(reprint_state* rs, uint8_t* dest){
+int reprint_cb(reprint_state* rs, uint8_t* dest, unsigned dest_len){
 BEGIN:
 	assert(dest);
 
@@ -336,12 +336,19 @@ BEGIN:
 			return 0;
 
 		/* Check if this is a field header. */
-		if(ESCAPE_MASK != (*i & ~ESCAPE_SELECT)){
+		uint8_t* tmp = dest;
+		const uint8_t* end = dest + dest_len;
+		while(tmp != end && *i && ESCAPE_MASK != (*i & ~ESCAPE_SELECT)){
 			/* Copy character to output and advance format state. */
-			*dest = *i;
+			*tmp = *i;
+			++i;
 			++rs->fmt;
-			return 1;
+			++tmp;
 		}
+
+		/* If wrote some string data then just return. */
+		if(tmp != dest)
+			return tmp - dest;
 
 		/* Check for double \b\b or \f\f, which means just 
 		 * send that char. */

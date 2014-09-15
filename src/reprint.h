@@ -69,6 +69,11 @@ typedef struct reprint_state_s {
 void reprint_init(reprint_state* rs, const char* fmt, const void* data
 	,uint8_t struct_pack);
 
-int reprint_cb(reprint_state* rs, uint8_t* dest);
-
+/** @brief Print some data to the destination buffer.
+ *  @param rs Reprint state to convert
+ *  @param dest Where to write output data
+ *  @param dest_len Maximum number of bytes that can be written
+ *  @return 0 if finished outputting, if positive then number of characters written
+ *  If negative then a runtime (not assertable logic error) occurred. */
+int reprint_cb(reprint_state* rs, uint8_t* dest, unsigned dest_len);
 #endif

@@ -89,10 +89,12 @@ int resnprintf_struct(uint8_t* dest, unsigned dest_len, const char* fmt,
 	reprint_init(&s_rs, fmt, data, 1);
 	uint8_t* end = dest + dest_len - 1;
 	while(dest != end){
-		int ret = reprint_cb(&s_rs, dest);
-		++dest;
+		int ret = reprint_cb(&s_rs, dest, end - dest);
 		if(!ret)
 			break;
+		if(ret < 0)
+			return ret;
+		dest += ret;
 	}
 
 	/* Add null terminator. */
@@ -106,10 +108,16 @@ int refprintf_struct(FILE* output, const char* fmt, const void* data){
 	uint8_t buffer[BUFFER_SIZE];
 	int acc = 0;
 	while(1){
-		uint8_t *x;
-		for(x = buffer; x != buffer + BUFFER_SIZE; ++x){
-			if(!reprint_cb(&s_rs, x))
+		uint8_t *x = buffer;
+		const uint8_t* end = buffer + BUFFER_SIZE;
+		while(x != end){
+			int ret = reprint_cb(&s_rs, x, end - x);
+			if(!ret)
 				break;
+			if(ret < 0)
+				return ret;
+
+			x += ret;
 		}
 		int ret = fwrite(buffer, 1, x - buffer, output);
 		if(ret < 0)
@@ -134,10 +142,12 @@ int resnprintf_packed(uint8_t* dest, unsigned dest_len, const char* fmt,
 	uint8_t* end = dest + dest_len - 1;
 	uint8_t* o = dest;
 	while(o != end){
-		int ret = reprint_cb(&s_rs, o);
+		int ret = reprint_cb(&s_rs, o, end - o);
 		if(!ret)
 			break;
-		++o;
+		if(ret < 0)
+			return ret;
+		o += ret;
 	}
 
 	/* Add null terminator. */
@@ -152,10 +162,16 @@ int refprintf_packed(FILE* output, const char* fmt, const uint8_t* data){
 	uint8_t buffer[BUFFER_SIZE];
 	int acc = 0;
 	while(1){
-		uint8_t *x;
-		for(x = buffer; x != buffer + BUFFER_SIZE; ++x){
-			if(!reprint_cb(&s_rs, x))
+		uint8_t *x = buffer;
+		const uint8_t* end = buffer + BUFFER_SIZE;
+		while(x != end){
+			int ret = reprint_cb(&s_rs, x, end - x);
+			if(!ret)
 				break;
+			if(ret < 0)
+				return ret;
+
+			x += ret;
 		}
 		int ret = fwrite(buffer, 1, x - buffer, output);
 		if(ret < 0)

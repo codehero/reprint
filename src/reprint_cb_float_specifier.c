@@ -163,11 +163,15 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 						total_len += s_arch_calc_r10_digits(abs(exp));
 					}
 					else{
-#if 0
+						/* TODO use that C++ backend that has the awesome algorithm?  */
+						assert(0);
 
 						/* If significant digits defined by user, then choose the smaller
 						 * of the two. */
 						if(rs->reg_flags & (1 << FQS_REG_SIGFIGS)){
+							/* TODO */
+							assert(0);
+#if 0
 							if(!rs->registers[FQS_REG_SIGFIGS])
 								assert(0);
 
@@ -175,8 +179,8 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 								pad_zeros = rs->registers[FQS_REG_SIGFIGS] - all_digits;
 								rs->registers[FQS_REG_SIGFIGS] = all_digits;
 							}
-						}
 #endif
+						}
 
 						if(exp < 0){
 							/* Going to print a leading zero. */

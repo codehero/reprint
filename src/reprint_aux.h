@@ -77,4 +77,14 @@ void* reprint_marshall_char(void* dest, uint16_t specifier, unsigned code_point)
  *  if NULL, then bad specifier or insufficient space.*/
 void* reprint_pack_va(void* dest, unsigned dest_len, const char* fmt, va_list ap);
 
+/** @brief Marshall specified parameters into packed form.
+ *  @param dest Where to store packed parameters
+ *  @param dest_len available space.
+ *  @param fmt Format string containing specifiers
+ *  @return Pointer to first byte after last packed;
+ *  if NULL, then bad specifier or insufficient space.*/
+void* reprint_pack(void* dest, unsigned dest_len, const char* fmt, ...);
+
+int reprint_buff(reprint_state* rs, uint8_t* dest, unsigned dest_length);
+
 #endif

@@ -197,6 +197,10 @@ int main(int argc, const char* argv[]){
 				reprintf("FAILED: \f=dp\n'\f=dp'\n'\f=dp'\n\n",
 					keylen, key, output_len, buffer, expected_length, expected);
 			}
+			else{
+				reprintf("PASSED: \f=dp\n'\f=dp'\n'\f=dp'\n\n",
+					keylen, key, output_len, buffer, expected_length, expected);
+			}
 		}
 	}
 	catch(const std::exception& e){

@@ -560,3 +560,25 @@ void* reprint_pack_va(void* dest, unsigned dest_len, const char* fmt, va_list ap
 
 	return out;
 }
+
+void* reprint_pack(void* dest, unsigned dest_len, const char* fmt, ...){
+	va_list ap;
+	va_start(ap, fmt);
+	void* ret = reprint_pack_va(dest, dest_len, fmt, ap);
+	va_end(ap);
+	return ret;
+}
+
+int reprint_buff(reprint_state* rs, uint8_t* dest, unsigned dest_length){
+	const uint8_t* end = dest + dest_length;
+	uint8_t* x = dest;
+	while(x != end){
+		int ret = reprint_cb(rs, x, end - x);
+		if(ret < 0)
+			return -(x - dest);
+
+		if(0 == ret)
+			break;
+	}
+	return x - dest;
+}

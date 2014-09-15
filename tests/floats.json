@@ -1,5 +1,9 @@
 {
 	"test_float" :{
+		"expr":["\ffr", 1.23]
+		,"expected":"1.230000"
+	}
+	,"test_float" :{
 		"expr":["\f.fr", 1.23]
 		,"expected":"1.230000e0"
 	}

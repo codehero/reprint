@@ -5,12 +5,12 @@
 	}
 
 	,"test_string_length" :{
-		"expr":["\f4;dp", "TEST_STRING"]
+		"expr":["\f4=dp", "TEST_STRING"]
 		,"expected":"TEST"
 	}
 
 	,"test_string_offset_length" :{
-		"expr":["\f4;2<dp", "TEST_STRING"]
+		"expr":["\f4=2<dp", "TEST_STRING"]
 		,"expected":"ST_S"
 	}
 
