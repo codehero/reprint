@@ -32,8 +32,6 @@ The symbols comprising the syntax are carefully organized around the structure o
 
 Organizing the symbol syntax around radix 2 means the modifiers are succintly identified in the following truth table
 
-![Special ASCII table](doc/reprint_modifiers.png)
-
 Modifiers: Mini Registers
 -------------------------
 
@@ -109,8 +107,40 @@ Modifiers: Registers
  * **String Start** (Register 3): Start printing from an offset in the string.
  * **Repeat** (Register 2): Print out the character n more times, where n is the register value.
  * **Size** (Register 3): Input to the pointer offset calculation.
+
+
 Examples
 --------
+
+Printing an integer:
+
+	int k = 5;
+
+	/* Using reprint */
+	reprintf("The value is \fr\n", k);
+
+	/* Using printf */
+	printf("The value is %i\n", k);
+
+Printing an integer and a string:
+
+	const char STRING[] = "This is a test string";
+
+	/* Using reprint */
+	reprintf("The string is \fdp and the int is \fr\n", STRING, k);
+
+	/* Using printf */
+	printf("The string is %s and the int is %i\n", STRING, k);
+
+Printing an array of 3 floats:
+
+	float vector[3] = {1.0, 2.0, 3.0};
+
+	/* Using reprint to print packed float data. */
+	reprintpf("Position at [\ffr,\ffr,\ffr]\n", vector);
+
+	/* Using printf */
+	printf("Position at [%f,%f,%f]\n", vector[0], vector[1], vector[2]);
 
 Printing a struct:
 
@@ -123,7 +153,7 @@ Printing a struct:
 	} our_fine_struct;
 
 	/* Use reprintsf since our_fine_struct is well, struct aligned. */
-	reprintsf("\fA \f@ \f@ \fI \f`\n", &our_fine_struct);
+	reprintsf("\fcq \fcp \fcp \fbr \fdp\n", &our_fine_struct);
 
 	/* Using printf. Curse the long variable name. */
 	printf("%hu %hhu %hhu %i %s\n"
@@ -136,27 +166,26 @@ Printing a struct:
 
 
 Printing an <a href="http://en.wikipedia.org/wiki/IPv4#Header">IPV4 header:</a>
-	/* Assume user already translated multibyte quantities into host endian.
-	   Note that IP address is not a quantity, so it should be big endian. */
+
 	uint8_t *incoming_packet;
 
 	/* Using reprint. */
-	/* \f0=A pulls 16 bits without printing them.
-		\fN;P prints N bits of data from this pool (in decimal by default).  */
+	/* \f0=cq pulls 16 bits without printing them.
+		\fN;cw prints N bits of data from this pool (in decimal by default).  */
 	const char test_reprint_ipv4[] = 
-		"Version:           \f0=A\f4;/P\n"
-		"Header Words:      \f4;/P\n"
-		"DSCP:              \f6;/P\n"
-		"ECN:               \f2;P\n"
-		"Total Bytes:       \fA\n"
-		"Identification:    \fA\n"
-		"Flags:             \f0=A\f&3;/P\n"
-		"Fragment Offset:   \f13;P\n"
-		"Protocol:          \f@\n"
-		"TTL:               \f@\n"
-		"Header Checksum:   \fA\n"
-		"Source IP:         \f@.\f@.\f@.\f@\n"
-		"Dest IP:           \f@.\f@.\f@.\f@\n";
+		"Version:           \f0=cq\f4;ncw\n"
+		"Header Words:      \f4;ncw\n"
+		"DSCP:              \f6;ncw\n"
+		"ECN:               \f2;cw\n"
+		"Total Bytes:       \fcq\n"
+		"Identification:    \fcq\n"
+		"Flags:             \f0=cq\f&3;ncw\n"
+		"Fragment Offset:   \f13;cw\n"
+		"Protocol:          \fcp\n"
+		"TTL:               \fcp\n"
+		"Header Checksum:   \fcp\n"
+		"Source IP:         \fcp.\fcp.\fcp.\fcp\n"
+		"Dest IP:           \fcp.\fcp.\fcp.\fcp\n";
 
 	reprintpf(test_reprint_ipv4, incoming_packet);
 
@@ -185,7 +214,7 @@ Printing an <a href="http://en.wikipedia.org/wiki/IPv4#Header">IPV4 header:</a>
 		,incoming_packet[1] & 0x3
 		,*(uint16_t*)(incoming_packet + 2)
 		,*(uint16_t*)(incoming_packet + 4)
-		,*(uint16_t*)(incoming_packet + 5) >> 5
+		,incoming_packet[5] >> 5
 		,*(uint16_t*)(incoming_packet + 6) & 0x1FFF
 		,incoming_packet[8]
 		,incoming_packet[9]
@@ -199,6 +228,24 @@ Printing an <a href="http://en.wikipedia.org/wiki/IPv4#Header">IPV4 header:</a>
 		,incoming_packet[18]
 		,incoming_packet[19]);
 
+Print three structs in a row:
+
+	Struct1 s1;
+	Struct2 s2;
+	Struct3 s3;
+
+	/* Using reprint. */
+	const char struct1f[] = "\f...\fjy";
+	const char struct2f[] = "\f...\fjy";
+	const char struct3f[] = "\f...";
+
+	reprintf(struct1f, &s1, struct2f, &s2, struct3f, &s3);
+
+	/* Using printf. */
+
+	printf("slkdf", ....);
+	printf("slkdf", ....);
+	printf("slkdf", ....);
 
 Requirements
 ------------
