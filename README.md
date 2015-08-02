@@ -1,5 +1,5 @@
 # reprint: redesigned printf #
-### Specification version: 0.1.0 ###
+### Specification version: 0.1.1 ###
 
 reprint is a fresh approach to the semantics and syntax of formatted I/O.
 
@@ -14,7 +14,7 @@ Syntax
 ------
  * **Arrangment**: The conversion specifier syntax is derived from the structure of the ASCII table. See the reprint syntax diagram.
  * **Field Header**: Indicates start of conversion specifier. The `\f` header starts a formatted specifier. The `\b` header starts a binary specifier.
- * **Modifiers**: Parameters that control the conversion behaviour. There are 4 flags, 3 2-bit mini registers, and 7 full registers of a platform dependent size. For each register, there is a corresponding DEFINED flag, which is set if the user specified a register value. Full register values are either passed in the data or specified in decimal or octal immediately preceding the register symbol.
+ * **Modifiers**: Parameters that control the conversion behaviour. There are 4 flags, 3 2-bit selector registers, and 7 full registers of a platform dependent size. For each register, there is a corresponding DEFINED flag, which is set if the user specified a register value. Full register values are either passed in the data or specified in decimal or octal immediately preceding the register symbol.
  * **Input Specifier**: Every conversion specifier ends with exactly one input specifier. The input specifier identifies the type of data to be converted. The combination of the Field Header and the Input Specifier determine the function of the Modifiers. There are 64 possible input specifiers.
 
 reprint symbols
@@ -22,7 +22,7 @@ reprint symbols
 The symbols comprising the syntax are carefully organized around the structure of their radix 2 representation.
 
  * For field headers, the third LSB toggles formatted vs binary.
- * Mini register values are determined by the the first 2 LSB of the symbol value.
+ * Selector values are determined by the the first 2 LSB of the symbol value.
  * Flag symbols index the corresponding flag as determined by the the first 2 LSB of the symbol value.
  * Register symbols are in the same column as the digits. The register is identified by subtracting 0x39 from the register symbol value. Register 0 is set by the digits preceding the input specifier.
 
@@ -32,52 +32,52 @@ The symbols comprising the syntax are carefully organized around the structure o
 
 Organizing the symbol syntax around radix 2 means the modifiers are succintly identified in the following truth table
 
-Modifiers: Mini Registers
+Modifiers: Selectors
 -------------------------
 
- * **Rounding Method** (MR0): Select which rounding method to use when a quantitative value is formatted.
+ * **Rounding Method** (Selector0): Select which rounding method to use when a quantitative value is formatted.
      * 'unset' : round to even.
      * `00` : Round away from infinity
      * `01` : Round toward infinity
      * `10` : Round away from zero 
      * `11` : Round toward zero
 
- * **Output Radix** (MR1): Format quantitative value in the following radix
+ * **Output Radix** (Selector1): Format quantitative value in the following radix
      * 'unset' : Decimal
      * `00` : Hexadecimal
      * `01` : Octal
      * `10` : Radix 2
      * `11` : Reserved
 
- * **Prefix Select** (MR2): Add the following prefixes to the output number
+ * **Prefix Select** (Selector2): Add the following prefixes to the output number
      * 'unset' : same as `00`
      * `00` : Print sign if negative `'-'`
      * `01` : Force sign output `'+'` or `'-'`
      * `10` : Print radix prefix (`0x` for hex, `0` for octal, `b` for binary)
      * `11` : Print radix prefix and force sign output
 
- * **Endian Select** (MR0): Change the data endianess in output
+ * **Endian Select** (Selector0): Change the data endianess in output
      * 'unset' : Host endian
      * `00` : Little endian
      * `01` : Big endian
      * `10` : Reserved
      * `11` : Reserved
 
- * **Integer Output Format** (MR1): Change the binary representation of the integer
+ * **Integer Output Format** (Selector1): Change the binary representation of the integer
      * 'unset': 2's complement (no change)
      * `00` : Sign magnitude
      * `01` : BCD, Binary coded decimal
      * `10` : DPD, Densely packed decimal
      * `11` : Reserved
 
- * **Pointer Load** (MR0): Load pointer value into interpreter state; if loaded pointer value is null, then output stops immediately.
+ * **Pointer Load** (Selector0): Load pointer value into interpreter state; if loaded pointer value is null, then output stops immediately.
      * 'unset': Print only; do not load pointer
      * `00` : Print and load pointer into data pointer
      * `01` : Print and load pointer into format pointer
      * `10` : Load pointer into data pointer; do not print
      * `11` : Load pointer into format pointer; do not print
 
- * **Offset Calculation** (MR2): Modify pointer value by an offset; offset value is whatever value remains in loaded data
+ * **Offset Calculation** (Selector2): Modify pointer value by an offset; offset value is whatever value remains in loaded data
      * 'unset': Do not modify pointer value.
      * `00` : Multiply offset by SIZE register and subtract from pointer
      * `01` : Bit shift offset by SIZE register and subtract from pointer

@@ -57,7 +57,7 @@ typedef struct reprint_state_s {
 
 	reprint_reg_t registers[REPRINTF_REGISTER_COUNT];
 
-	uint16_t mini_regs;
+	uint16_t selectors;
 
 	uint8_t reg_flags;
 

@@ -50,29 +50,29 @@
 /* These enums identify bits in the registers. */
 enum {
 
-	/* Flag/Mini Register word. */
+	/* Flag/Selector word. */
 	FLAG_0 = 0x0001
 	,FLAG_1 = 0x0002
 	,FLAG_2 = 0x0004
 	,FLAG_3 = 0x0008
 
-	,FLAG_MINI_REG_0_DEFINED = 0x0010
-	,FLAG_MINI_REG_0_VAL_0 = 0x0020
-	,FLAG_MINI_REG_0_VAL_1 = 0x0040
+	,FLAG_SELECTOR_0_DEFINED = 0x0010
+	,FLAG_SELECTOR_0_VAL_0 = 0x0020
+	,FLAG_SELECTOR_0_VAL_1 = 0x0040
 
-	,FLAG_MINI_REG_1_DEFINED = 0x0080
-	,FLAG_MINI_REG_1_VAL_0 = 0x0100
-	,FLAG_MINI_REG_1_VAL_1 = 0x0200
+	,FLAG_SELECTOR_1_DEFINED = 0x0080
+	,FLAG_SELECTOR_1_VAL_0 = 0x0100
+	,FLAG_SELECTOR_1_VAL_1 = 0x0200
 
-	,FLAG_MINI_REG_2_DEFINED = 0x0400
-	,FLAG_MINI_REG_2_VAL_0 = 0x0800
-	,FLAG_MINI_REG_2_VAL_1 = 0x1000
+	,FLAG_SELECTOR_2_DEFINED = 0x0400
+	,FLAG_SELECTOR_2_VAL_0 = 0x0800
+	,FLAG_SELECTOR_2_VAL_1 = 0x1000
 
-	,FLAG_MINI_REG_RESERVED_2000 = 0x2000
-	,FLAG_MINI_REG_RESERVED_4000 = 0x4000
+	,FLAG_SELECTOR_RESERVED_2000 = 0x2000
+	,FLAG_SELECTOR_RESERVED_4000 = 0x4000
 
 /* Avoid int enum warning. */
-#define FLAG_MINI_REG_RESERVED_8000  0x8000
+#define FLAG_SELECTOR_RESERVED_8000  0x8000
 
 
 	/** @brief Flag 1 is the '-' character.
@@ -91,23 +91,23 @@ enum {
 	,FLAG_REG_RESERVED_80 = 0x80
 };
 
-/* These enums map mini registers, flags, and register IDs to
+/* These enums map selectors, flags, and register IDs to
  * bit masks and such.*/
 enum {
 	/* Data is packed as struct. */
 	FLAG_REG_STRUCT_PACK = FLAG_REG_RESERVED_80,
 
 	/* Whether user specified formatting '\f' vs '\b' */
-	FORMAT_BIT = FLAG_MINI_REG_RESERVED_4000
+	FORMAT_BIT = FLAG_SELECTOR_RESERVED_4000
 
 	/* Common formatted flags, registers */
 	,FS_REG_FIELD_WIDTH = 0
 	,FS_REG_PAD_CHAR = 1
 	,FS_FLAG_RIGHT_ALIGN = FLAG_0
 
-	/* Common Formatted Quantity miniregs, flags, registers */
+	/* Common Formatted Quantity selectors, flags, registers */
 
-	,FQS_MR_RADIX_DEFINED = FLAG_MINI_REG_1_DEFINED
+	,FQS_S_RADIX_DEFINED = FLAG_SELECTOR_1_DEFINED
 	,FQS_FLAG_EXPONENTIAL = FLAG_2
 	,FQS_REG_SHIFT = 3
 	,FQS_REG_SIGFIGS = 4
@@ -136,45 +136,45 @@ enum {
 	,FQW_REG_BREAK_FLAG_SIG = 0x80
 	,FQW_REG_BREAK_MASK = 0x7F
 
-	,FQW_REG_PRINT_LZ = FLAG_MINI_REG_RESERVED_2000
+	,FQW_REG_PRINT_LZ = FLAG_SELECTOR_RESERVED_2000
 
 	/* Rounding. */
 
-	,FQ_MR_ROUND_AWAY_INF = FLAG_MINI_REG_0_DEFINED
-	,FQ_MR_ROUND_TOWARD_INF = FLAG_MINI_REG_0_DEFINED
-		| FLAG_MINI_REG_0_VAL_0
-	,FQ_MR_ROUND_AWAY_ZERO = FLAG_MINI_REG_0_DEFINED
-		| FLAG_MINI_REG_0_VAL_1
-	,FQ_MR_ROUND_TOWARD_ZERO = FLAG_MINI_REG_0_DEFINED
-		| FLAG_MINI_REG_0_VAL_0 | FLAG_MINI_REG_0_VAL_1
+	,FQ_S_ROUND_AWAY_INF = FLAG_SELECTOR_0_DEFINED
+	,FQ_S_ROUND_TOWARD_INF = FLAG_SELECTOR_0_DEFINED
+		| FLAG_SELECTOR_0_VAL_0
+	,FQ_S_ROUND_AWAY_ZERO = FLAG_SELECTOR_0_DEFINED
+		| FLAG_SELECTOR_0_VAL_1
+	,FQ_S_ROUND_TOWARD_ZERO = FLAG_SELECTOR_0_DEFINED
+		| FLAG_SELECTOR_0_VAL_0 | FLAG_SELECTOR_0_VAL_1
 
 
 	/* Format in decimal. */
-	,FQ_MR_RADIX_10 = 0x0
+	,FQ_S_RADIX_10 = 0x0
 
 	/* Format in hexadecimal. */
-	,FQ_MR_RADIX_16 = FLAG_MINI_REG_1_DEFINED
+	,FQ_S_RADIX_16 = FLAG_SELECTOR_1_DEFINED
 
 	/* Format in octal. */
-	,FQ_MR_RADIX_8 = FLAG_MINI_REG_1_DEFINED
-		| FLAG_MINI_REG_1_VAL_0
+	,FQ_S_RADIX_8 = FLAG_SELECTOR_1_DEFINED
+		| FLAG_SELECTOR_1_VAL_0
 
 	/* Format in binary. */
-	,FQ_MR_RADIX_2 = FLAG_MINI_REG_1_DEFINED
-		| FLAG_MINI_REG_1_VAL_1
+	,FQ_S_RADIX_2 = FLAG_SELECTOR_1_DEFINED
+		| FLAG_SELECTOR_1_VAL_1
 
-	,FQ_MR_RADIX_MASK = FLAG_MINI_REG_1_DEFINED
-		| FLAG_MINI_REG_1_VAL_0
-		| FLAG_MINI_REG_1_VAL_1
+	,FQ_S_RADIX_MASK = FLAG_SELECTOR_1_DEFINED
+		| FLAG_SELECTOR_1_VAL_0
+		| FLAG_SELECTOR_1_VAL_1
 
 
-	,FQ_MR_PREFIX_DEFINED = FLAG_MINI_REG_2_DEFINED
+	,FQ_S_PREFIX_DEFINED = FLAG_SELECTOR_2_DEFINED
 
 	/* Force display of sign '+' or '-' */
-	,FQ_MR_PREFIX_FORCE_SIGN = FLAG_MINI_REG_2_VAL_0
+	,FQ_S_PREFIX_FORCE_SIGN = FLAG_SELECTOR_2_VAL_0
 
 	/* Display prefix if not base10.  */
-	,FQ_MR_PREFIX_SHOW = FLAG_MINI_REG_2_VAL_1
+	,FQ_S_PREFIX_SHOW = FLAG_SELECTOR_2_VAL_1
 
 	,FQB_REG_BCOUNT = 2
 	,FQB_REG_BDROP = 3
@@ -192,47 +192,47 @@ enum {
 
 
 	/* Only print the ptr value.. */
-	,FMP_MR_LOAD_PRINT_ONLY = 0x0
+	,FMP_S_LOAD_PRINT_ONLY = 0x0
 
 	/* Print and load the data value. */
-	,FMP_MR_LOAD_PRINT_DATA = FLAG_MINI_REG_1_DEFINED
+	,FMP_S_LOAD_PRINT_DATA = FLAG_SELECTOR_1_DEFINED
 
 	/* Print and load the format value. */
-	,FMP_MR_LOAD_PRINT_FMT = FLAG_MINI_REG_1_DEFINED
-		| FLAG_MINI_REG_1_VAL_0
+	,FMP_S_LOAD_PRINT_FMT = FLAG_SELECTOR_1_DEFINED
+		| FLAG_SELECTOR_1_VAL_0
 
 	/* Only load the data value. */
-	,FMP_MR_LOAD_DATA = FLAG_MINI_REG_1_DEFINED
-		| FLAG_MINI_REG_1_VAL_1
+	,FMP_S_LOAD_DATA = FLAG_SELECTOR_1_DEFINED
+		| FLAG_SELECTOR_1_VAL_1
 
 	/* Only load the format value. */
-	,FMP_MR_LOAD_FMT = FLAG_MINI_REG_1_DEFINED
-		| FLAG_MINI_REG_1_VAL_0
-		| FLAG_MINI_REG_1_VAL_1
+	,FMP_S_LOAD_FMT = FLAG_SELECTOR_1_DEFINED
+		| FLAG_SELECTOR_1_VAL_0
+		| FLAG_SELECTOR_1_VAL_1
 
-	,FMP_MR_LOAD_MASK = FLAG_MINI_REG_1_DEFINED
-		| FLAG_MINI_REG_1_VAL_0
-		| FLAG_MINI_REG_1_VAL_1
+	,FMP_S_LOAD_MASK = FLAG_SELECTOR_1_DEFINED
+		| FLAG_SELECTOR_1_VAL_0
+		| FLAG_SELECTOR_1_VAL_1
 
 };
-#define INTERNAL_HACK_MINUS_FLAG FLAG_MINI_REG_RESERVED_8000
+#define INTERNAL_HACK_MINUS_FLAG FLAG_SELECTOR_RESERVED_8000
 
 
-static const uint16_t s_mini_reg_bits[16] = {
-	FLAG_MINI_REG_0_DEFINED
-	,FLAG_MINI_REG_0_DEFINED | FLAG_MINI_REG_0_VAL_0
-	,FLAG_MINI_REG_0_DEFINED | FLAG_MINI_REG_0_VAL_1
-	,FLAG_MINI_REG_0_DEFINED | FLAG_MINI_REG_0_VAL_0 | FLAG_MINI_REG_0_VAL_1
+static const uint16_t s_selector_bits[16] = {
+	FLAG_SELECTOR_0_DEFINED
+	,FLAG_SELECTOR_0_DEFINED | FLAG_SELECTOR_0_VAL_0
+	,FLAG_SELECTOR_0_DEFINED | FLAG_SELECTOR_0_VAL_1
+	,FLAG_SELECTOR_0_DEFINED | FLAG_SELECTOR_0_VAL_0 | FLAG_SELECTOR_0_VAL_1
 
-	,FLAG_MINI_REG_1_DEFINED
-	,FLAG_MINI_REG_1_DEFINED | FLAG_MINI_REG_1_VAL_0
-	,FLAG_MINI_REG_1_DEFINED | FLAG_MINI_REG_1_VAL_1
-	,FLAG_MINI_REG_1_DEFINED | FLAG_MINI_REG_1_VAL_1 | FLAG_MINI_REG_1_VAL_0
+	,FLAG_SELECTOR_1_DEFINED
+	,FLAG_SELECTOR_1_DEFINED | FLAG_SELECTOR_1_VAL_0
+	,FLAG_SELECTOR_1_DEFINED | FLAG_SELECTOR_1_VAL_1
+	,FLAG_SELECTOR_1_DEFINED | FLAG_SELECTOR_1_VAL_1 | FLAG_SELECTOR_1_VAL_0
 
-	,FLAG_MINI_REG_2_DEFINED
-	,FLAG_MINI_REG_2_DEFINED | FLAG_MINI_REG_2_VAL_0
-	,FLAG_MINI_REG_2_DEFINED | FLAG_MINI_REG_2_VAL_1
-	,FLAG_MINI_REG_2_DEFINED | FLAG_MINI_REG_2_VAL_1 | FLAG_MINI_REG_2_VAL_0
+	,FLAG_SELECTOR_2_DEFINED
+	,FLAG_SELECTOR_2_DEFINED | FLAG_SELECTOR_2_VAL_0
+	,FLAG_SELECTOR_2_DEFINED | FLAG_SELECTOR_2_VAL_1
+	,FLAG_SELECTOR_2_DEFINED | FLAG_SELECTOR_2_VAL_1 | FLAG_SELECTOR_2_VAL_0
 
 	/* , */
 	,FLAG_0
@@ -314,12 +314,12 @@ BEGIN:
 	if(rs->cur_label){
 
 		/* Decrement field width if non-zero */
-		if(rs->mini_regs & FORMAT_BIT){
+		if(rs->selectors & FORMAT_BIT){
 			if(rs->registers[FS_REG_FIELD_WIDTH]){
 				--rs->registers[FS_REG_FIELD_WIDTH];
 
 				/* If padding is on left, then write that out. */
-				if(rs->mini_regs & FS_FLAG_RIGHT_ALIGN){
+				if(rs->selectors & FS_FLAG_RIGHT_ALIGN){
 					*dest = rs->registers[FS_REG_PAD_CHAR];
 					return 1;
 				}
@@ -359,7 +359,7 @@ BEGIN:
 		}
 
 		/* Zero the state. Don't clear registers that are already set. */
-		rs->mini_regs = 0;
+		rs->selectors = 0;
 		{
 			/* Invert the set registers. */
 			uint_fast8_t f = ~rs->reg_flags & 0x7F;
@@ -374,7 +374,7 @@ BEGIN:
 
 
 		if(*i & ESCAPE_SELECT){
-			rs->mini_regs |= FORMAT_BIT;
+			rs->selectors |= FORMAT_BIT;
 
 			/* Default pad char is a ' '.*/
 			rs->registers[FS_REG_PAD_CHAR] = ' ';
@@ -396,7 +396,7 @@ BEGIN:
 
 				if(*i < 0x30){
 					/* In the 0x20 column. */
-					rs->mini_regs |= s_mini_reg_bits[*i & 0xF];
+					rs->selectors |= s_selector_bits[*i & 0xF];
 				}
 				else{
 					/* If user specified value in fmt string, set this flag. */
@@ -411,7 +411,7 @@ BEGIN:
 							 * 8 and 9 are not expected; then will just wrap around...
 							 * */
 							while(*i <= 0x39){
-								/* Should not mix mini-registers and flags inside a reg value. */
+								/* Should not mix selectors and flags inside a reg value. */
 								assert(*i >= 0x30);
 
 								reg_value <<= 3;
@@ -422,7 +422,7 @@ BEGIN:
 						else{
 							/* Parse decimal value into reg_value. */
 							while(*i <= 0x39){
-								/* Should not mix mini-registers and flags inside a reg value. */
+								/* Should not mix selectors and flags inside a reg value. */
 								assert(*i >= 0x30);
 								reg_value *= 10;
 								reg_value += (*i & 0xF);
@@ -553,7 +553,7 @@ BEGIN:
 							total_len = rs->registers[TS_REG_LENGTH];
 						}
 
-						if(rs->mini_regs & FORMAT_BIT){
+						if(rs->selectors & FORMAT_BIT){
 							if(rs->registers[FS_REG_FIELD_WIDTH] && !total_len){
 								/* Calculate string length, determine if it exceeds padding.
 								 * Assuming UTF-8 string for now.
@@ -583,8 +583,8 @@ BEGIN:
 
 		/* If total length exceeds the fieldwidth then zero fieldwidth;
 		 * otherwise subtract the char count from fieldwidth. */
-		if(rs->mini_regs & FORMAT_BIT){
-			if(rs->mini_regs & FS_FLAG_RIGHT_ALIGN){
+		if(rs->selectors & FORMAT_BIT){
+			if(rs->selectors & FS_FLAG_RIGHT_ALIGN){
 				if(total_len < rs->registers[FS_REG_FIELD_WIDTH]){
 					rs->registers[FS_REG_FIELD_WIDTH] -= total_len;
 					--rs->registers[FS_REG_FIELD_WIDTH];
@@ -628,7 +628,7 @@ ST_FIELD_DONE:
 	{
 		rs->cur_label = &&ST_WRITE_PAD;
 ST_WRITE_PAD:
-		if(rs->mini_regs & FORMAT_BIT){
+		if(rs->selectors & FORMAT_BIT){
 			if(rs->registers[FS_REG_FIELD_WIDTH]){
 	ST_WRITE_CHAR:
 				*dest = rs->registers[FS_REG_PAD_CHAR];

@@ -64,32 +64,32 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 				else{
 					if(*x < 0){
 						*x = -*x;
-						rs->mini_regs |= INTERNAL_HACK_MINUS_FLAG;
+						rs->selectors |= INTERNAL_HACK_MINUS_FLAG;
 						++total_len;
 					}
 
 					if(isnormal(*x)){
 						/* Handle power of 2 radices differently than base 10. */
-						if(FQS_MR_RADIX_DEFINED & rs->mini_regs){
+						if(FQS_S_RADIX_DEFINED & rs->selectors){
 							/* TODO check negative exponents. */
 							float sig = frexpf(*x, &exp);
 
-							switch(rs->mini_regs & FQ_MR_RADIX_MASK){
-								case FQ_MR_RADIX_16:
+							switch(rs->selectors & FQ_S_RADIX_MASK){
+								case FQ_S_RADIX_16:
 									sigfigs = 5;
 									sig *= exp2f(exp % 4);
 									sig *= exp2f(sigfigs * 4);
 									exp /= 4;
 									break;
 
-								case FQ_MR_RADIX_8:
+								case FQ_S_RADIX_8:
 									sigfigs = 7;
 									sig *= exp2f(exp % 3);
 									sig *= exp2f(sigfigs * 3);
 									exp /= 3;
 									break;
 
-								case FQ_MR_RADIX_2:
+								case FQ_S_RADIX_2:
 									sigfigs = 23;
 									sig *= exp2f(sigfigs);
 									break;
@@ -119,7 +119,7 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 						assert(0);
 					}
 
-					if(rs->mini_regs & FQS_FLAG_EXPONENTIAL){
+					if(rs->selectors & FQS_FLAG_EXPONENTIAL){
 						rs->registers[FQS_REG_SIGFIGS] = sigfigs + 1;
 
 						/* One sigfig precedes the decimal point. */
@@ -184,7 +184,7 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 
 						if(exp < 0){
 							/* Going to print a leading zero. */
-							rs->mini_regs |= FQW_REG_PRINT_LZ;
+							rs->selectors |= FQW_REG_PRINT_LZ;
 							total_len += 2;
 
 							/* Number of zeros between MS sigfig and decimal point. */
@@ -239,7 +239,7 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 				else{
 					if(*x < 0){
 						*x = -*x;
-						rs->mini_regs |= INTERNAL_HACK_MINUS_FLAG;
+						rs->selectors |= INTERNAL_HACK_MINUS_FLAG;
 						++total_len;
 					}
 				}

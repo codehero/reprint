@@ -34,30 +34,30 @@
 {
 	/* Display sign if applicable. */
 ST_QUANT_SIGN:
-	if(rs->mini_regs & INTERNAL_HACK_MINUS_FLAG){
+	if(rs->selectors & INTERNAL_HACK_MINUS_FLAG){
 		*dest = '-';
-		rs->mini_regs &= ~INTERNAL_HACK_MINUS_FLAG;
+		rs->selectors &= ~INTERNAL_HACK_MINUS_FLAG;
 		rs->cur_label = &&ST_QUANT_CHECK_PREFIX;
 		return 1;
 	}
-	else if(rs->mini_regs & FQ_MR_PREFIX_FORCE_SIGN){
+	else if(rs->selectors & FQ_S_PREFIX_FORCE_SIGN){
 		*dest = '+';
 		rs->cur_label = &&ST_QUANT_CHECK_PREFIX;
 		return 1;
 	}
 
 ST_QUANT_CHECK_PREFIX:
-	if(rs->mini_regs & FQ_MR_PREFIX_FORCE_SIGN){
+	if(rs->selectors & FQ_S_PREFIX_FORCE_SIGN){
 		/* Obviously if we are here, we should have a non-decimal base. */
 
-		if(FQ_MR_RADIX_2 == (rs->mini_regs & FQ_MR_RADIX_MASK)){
+		if(FQ_S_RADIX_2 == (rs->selectors & FQ_S_RADIX_MASK)){
 			*dest = 'b';
 			rs->cur_label = &&ST_QUANT_LEAD_ZERO;
 			return 1;
 		}
 
 		*dest = '0';
-		rs->cur_label = (FQ_MR_RADIX_16 == (rs->mini_regs & FQ_MR_RADIX_MASK))
+		rs->cur_label = (FQ_S_RADIX_16 == (rs->selectors & FQ_S_RADIX_MASK))
 			? &&ST_QUANT_PREFIX_x : &&ST_QUANT_LEAD_ZERO;
 		return 1;
 
@@ -68,7 +68,7 @@ ST_QUANT_PREFIX_x:
 	}
 
 ST_QUANT_LEAD_ZERO:
-	if(rs->mini_regs & FQW_REG_PRINT_LZ){
+	if(rs->selectors & FQW_REG_PRINT_LZ){
 		*dest = '0';
 		rs->cur_label = &&ST_QUANT_DECIMAL;
 		return 1;
@@ -100,25 +100,25 @@ ST_QUANT_SIGFIGS:
 		/* Will store the highest radix power into the delta value,
 		 * which is computed based on number of sigfigs. */
 		reprint_uint_t delta = rs->registers[FQS_REG_SIGFIGS] - 1;
-		if(FQS_MR_RADIX_DEFINED & rs->mini_regs){
-			uint16_t radix = rs->mini_regs & FQ_MR_RADIX_MASK;
+		if(FQS_S_RADIX_DEFINED & rs->selectors){
+			uint16_t radix = rs->selectors & FQ_S_RADIX_MASK;
 			switch(radix){
 #if (RP_CFG_Q_RADIX & RP_CFG_Q_RADIX_16)
-				case FQ_MR_RADIX_16:
+				case FQ_S_RADIX_16:
 					assert(delta < INTERNAL_16_POWER_COUNT);
 					delta = s_16_powers[rs->registers[FQS_REG_SIGFIGS] - 1];
 					break;
 #endif
 
 #if (RP_CFG_Q_RADIX & RP_CFG_Q_RADIX_8)
-				case FQ_MR_RADIX_8:
+				case FQ_S_RADIX_8:
 					assert(delta < INTERNAL_8_POWER_COUNT);
 					delta = s_8_powers[rs->registers[FQS_REG_SIGFIGS] - 1];
 					break;
 #endif
 
 #if (RP_CFG_Q_RADIX & RP_CFG_Q_RADIX_2)
-				case FQ_MR_RADIX_2:
+				case FQ_S_RADIX_2:
 					assert(delta <= sizeof(reprint_uint_t));
 					delta = 1 << (rs->registers[FQS_REG_SIGFIGS] - 1);
 					break;
@@ -206,7 +206,7 @@ ST_QUANT_SIGFIGS:
 							);
 
 					/* It may be exponent time. If not field is done. */
-					rs->cur_label = (rs->mini_regs & FQS_FLAG_EXPONENTIAL)
+					rs->cur_label = (rs->selectors & FQS_FLAG_EXPONENTIAL)
 						?  &&ST_EXPONENT : &&ST_FIELD_DONE;
 				}
 			}
@@ -261,7 +261,7 @@ ST_QUANT_ZERO_PAD:
 				);
 
 		/* It may be time for an exponent. If not field is done. */
-		rs->cur_label = (rs->mini_regs & FQS_FLAG_EXPONENTIAL)
+		rs->cur_label = (rs->selectors & FQS_FLAG_EXPONENTIAL)
 			? &&ST_EXPONENT : &&ST_FIELD_DONE;
 		return 1;
 	}
@@ -275,7 +275,7 @@ ST_EXPONENT:
 			if(*exp < 0){
 				rs->cur_data.binary = -*exp;
 				rs->cur_label = &&ST_QUANT_SIGN;
-				rs->mini_regs |= INTERNAL_HACK_MINUS_FLAG;
+				rs->selectors |= INTERNAL_HACK_MINUS_FLAG;
 			}
 			else{
 				rs->cur_data.binary = *exp;
@@ -298,11 +298,11 @@ ST_EXPONENT:
 		rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 
 		/* Clear exponent flag. */
-		rs->mini_regs &= ~FQS_FLAG_EXPONENTIAL;
+		rs->selectors &= ~FQS_FLAG_EXPONENTIAL;
 
 		/* Output the letter. select 'p' for power of 2 radices. */
 #if (RP_CFG_Q_RADIX & ~(RP_CFG_Q_RADIX_10))
-		if(FQS_MR_RADIX_DEFINED & rs->mini_regs){
+		if(FQS_S_RADIX_DEFINED & rs->selectors){
 			*dest = 'p';
 		}
 		else

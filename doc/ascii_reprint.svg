@@ -27,9 +27,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="6.3873884"
-     inkscape:cx="123.24505"
-     inkscape:cy="629.78419"
+     inkscape:zoom="2.2582828"
+     inkscape:cx="641.97713"
+     inkscape:cy="558.66568"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -2915,7 +2915,7 @@
          x="-486.22211"
          y="271.56943"
          style="font-size:16px;font-weight:bold;-inkscape-font-specification:DejaVu Sans Bold"
-         id="tspan4730-61">Mini Register 0</tspan></text>
+         id="tspan4730-61">Selector 0</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
@@ -2928,7 +2928,7 @@
          x="-660.11847"
          y="271.56943"
          style="font-size:16px;font-weight:bold;-inkscape-font-specification:DejaVu Sans Bold"
-         id="tspan4730-61-2">Mini Register 1</tspan></text>
+         id="tspan4730-61-2">Selector 1</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
@@ -2941,7 +2941,7 @@
          x="-834.03815"
          y="271.56943"
          style="font-size:16px;font-weight:bold;-inkscape-font-specification:DejaVu Sans Bold"
-         id="tspan4730-61-9">Mini Register 2</tspan></text>
+         id="tspan4730-61-9">Selector 2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
@@ -3088,20 +3088,15 @@
       <text
          sodipodi:linespacing="125%"
          id="text4997-9-5-1-6-7-9-7-3-7"
-         y="563.00165"
-         x="908.11584"
+         y="569.25238"
+         x="907.36859"
          style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
          xml:space="preserve"><tspan
-           style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
-           y="563.00165"
-           x="908.11584"
-           id="tspan4999-5-3-4-6-8-20-8-4-1"
-           sodipodi:role="line">Mini</tspan><tspan
            id="tspan9911"
            style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
-           y="578.00165"
-           x="908.11584"
-           sodipodi:role="line">Register</tspan></text>
+           y="569.25238"
+           x="907.36859"
+           sodipodi:role="line">Selector</tspan></text>
     </g>
     <g
        id="g9974"

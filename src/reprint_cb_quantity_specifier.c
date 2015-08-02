@@ -72,7 +72,7 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 		rs->data += int_size;
 
 		/* Check if signed and negate if necessary. */
-		if((rs->mini_regs & FORMAT_BIT) && (rs->input_flags & 0x1)){
+		if((rs->selectors & FORMAT_BIT) && (rs->input_flags & 0x1)){
 			switch(*(rs->fmt) & 0x7){
 #if (RP_CFG_Q_INT_SIZE_MASK & RP_CFG_Q_INT_SIZE_8)
 				case 0:
@@ -80,7 +80,7 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 						int8_t* x = (int8_t*)(&rs->cur_data.binary);
 						if(*x < 0){
 							*x = -*x;
-							rs->mini_regs |= INTERNAL_HACK_MINUS_FLAG;
+							rs->selectors |= INTERNAL_HACK_MINUS_FLAG;
 							++total_len;
 						}
 					}
@@ -93,7 +93,7 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 						int16_t* x = (int16_t*)(&rs->cur_data.binary);
 						if(*x < 0){
 							*x = -*x;
-							rs->mini_regs |= INTERNAL_HACK_MINUS_FLAG;
+							rs->selectors |= INTERNAL_HACK_MINUS_FLAG;
 							++total_len;
 						}
 					}
@@ -106,7 +106,7 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 						int32_t* x = (int32_t*)(&rs->cur_data.binary);
 						if(*x < 0){
 							*x = -*x;
-							rs->mini_regs |= INTERNAL_HACK_MINUS_FLAG;
+							rs->selectors |= INTERNAL_HACK_MINUS_FLAG;
 							++total_len;
 						}
 					}
@@ -119,7 +119,7 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 						int64_t* x = (int64_t*)(&rs->cur_data.binary);
 						if(*x < 0){
 							*x = -*x;
-							rs->mini_regs |= INTERNAL_HACK_MINUS_FLAG;
+							rs->selectors |= INTERNAL_HACK_MINUS_FLAG;
 							++total_len;
 						}
 					}
@@ -152,7 +152,7 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 		 * is done printing, restore the values in the registers to cur_data. */
 
 		/* Don't print bitfields in exponential form. Hust don't. */
-		if(rs->mini_regs & FQS_FLAG_EXPONENTIAL)
+		if(rs->selectors & FQS_FLAG_EXPONENTIAL)
 			assert(0);
 
 		/* Outputting bit field. First drop bits if necessary. */
@@ -213,12 +213,12 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 	}
 }
 
-if(rs->mini_regs & FORMAT_BIT){
+if(rs->selectors & FORMAT_BIT){
 
 	/* Default pad char is a '0' when formatting integers AND
 	 * the value is right aligned. */
 	if(!(rs->reg_flags & (1 << FS_REG_PAD_CHAR))
-		&& rs->mini_regs & FS_FLAG_RIGHT_ALIGN)
+		&& rs->selectors & FS_FLAG_RIGHT_ALIGN)
 	{
 		rs->registers[FS_REG_PAD_CHAR] = '0';
 	}
@@ -227,14 +227,14 @@ if(rs->mini_regs & FORMAT_BIT){
 	reprint_reg_t all_digits;
 	unsigned pad_zeros = 0;
 #if (RP_CFG_Q_RADIX & ~(RP_CFG_Q_RADIX_10))
-	if(FQS_MR_RADIX_DEFINED & rs->mini_regs){
+	if(FQS_S_RADIX_DEFINED & rs->selectors){
 		/* Note if this is a bitfield we will want to print ALL the bits
 		 * out. */
 		all_digits = s_arch_calc_msb(rs->cur_data.binary) + 1;
-		switch(rs->mini_regs & FQ_MR_RADIX_MASK){
+		switch(rs->selectors & FQ_S_RADIX_MASK){
 
 #if (RP_CFG_Q_RADIX & RP_CFG_Q_RADIX_16)
-			case FQ_MR_RADIX_16:
+			case FQ_S_RADIX_16:
 				all_digits += 3;
 				all_digits >>= 2;
 				if((rs->input_flags & 0x2) && (*rs->fmt & 0x7) == 7){
@@ -246,7 +246,7 @@ if(rs->mini_regs & FORMAT_BIT){
 #endif
 
 #if (RP_CFG_Q_RADIX & RP_CFG_Q_RADIX_8)
-			case FQ_MR_RADIX_8:
+			case FQ_S_RADIX_8:
 				all_digits += 2;
 				all_digits /= 3;
 				if((rs->input_flags & 0x2) && (*rs->fmt & 0x7) == 7){
@@ -258,7 +258,7 @@ if(rs->mini_regs & FORMAT_BIT){
 #endif
 
 #if (RP_CFG_Q_RADIX & RP_CFG_Q_RADIX_2)
-			case FQ_MR_RADIX_2:
+			case FQ_S_RADIX_2:
 				/* Nothing to do. */
 				if((rs->input_flags & 0x2) && (*rs->fmt & 0x7) == 7){
 					pad_zeros = rs->registers[FQS_REG_SIGFIGS] - all_digits;
@@ -302,7 +302,7 @@ if(rs->mini_regs & FORMAT_BIT){
 
 	/* Shifting will move the break check forward. */
 #if (RP_CFG_Q_FEATURES & RP_CFG_Q_FEATURES_EXPO_FORM)
-	if(rs->mini_regs & FQS_FLAG_EXPONENTIAL){
+	if(rs->selectors & FQS_FLAG_EXPONENTIAL){
 		/* One sigfig precedes the decimal point. */
 
 		rs->reg_flags |= 1 << FQW_REG_BREAK;
@@ -337,7 +337,7 @@ if(rs->mini_regs & FORMAT_BIT){
 
 		/* If exponential form, then exponent is just number of sigfigs - 1.
 		 * For 32-bit integers, this is < 10, so just add e and number char. */
-		if(rs->mini_regs & FQS_FLAG_EXPONENTIAL)
+		if(rs->selectors & FQS_FLAG_EXPONENTIAL)
 			total_len += 2;
 
 	}
@@ -355,7 +355,7 @@ if(rs->mini_regs & FORMAT_BIT){
 			break_check = rs->registers[FQS_REG_SHIFT] - all_digits;
 
 			/* Print leading '0' */
-			rs->mini_regs |= FQW_REG_PRINT_LZ;
+			rs->selectors |= FQW_REG_PRINT_LZ;
 			total_len += 2;
 		}
 		else if(rs->registers[FQS_REG_SHIFT] > pad_zeros){
