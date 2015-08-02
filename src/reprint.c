@@ -44,8 +44,8 @@
 #define ESCAPE_SELECT 0x04
 #define REPRINTF_BCD_BUFF_SIZE 10
 
-#define Q_POINTER 0x78
-#define Q_RECURSE 0x79
+#define SPECIFIER_POINTER 0x78
+#define SPECIFIER_RECURSE 0x79
 
 /* These enums identify bits in the registers. */
 enum {
@@ -89,6 +89,34 @@ enum {
 	,FLAG_REG_5_DEFINED = 0x20
 	,FLAG_REG_6_DEFINED = 0x40
 	,FLAG_REG_RESERVED_80 = 0x80
+
+	/* Input flags */
+	,IFLAG_TYPE_B0 = 0x01
+	,IFLAG_TYPE_B1 = 0x02
+	,IFLAG_TYPE_B2 = 0x04
+	,IFLAG_AUX0_B0 = 0x08
+	,IFLAG_AUX0_B1 = 0x10
+	,IFLAG_AUX1_B0 = 0x20
+	,IFLAG_AUX1_B1 = 0x40
+	,IFLAG_RES_B7  = 0x80
+
+	,IFLAG_UNSIGNED = IFLAG_TYPE_B0
+	,IFLAG_CONCRETE = IFLAG_TYPE_B1
+	,IFLAG_NONINTEG = IFLAG_TYPE_B2
+
+	,IFLAG_STRING = IFLAG_NONINTEG | 0x0
+	,IFLAG_CHAR   = IFLAG_NONINTEG | 0x1
+	,IFLAG_FLOAT  = IFLAG_NONINTEG | 0x2
+
+	,IFLAG_TMASK  = IFLAG_TYPE_B2 | IFLAG_TYPE_B1 | IFLAG_TYPE_B0
+
+	/* Specifier flags */
+	,SFLAG_SPECIAL = 0x08
+
+	/* Unsigned concrete bitfield */
+	,SFLAG_UC_BITFIELD = 0x07
+
+	,SFLAG_SIZE_MASK = 0x07
 };
 
 /* These enums map selectors, flags, and register IDs to
@@ -101,9 +129,9 @@ enum {
 	FORMAT_BIT = FLAG_SELECTOR_RESERVED_4000
 
 	/* Common formatted flags, registers */
-	,FS_REG_FIELD_WIDTH = 0
-	,FS_REG_PAD_CHAR = 1
-	,FS_FLAG_RIGHT_ALIGN = FLAG_0
+	,F_REG_FIELD_WIDTH = 0
+	,F_REG_PAD_CHAR = 1
+	,F_FLAG_RIGHT_ALIGN = FLAG_0
 
 	/* Common Formatted Quantity selectors, flags, registers */
 
@@ -115,10 +143,10 @@ enum {
 
 	/* The SHIFT value is only needed at specification time.
 	 * Overwrite the value with the zero count at print time. */
-	,FQW_REG_ZEROS = 3
+	,_FQW_REG_ZEROS = 3
 	/* The PRECISION value is only needed at specification time.
 	 * Overwrite the value with the exponent value at print time. */
-	,FQW_REG_EXP = 5
+	,_FQW_REG_EXP = 5
 
 	/* Writing out a number string is an alternation of 3 sequences
 	 * 0 sequence
@@ -132,11 +160,11 @@ enum {
 	 * The MSB of the break register indicates if a break occurs
 	 * in the S sequence.
 	 *  */
-	,FQW_REG_BREAK = 6
-	,FQW_REG_BREAK_FLAG_SIG = 0x80
-	,FQW_REG_BREAK_MASK = 0x7F
+	,_FQW_REG_BREAK = 6
+	,_FQW_REG_BREAK_FLAG_SIG = 0x80
+	,_FQW_REG_BREAK_MASK = 0x7F
 
-	,FQW_REG_PRINT_LZ = FLAG_SELECTOR_RESERVED_2000
+	,_FQW_REG_PRINT_LZ = FLAG_SELECTOR_RESERVED_2000
 
 	/* Rounding. */
 
@@ -163,12 +191,12 @@ enum {
 	,FQ_S_RADIX_2 = FLAG_SELECTOR_1_DEFINED
 		| FLAG_SELECTOR_1_VAL_1
 
-	,FQ_S_RADIX_MASK = FLAG_SELECTOR_1_DEFINED
+	,_FQ_S_RADIX_MASK = FLAG_SELECTOR_1_DEFINED
 		| FLAG_SELECTOR_1_VAL_0
 		| FLAG_SELECTOR_1_VAL_1
 
 
-	,FQ_S_PREFIX_DEFINED = FLAG_SELECTOR_2_DEFINED
+	,_FQ_S_PREFIX_DEFINED = FLAG_SELECTOR_2_DEFINED
 
 	/* Force display of sign '+' or '-' */
 	,FQ_S_PREFIX_FORCE_SIGN = FLAG_SELECTOR_2_VAL_0
@@ -215,7 +243,7 @@ enum {
 		| FLAG_SELECTOR_1_VAL_1
 
 };
-#define INTERNAL_HACK_MINUS_FLAG FLAG_SELECTOR_RESERVED_8000
+#define _FQ_FLAG_INTERNAL_HACK_MINUS_FLAG FLAG_SELECTOR_RESERVED_8000
 
 
 static const uint16_t s_selector_bits[16] = {
@@ -255,16 +283,7 @@ uint8_t s_arch_int_amb_size[8] = {
 	,sizeof(intmax_t)
 };
 
-uint8_t s_arch_int_conc_size[24] = {
-	1
-	,2
-	,4
-	,8
-	,0
-	,0
-	,0
-	,0
-
+uint8_t s_arch_int_conc_size[32] = {
 	,sizeof(uint_fast8_t)
 	,sizeof(uint_fast16_t)
 	,sizeof(uint_fast32_t)
@@ -278,6 +297,15 @@ uint8_t s_arch_int_conc_size[24] = {
 	,sizeof(uint_least16_t)
 	,sizeof(uint_least32_t)
 	,sizeof(uint_least64_t)
+	,0
+	,0
+	,0
+	,0
+
+	,0
+	,0
+	,0
+	,0
 	,0
 	,0
 	,0
@@ -315,12 +343,12 @@ BEGIN:
 
 		/* Decrement field width if non-zero */
 		if(rs->selectors & FORMAT_BIT){
-			if(rs->registers[FS_REG_FIELD_WIDTH]){
-				--rs->registers[FS_REG_FIELD_WIDTH];
+			if(rs->registers[F_REG_FIELD_WIDTH]){
+				--rs->registers[F_REG_FIELD_WIDTH];
 
 				/* If padding is on left, then write that out. */
-				if(rs->selectors & FS_FLAG_RIGHT_ALIGN){
-					*dest = rs->registers[FS_REG_PAD_CHAR];
+				if(rs->selectors & F_FLAG_RIGHT_ALIGN){
+					*dest = rs->registers[F_REG_PAD_CHAR];
 					return 1;
 				}
 			}
@@ -377,7 +405,7 @@ BEGIN:
 			rs->selectors |= FORMAT_BIT;
 
 			/* Default pad char is a ' '.*/
-			rs->registers[FS_REG_PAD_CHAR] = ' ';
+			rs->registers[F_REG_PAD_CHAR] = ' ';
 		}
 
 		/* Go onto next character. */
@@ -493,8 +521,8 @@ BEGIN:
 		const uint8_t* dest = NULL;
 
 		/* First branch on Integer or not. */
-		if(!(*rs->fmt & 0x8)){
-			if(!(rs->input_flags & 0x4)){
+		if(!(*rs->fmt & SFLAG_SPECIAL)){
+			if(!(rs->input_flags & IFLAG_NONINTEG)){
 				/* Yes, I did just do that. Go look at the included .c file. */
 #define REPRINT_GUARD_reprint_cb_QUANTITY_SPECIFIER
 #include "reprint_cb_quantity_specifier.c"
@@ -503,7 +531,7 @@ BEGIN:
 			else{
 				/* This is a non-integer value. */
 
-				if((rs->input_flags & 0x7) == 0x6){
+				if((rs->input_flags & IFLAG_TMASK) == IFLAG_FLOAT){
 				/* Yes, I did just do that. Go look at the included .c file. */
 #define REPRINT_GUARD_reprint_cb_FLOAT_SPECIFIER
 #include "reprint_cb_float_specifier.c"
@@ -511,7 +539,7 @@ BEGIN:
 				}
 				else{
 					/* This is a string or char. */
-					if((rs->input_flags & 0x7) == 0x5){
+					if((rs->input_flags & IFLAG_TMASK) == IFLAG_CHAR){
 						/* Assuming 8-bit character.
 						 * TODO support wchar_t and unicode point ids.
 						 * On some platforms (Linux et al) these will be the same types
@@ -554,7 +582,7 @@ BEGIN:
 						}
 
 						if(rs->selectors & FORMAT_BIT){
-							if(rs->registers[FS_REG_FIELD_WIDTH] && !total_len){
+							if(rs->registers[F_REG_FIELD_WIDTH] && !total_len){
 								/* Calculate string length, determine if it exceeds padding.
 								 * Assuming UTF-8 string for now.
 								 * TODO support char16_t, char32_t, wchar_t. */
@@ -568,11 +596,11 @@ BEGIN:
 			}
 		}
 		else{
-			if(*(rs->fmt) == Q_POINTER){
+			if(*(rs->fmt) == SPECIFIER_POINTER){
 				/* TODO */
 				assert(0);
 			}
-			else if(*(rs->fmt) == Q_RECURSE){
+			else if(*(rs->fmt) == SPECIFIER_RECURSE){
 				/* TODO */
 				assert(0);
 			}
@@ -584,14 +612,14 @@ BEGIN:
 		/* If total length exceeds the fieldwidth then zero fieldwidth;
 		 * otherwise subtract the char count from fieldwidth. */
 		if(rs->selectors & FORMAT_BIT){
-			if(rs->selectors & FS_FLAG_RIGHT_ALIGN){
-				if(total_len < rs->registers[FS_REG_FIELD_WIDTH]){
-					rs->registers[FS_REG_FIELD_WIDTH] -= total_len;
-					--rs->registers[FS_REG_FIELD_WIDTH];
+			if(rs->selectors & F_FLAG_RIGHT_ALIGN){
+				if(total_len < rs->registers[F_REG_FIELD_WIDTH]){
+					rs->registers[F_REG_FIELD_WIDTH] -= total_len;
+					--rs->registers[F_REG_FIELD_WIDTH];
 					goto ST_WRITE_CHAR;
 				}
 				else{
-					rs->registers[FS_REG_FIELD_WIDTH] = 0;
+					rs->registers[F_REG_FIELD_WIDTH] = 0;
 				}
 			}
 		}
@@ -629,14 +657,14 @@ ST_FIELD_DONE:
 		rs->cur_label = &&ST_WRITE_PAD;
 ST_WRITE_PAD:
 		if(rs->selectors & FORMAT_BIT){
-			if(rs->registers[FS_REG_FIELD_WIDTH]){
+			if(rs->registers[F_REG_FIELD_WIDTH]){
 	ST_WRITE_CHAR:
-				*dest = rs->registers[FS_REG_PAD_CHAR];
+				*dest = rs->registers[F_REG_PAD_CHAR];
 				return 1;
 			}
 
 			/* unset field width and pad char flags. */
-			rs->reg_flags &= ~((1 << FS_REG_FIELD_WIDTH) | (1 << FS_REG_PAD_CHAR));
+			rs->reg_flags &= ~((1 << F_REG_FIELD_WIDTH) | (1 << F_REG_PAD_CHAR));
 		}
 	}
 

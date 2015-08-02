@@ -13,11 +13,11 @@
 static const char s_infinity[] = "-Infinity";
 static const char s_nan[] = "NaN";
 
-rs->reg_flags &= ~(1 << FQW_REG_BREAK);
+rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 
 {
 	/* For floats, the size of the data */
-	unsigned size = 1 << (*(rs->fmt) & 0x7);
+	unsigned size = 1 << (*(rs->fmt) & SFLAG_SIZE_MASK);
 
 	/* If using struct packing, then align the pointer to the datatype. */
 	if(rs->reg_flags & FLAG_REG_STRUCT_PACK)
@@ -30,7 +30,7 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 
 	int exp = 0;
 	unsigned sigfigs;
-	switch(*(rs->fmt) & 0x7){
+	switch(*(rs->fmt) & SFLAG_SIZE_MASK){
 #if (RP_CFG_Q_FLOAT_SIZE_MASK & RP_CFG_Q_FLOAT_SIZE_16)
 #error "16-bit float support not yet implemented"
 		case 1:
@@ -64,7 +64,7 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 				else{
 					if(*x < 0){
 						*x = -*x;
-						rs->selectors |= INTERNAL_HACK_MINUS_FLAG;
+						rs->selectors |= _FQ_FLAG_INTERNAL_HACK_MINUS_FLAG;
 						++total_len;
 					}
 
@@ -74,7 +74,7 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 							/* TODO check negative exponents. */
 							float sig = frexpf(*x, &exp);
 
-							switch(rs->selectors & FQ_S_RADIX_MASK){
+							switch(rs->selectors & _FQ_S_RADIX_MASK){
 								case FQ_S_RADIX_16:
 									sigfigs = 5;
 									sig *= exp2f(exp % 4);
@@ -123,15 +123,15 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 						rs->registers[FQS_REG_SIGFIGS] = sigfigs + 1;
 
 						/* One sigfig precedes the decimal point. */
-						rs->reg_flags |= 1 << FQW_REG_BREAK;
-						rs->registers[FQW_REG_BREAK] = sigfigs;
+						rs->reg_flags |= 1 << _FQW_REG_BREAK;
+						rs->registers[_FQW_REG_BREAK] = sigfigs;
 
 						/* May have to truncate sigfigs or change zero pads
 						 * depending on precision. */
 						if(rs->reg_flags & (1 << FQS_REG_PRECISION)){
 							if(0 == rs->registers[FQS_REG_PRECISION]){
 								rs->registers[FQS_REG_SIGFIGS] = 1;
-								rs->registers[FQW_REG_ZEROS] = 0;
+								rs->registers[_FQW_REG_ZEROS] = 0;
 								/* No decimal point. */
 							}
 							else if(rs->registers[FQS_REG_PRECISION] <
@@ -142,7 +142,7 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 									rs->registers[FQS_REG_PRECISION] + 1;
 
 								/* No padding zeros. */
-								rs->registers[FQW_REG_ZEROS] = 0;
+								rs->registers[_FQW_REG_ZEROS] = 0;
 
 								/* Add decimal point. */
 								++total_len;
@@ -158,7 +158,7 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 						/* Add exponent value. */
 						if(exp < 0)
 							++total_len;
-						int* e = (int*)(rs->registers + FQW_REG_EXP);
+						int* e = (int*)(rs->registers + _FQW_REG_EXP);
 						*e = exp;
 						total_len += s_arch_calc_r10_digits(abs(exp));
 					}
@@ -184,12 +184,12 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 
 						if(exp < 0){
 							/* Going to print a leading zero. */
-							rs->selectors |= FQW_REG_PRINT_LZ;
+							rs->selectors |= _FQW_REG_PRINT_LZ;
 							total_len += 2;
 
 							/* Number of zeros between MS sigfig and decimal point. */
-							rs->registers[FQW_REG_ZEROS] = -exp - 1;
-							total_len += rs->registers[FQW_REG_ZEROS];
+							rs->registers[_FQW_REG_ZEROS] = -exp - 1;
+							total_len += rs->registers[_FQW_REG_ZEROS];
 						}
 						else{
 #if 0
@@ -202,8 +202,8 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 							if(trailing_zero_count < 0)
 								sigfigs += trailing_zero_count;
 
-							rs->registers[FQW_REG_BREAK] = -exp - 1;
-							rs->reg_flags |= 1 << FQW_REG_BREAK;
+							rs->registers[_FQW_REG_BREAK] = -exp - 1;
+							rs->reg_flags |= 1 << _FQW_REG_BREAK;
 #endif
 
 						}
@@ -239,7 +239,7 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 				else{
 					if(*x < 0){
 						*x = -*x;
-						rs->selectors |= INTERNAL_HACK_MINUS_FLAG;
+						rs->selectors |= _FQ_FLAG_INTERNAL_HACK_MINUS_FLAG;
 						++total_len;
 					}
 				}

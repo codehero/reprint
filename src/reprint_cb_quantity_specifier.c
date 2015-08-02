@@ -32,12 +32,8 @@
  * */
 #ifdef REPRINT_GUARD_reprint_cb_QUANTITY_SPECIFIER
 
-#if 0
-			/* This is a special specifier. */
-#endif
-
 /* Ignore break flag. */
-rs->reg_flags &= ~(1 << FQW_REG_BREAK);
+rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 
 /* Populate the data field and advance the pointer.
  * Note: if this is a bitfield, just the use the value already present. */
@@ -46,19 +42,26 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 
 	/* Ambiguous values are either ambiguous integers
 	 * or concrete integers with ambiguous specifier (fast or least). */
-	if(!(rs->input_flags & 0x2)){
-		int_size = s_arch_int_amb_size[*(rs->fmt) & 0x7];
+	if(!(rs->input_flags & IFLAG_CONCRETE)){
+		int_size = s_arch_int_amb_size[*(rs->fmt) & SFLAG_SIZE_MASK];
 	}
-	else if((*rs->fmt & 0x7) != 7){
+	else if((*rs->fmt & SFLAG_SIZE_MASK) != SFLAG_UC_BITFIELD){
 		/* This is a non bitfield concrete type. */
-		if(rs->input_flags & 0x14){
-			uint8_t x = rs->input_flags & 0x14;
-			x -= 0x4;
-			x |= *(rs->fmt) & 0x7;
-			int_size = s_arch_int_conc_size[*(rs->fmt) & 0x7];
+
+		/* If any of the Aux0 flags are set then input type is specialized. */
+		if(rs->input_flags & (IFLAG_AUX0_B0 | IFLAG_AUX0_B1)){
+			/* Aux0 flags select which part of the table we index. */
+			uint8_t index = rs->input_flags & (IFLAG_AUX0_B0 | IFLAG_AUX0_B1);
+			index |= *(rs->fmt) & SFLAG_SIZE_MASK;
+
+			/* First 8 are defined by format itself. */
+			index -= 8;
+
+			int_size = s_arch_int_conc_size[indexx];
 		}
 		else{
-			int_size = 1 << (*(rs->fmt) & 0x7);
+			/*  */
+			int_size = 1 << (*(rs->fmt) & SFLAG_SIZE_MASK);
 		}
 	}
 
@@ -72,15 +75,15 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 		rs->data += int_size;
 
 		/* Check if signed and negate if necessary. */
-		if((rs->selectors & FORMAT_BIT) && (rs->input_flags & 0x1)){
-			switch(*(rs->fmt) & 0x7){
+		if((rs->selectors & FORMAT_BIT) && !(rs->input_flags & IFLAG_UNSIGNED)){
+			switch(*(rs->fmt) & SFLAG_SIZE_MASK){
 #if (RP_CFG_Q_INT_SIZE_MASK & RP_CFG_Q_INT_SIZE_8)
 				case 0:
 					{
 						int8_t* x = (int8_t*)(&rs->cur_data.binary);
 						if(*x < 0){
 							*x = -*x;
-							rs->selectors |= INTERNAL_HACK_MINUS_FLAG;
+							rs->selectors |= _FQ_FLAG_INTERNAL_HACK_MINUS_FLAG;
 							++total_len;
 						}
 					}
@@ -93,7 +96,7 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 						int16_t* x = (int16_t*)(&rs->cur_data.binary);
 						if(*x < 0){
 							*x = -*x;
-							rs->selectors |= INTERNAL_HACK_MINUS_FLAG;
+							rs->selectors |= _FQ_FLAG_INTERNAL_HACK_MINUS_FLAG;
 							++total_len;
 						}
 					}
@@ -106,7 +109,7 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 						int32_t* x = (int32_t*)(&rs->cur_data.binary);
 						if(*x < 0){
 							*x = -*x;
-							rs->selectors |= INTERNAL_HACK_MINUS_FLAG;
+							rs->selectors |= _FQ_FLAG_INTERNAL_HACK_MINUS_FLAG;
 							++total_len;
 						}
 					}
@@ -119,7 +122,7 @@ rs->reg_flags &= ~(1 << FQW_REG_BREAK);
 						int64_t* x = (int64_t*)(&rs->cur_data.binary);
 						if(*x < 0){
 							*x = -*x;
-							rs->selectors |= INTERNAL_HACK_MINUS_FLAG;
+							rs->selectors |= _FQ_FLAG_INTERNAL_HACK_MINUS_FLAG;
 							++total_len;
 						}
 					}
@@ -218,7 +221,7 @@ if(rs->selectors & FORMAT_BIT){
 	/* Default pad char is a '0' when formatting integers AND
 	 * the value is right aligned. */
 	if(!(rs->reg_flags & (1 << FS_REG_PAD_CHAR))
-		&& rs->selectors & FS_FLAG_RIGHT_ALIGN)
+		&& rs->selectors & F_FLAG_RIGHT_ALIGN)
 	{
 		rs->registers[FS_REG_PAD_CHAR] = '0';
 	}
@@ -231,13 +234,15 @@ if(rs->selectors & FORMAT_BIT){
 		/* Note if this is a bitfield we will want to print ALL the bits
 		 * out. */
 		all_digits = s_arch_calc_msb(rs->cur_data.binary) + 1;
-		switch(rs->selectors & FQ_S_RADIX_MASK){
+		switch(rs->selectors & _FQ_S_RADIX_MASK){
 
 #if (RP_CFG_Q_RADIX & RP_CFG_Q_RADIX_16)
 			case FQ_S_RADIX_16:
 				all_digits += 3;
 				all_digits >>= 2;
-				if((rs->input_flags & 0x2) && (*rs->fmt & 0x7) == 7){
+				if((rs->input_flags & IFLAG_CONCRETE)
+						&& (*rs->fmt & SFLAG_SIZE_MASK) == SFLAG_UC_BITFIELD)
+				{
 					pad_zeros = rs->registers[FQS_REG_SIGFIGS] + 3;
 					pad_zeros >>= 2;
 					pad_zeros -= all_digits;
@@ -249,7 +254,9 @@ if(rs->selectors & FORMAT_BIT){
 			case FQ_S_RADIX_8:
 				all_digits += 2;
 				all_digits /= 3;
-				if((rs->input_flags & 0x2) && (*rs->fmt & 0x7) == 7){
+				if((rs->input_flags & IFLAG_CONCRETE)
+					&& (*rs->fmt & SFLAG_SIZE_MASK) == SFLAG_UC_BITFIELD)
+				{
 					pad_zeros = rs->registers[FQS_REG_SIGFIGS] + 2;
 					pad_zeros /= 3;
 					pad_zeros -= all_digits;
@@ -260,7 +267,9 @@ if(rs->selectors & FORMAT_BIT){
 #if (RP_CFG_Q_RADIX & RP_CFG_Q_RADIX_2)
 			case FQ_S_RADIX_2:
 				/* Nothing to do. */
-				if((rs->input_flags & 0x2) && (*rs->fmt & 0x7) == 7){
+				if((rs->input_flags & IFLAG_CONCRETE)
+					&& (*rs->fmt & SFLAG_SIZE_MASK) == SFLAG_UC_BITFIELD)
+				{
 					pad_zeros = rs->registers[FQS_REG_SIGFIGS] - all_digits;
 				}
 				break;
@@ -287,7 +296,7 @@ if(rs->selectors & FORMAT_BIT){
 		 * Instead all digits are considered significant but we go
 		 * back to looking for a new field. */
 		if(!rs->registers[FQS_REG_SIGFIGS]){
-			rs->registers[FQS_REG_SIGFIGS] = (1 << (*(rs->fmt) & 0x7)) << 3;
+			rs->registers[FQS_REG_SIGFIGS] = (1 << (*(rs->fmt) & SFLAG_SIZE_MASK)) << 3;
 			goto ST_FIELD_DONE;
 		}
 
@@ -305,8 +314,8 @@ if(rs->selectors & FORMAT_BIT){
 	if(rs->selectors & FQS_FLAG_EXPONENTIAL){
 		/* One sigfig precedes the decimal point. */
 
-		rs->reg_flags |= 1 << FQW_REG_BREAK;
-		rs->registers[FQW_REG_BREAK] = 1;
+		rs->reg_flags |= 1 << _FQW_REG_BREAK;
+		rs->registers[_FQW_REG_BREAK] = 1;
 
 		/* May have to truncate sigfigs or change zero pads
 		 * depending on precision. */
@@ -355,14 +364,14 @@ if(rs->selectors & FORMAT_BIT){
 			break_check = rs->registers[FQS_REG_SHIFT] - all_digits;
 
 			/* Print leading '0' */
-			rs->selectors |= FQW_REG_PRINT_LZ;
+			rs->selectors |= _FQW_REG_PRINT_LZ;
 			total_len += 2;
 		}
 		else if(rs->registers[FQS_REG_SHIFT] > pad_zeros){
 			/* Shifting will split sigfigs. */
 			break_check = rs->registers[FQS_REG_SHIFT] - pad_zeros;
 
-			rs->reg_flags |= 1 << FQW_REG_BREAK;
+			rs->reg_flags |= 1 << _FQW_REG_BREAK;
 			++total_len;
 		}
 		else if(rs->registers[FQS_REG_SHIFT] < pad_zeros){
@@ -370,15 +379,15 @@ if(rs->selectors & FORMAT_BIT){
 			break_check = rs->registers[FQS_REG_SHIFT];
 			++total_len;
 		}
-		rs->registers[FQW_REG_BREAK] = break_check;
-		rs->reg_flags |= 1 << FQW_REG_BREAK;
+		rs->registers[_FQW_REG_BREAK] = break_check;
+		rs->reg_flags |= 1 << _FQW_REG_BREAK;
 	}
 
-	rs->registers[FQW_REG_ZEROS] = pad_zeros;
+	rs->registers[_FQW_REG_ZEROS] = pad_zeros;
 
 	/* If this is a bitfield and there leading zeros, then just go directly
 	 * to printing zeros. (bitfields cannot print negative or fractional) */
-	if((rs->input_flags & 0x2) && (*rs->fmt & 0x7) == 7 && pad_zeros){
+	if((rs->input_flags & IFLAG_CONCRETE) && (*rs->fmt & SFLAG_SIZE_MASK) == SFLAG_UC_BITFIELD && pad_zeros){
 		rs->cur_label = &&ST_QUANT_ZERO_PAD;
 	}
 	else{
@@ -386,7 +395,7 @@ if(rs->selectors & FORMAT_BIT){
 	}
 
 	total_len +=
-		rs->registers[FQW_REG_ZEROS] + rs->registers[FQS_REG_SIGFIGS];
+		rs->registers[_FQW_REG_ZEROS] + rs->registers[FQS_REG_SIGFIGS];
 }
 else{
 	/* TODO Output is in binary */
