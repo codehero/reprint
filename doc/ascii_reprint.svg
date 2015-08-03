@@ -16,8 +16,8 @@
    inkscape:version="0.48.4 r9939"
    sodipodi:docname="ascii_reprint.svg"
    inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
-   inkscape:export-xdpi="100"
-   inkscape:export-ydpi="100">
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -25,11 +25,11 @@
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscape:pageopacity="0.0"
+     inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.2582828"
-     inkscape:cx="641.97713"
-     inkscape:cy="558.66568"
+     inkscape:zoom="1.1291414"
+     inkscape:cx="627.69797"
+     inkscape:cy="438.93467"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -97,7 +97,10 @@
        x="92.394882"
        y="325.26596"
        id="text4224"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan4226"
          x="92.394882"
@@ -109,7 +112,10 @@
        x="169.10002"
        y="325.26596"
        id="text4224-5"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          x="169.10002"
          y="325.26596"
@@ -121,119 +127,170 @@
        width="70.866142"
        height="35.433071"
        x="166.43843"
-       y="334.54788" />
+       y="334.54788"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:#52ff59;stroke:#000000;stroke-width:1.06299210000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;fill-opacity:1"
        id="rect2985-8-9"
        width="70.866142"
        height="35.433071"
        x="166.43843"
-       y="378.06396" />
+       y="378.06396"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect2985-8-0-0"
        width="70.866142"
        height="35.433071"
        x="166.43843"
-       y="508.61215" />
+       y="508.61215"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect2985-8-5-0"
        width="70.866142"
        height="35.433071"
        x="166.43843"
-       y="421.57999" />
+       y="421.57999"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect2985-8-3-86"
        width="70.866142"
        height="35.433071"
        x="166.43843"
-       y="465.09604" />
+       y="465.09604"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect2985-8-8-5"
        width="70.866142"
        height="35.433071"
        x="166.43843"
-       y="552.1283" />
+       y="552.1283"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect2985-8-7-1"
        width="70.866142"
        height="35.433071"
        x="166.43843"
-       y="595.64429" />
+       y="595.64429"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect2985-1-9"
        width="70.866142"
        height="35.433071"
        x="166.43843"
-       y="639.16034" />
+       y="639.16034"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect2985-8-03-7"
        width="70.866142"
        height="35.433071"
        x="166.43843"
-       y="682.67639" />
+       y="682.67639"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect2985-8-0-1-8"
        width="70.866142"
        height="35.433071"
        x="166.43843"
-       y="813.22461" />
+       y="813.22461"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect2985-8-5-8-0"
        width="70.866142"
        height="35.433071"
        x="166.43843"
-       y="726.19244" />
+       y="726.19244"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect2985-8-3-8-0"
        width="70.866142"
        height="35.433071"
        x="166.43843"
-       y="769.7085" />
+       y="769.7085"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect2985-8-8-4-3"
        width="70.866142"
        height="35.433071"
        x="166.43843"
-       y="856.74066" />
+       y="856.74066"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect2985-8-7-9-5"
        width="70.866142"
        height="35.433071"
        x="166.43843"
-       y="900.25677" />
+       y="900.25677"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect2985-8-8-4-0-8"
        width="70.866142"
        height="35.433071"
        x="166.43843"
-       y="943.77283" />
+       y="943.77283"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect2985-8-7-9-6-6"
        width="70.866142"
        height="35.433071"
        x="166.43843"
-       y="987.28888" />
+       y="987.28888"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
        x="290.67825"
        y="325.26596"
        id="text4224-5-8"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          x="290.67825"
          y="325.26596"
@@ -245,7 +302,10 @@
        x="373.63913"
        y="325.26596"
        id="text4224-5-7"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          x="373.63913"
          y="325.26596"
@@ -257,7 +317,10 @@
        x="483.33084"
        y="325.26596"
        id="text4224-5-3"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          x="483.33084"
          y="325.26596"
@@ -269,7 +332,10 @@
        x="562.85046"
        y="325.26596"
        id="text4224-5-9"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          x="562.85046"
          y="325.26596"
@@ -281,7 +347,10 @@
        x="688.18994"
        y="325.26596"
        id="text4224-5-6"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          x="688.18994"
          y="325.26596"
@@ -293,14 +362,20 @@
        x="767.70966"
        y="325.26596"
        id="text4224-5-88"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          x="767.70966"
          y="325.26596"
          style="font-size:24px;font-weight:bold;-inkscape-font-specification:DejaVu Sans Bold"
          id="tspan4730-5">0x70</tspan></text>
     <g
-       id="g10173">
+       id="g10173"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="378.06396"
          x="89.733292"
@@ -322,7 +397,10 @@
            sodipodi:role="line">0x01</tspan></text>
     </g>
     <g
-       id="g10178">
+       id="g10178"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="421.57999"
          x="89.733292"
@@ -344,7 +422,10 @@
            sodipodi:role="line">0x02</tspan></text>
     </g>
     <g
-       id="g10183">
+       id="g10183"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="465.09604"
          x="89.733292"
@@ -366,7 +447,10 @@
            sodipodi:role="line">0x03</tspan></text>
     </g>
     <g
-       id="g10188">
+       id="g10188"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="508.61215"
          x="89.733292"
@@ -388,7 +472,10 @@
            sodipodi:role="line">0x04</tspan></text>
     </g>
     <g
-       id="g10193">
+       id="g10193"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="552.12823"
          x="89.733292"
@@ -410,7 +497,10 @@
            sodipodi:role="line">0x05</tspan></text>
     </g>
     <g
-       id="g10198">
+       id="g10198"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="595.64429"
          x="89.733292"
@@ -432,7 +522,10 @@
            sodipodi:role="line">0x06</tspan></text>
     </g>
     <g
-       id="g10260">
+       id="g10260"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="943.77277"
          x="89.733292"
@@ -454,7 +547,10 @@
            sodipodi:role="line">0x0E</tspan></text>
     </g>
     <g
-       id="g10255">
+       id="g10255"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="987.28882"
          x="89.733292"
@@ -476,7 +572,10 @@
            sodipodi:role="line">0x0F</tspan></text>
     </g>
     <g
-       id="g10203">
+       id="g10203"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <text
          sodipodi:linespacing="125%"
          id="text4224-81"
@@ -526,7 +625,10 @@
       </g>
     </g>
     <g
-       id="g10237">
+       id="g10237"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <text
          sodipodi:linespacing="125%"
          id="text4224-01"
@@ -581,7 +683,10 @@
        x="15.934159"
        y="752.64532"
        id="text4224-0"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan4226-755"
          x="15.934159"
@@ -593,21 +698,30 @@
        width="70.866142"
        height="35.433071"
        x="89.733292"
-       y="726.19244" />
+       y="726.19244"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
        x="114.26188"
        y="742.39441"
        id="text4972-5"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan4974-6"
          x="114.26188"
          y="742.39441"
          style="font-weight:bold;-inkscape-font-specification:Nimbus Mono L Bold">\t</tspan></text>
     <g
-       id="g10229">
+       id="g10229"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <text
          sodipodi:linespacing="125%"
          id="text4224-920"
@@ -645,7 +759,10 @@
       </g>
     </g>
     <g
-       id="g10221">
+       id="g10221"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <text
          sodipodi:linespacing="125%"
          id="text4224-18"
@@ -683,7 +800,10 @@
       </g>
     </g>
     <g
-       id="g10247">
+       id="g10247"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <text
          sodipodi:linespacing="125%"
          id="text4224-25"
@@ -726,24 +846,36 @@
        width="79.198303"
        height="171.85078"
        x="283.85059"
-       y="505.67743" />
+       y="505.67743"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:none;stroke:#0000ff;stroke-width:3.54330707;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3.54330709, 3.54330709;stroke-dashoffset:0"
        id="rect5090-8-6"
        width="79.198303"
        height="171.85078"
        x="283.85059"
-       y="331.61313" />
+       y="331.61313"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:none;stroke:#0000ff;stroke-width:3.54330707;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3.54330709, 3.54330709;stroke-dashoffset:0"
        id="rect5090-8-68"
        width="79.198303"
        height="171.85078"
        x="283.85059"
-       y="679.74164" />
+       y="679.74164"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <g
        id="g9284"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="334.54788"
          x="300.23303"
@@ -778,7 +910,10 @@
     </g>
     <g
        id="g9320"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="378.06396"
          x="300.23303"
@@ -812,7 +947,10 @@
            sodipodi:role="line">01</tspan></text>
     </g>
     <g
-       id="g4507">
+       id="g4507"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="421.57999"
          x="288.01669"
@@ -847,7 +985,10 @@
     </g>
     <g
        id="g9918"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="465.09604"
          x="300.23303"
@@ -882,7 +1023,10 @@
     </g>
     <g
        id="g9332"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="508.61215"
          x="300.23303"
@@ -917,7 +1061,10 @@
     </g>
     <g
        id="g9349"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="552.1283"
          x="300.23303"
@@ -952,7 +1099,10 @@
     </g>
     <g
        id="g9356"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="595.64429"
          x="300.23303"
@@ -987,7 +1137,10 @@
     </g>
     <g
        id="g9368"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="639.16034"
          x="300.23303"
@@ -1022,7 +1175,10 @@
     </g>
     <g
        id="g9380"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="682.67639"
          x="300.23303"
@@ -1057,7 +1213,10 @@
     </g>
     <g
        id="g9397"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="726.19244"
          x="300.23303"
@@ -1092,7 +1251,10 @@
     </g>
     <g
        id="g9404"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="769.7085"
          x="300.23303"
@@ -1127,7 +1289,10 @@
     </g>
     <g
        id="g9418"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="813.22461"
          x="300.23303"
@@ -1162,7 +1327,10 @@
     </g>
     <g
        id="g9291"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="334.54788"
          x="383.19391"
@@ -1185,7 +1353,10 @@
     </g>
     <g
        id="g9296"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="378.06396"
          x="383.19391"
@@ -1208,7 +1379,10 @@
     </g>
     <g
        id="g9301"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="421.57999"
          x="383.19391"
@@ -1231,7 +1405,10 @@
     </g>
     <g
        id="g9327"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="465.09604"
          x="383.19391"
@@ -1254,7 +1431,10 @@
     </g>
     <g
        id="g9339"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="508.61215"
          x="383.19391"
@@ -1277,7 +1457,10 @@
     </g>
     <g
        id="g9344"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="552.1283"
          x="383.19391"
@@ -1300,7 +1483,10 @@
     </g>
     <g
        id="g9363"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="595.64429"
          x="383.19391"
@@ -1323,7 +1509,10 @@
     </g>
     <g
        id="g9375"
-       transform="translate(-12.216348,8.390625e-6)">
+       transform="translate(-12.216348,8.390625e-6)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="639.16034"
          x="383.19391"
@@ -1346,7 +1535,10 @@
     </g>
     <g
        id="g9387"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="682.67639"
          x="383.19391"
@@ -1369,7 +1561,10 @@
     </g>
     <g
        id="g9392"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="726.19244"
          x="383.19391"
@@ -1392,7 +1587,10 @@
     </g>
     <g
        id="g9442"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="856.74066"
          x="300.23303"
@@ -1427,7 +1625,10 @@
     </g>
     <g
        id="g9470"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="943.77283"
          x="300.23303"
@@ -1462,7 +1663,10 @@
     </g>
     <g
        id="g9491"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="987.28888"
          x="300.23303"
@@ -1496,7 +1700,10 @@
            sodipodi:role="line">FLAG_3</tspan></text>
     </g>
     <g
-       id="g6218">
+       id="g6218"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="769.7085"
          x="370.97754"
@@ -1519,7 +1726,10 @@
     </g>
     <g
        id="g9435"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="813.22461"
          x="383.19391"
@@ -1542,7 +1752,10 @@
     </g>
     <g
        id="g9449"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="856.74066"
          x="383.19391"
@@ -1577,7 +1790,10 @@
     </g>
     <g
        id="g9463"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="900.25677"
          x="383.19391"
@@ -1612,7 +1828,10 @@
     </g>
     <g
        id="g9477"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="943.77283"
          x="383.19391"
@@ -1647,7 +1866,10 @@
     </g>
     <g
        id="g9484"
-       transform="translate(-12.216348,0)">
+       transform="translate(-12.216348,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="987.28888"
          x="383.19391"
@@ -1688,7 +1910,10 @@
        x="760.50317"
        y="331.12357"
        rx="0"
-       ry="0" />
+       ry="0"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:none;stroke:#0000ff;stroke-width:3.54330707;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3.54330709, 3.54330709;stroke-dashoffset:0"
        id="rect5090-8-6-8-7-2"
@@ -1697,10 +1922,16 @@
        x="681.81598"
        y="678.62347"
        rx="0"
-       ry="0" />
+       ry="0"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <g
        id="g9098"
-       transform="translate(48.452954,-174.19787)">
+       transform="translate(48.452954,-174.19787)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="900.25677"
          x="511.21011"
@@ -1728,7 +1959,10 @@
        y="-953.6546"
        id="text4972-5-4-4-8-27"
        sodipodi:linespacing="125%"
-       transform="scale(1,-1)"><tspan
+       transform="scale(1,-1)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan4974-6-1-8-5-3"
          x="525.54974"
@@ -1736,7 +1970,10 @@
          style="font-weight:bold;-inkscape-font-specification:Nimbus Mono L Bold" /></text>
     <g
        id="g9103"
-       transform="translate(-30.54087,0.25720113)">
+       transform="translate(-30.54087,0.25720113)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="943.77283"
          x="511.21011"
@@ -1759,7 +1996,10 @@
     </g>
     <g
        id="g9028"
-       transform="translate(-34.903851,44.82563)">
+       transform="translate(-34.903851,44.82563)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="813.22461"
          x="595.09277"
@@ -1782,7 +2022,10 @@
     </g>
     <g
        id="g5483"
-       transform="translate(0,-42.148339)">
+       transform="translate(0,-42.148339)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="856.74066"
          x="560.1889"
@@ -1805,7 +2048,10 @@
     </g>
     <g
        id="g9113"
-       transform="translate(-34.903851,0.25720113)">
+       transform="translate(-34.903851,0.25720113)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="900.25677"
          x="595.09277"
@@ -1828,7 +2074,10 @@
     </g>
     <g
        id="g9118"
-       transform="translate(-34.903851,0.25720113)">
+       transform="translate(-34.903851,0.25720113)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="943.77283"
          x="595.09277"
@@ -1851,7 +2100,10 @@
     </g>
     <g
        id="g9189"
-       transform="translate(6.5529333,0)">
+       transform="translate(6.5529333,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="552.1283"
          x="678.97546"
@@ -1874,7 +2126,10 @@
     </g>
     <g
        id="g9194"
-       transform="translate(6.5529333,0)">
+       transform="translate(6.5529333,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="595.64429"
          x="678.97546"
@@ -1897,7 +2152,10 @@
     </g>
     <g
        id="g9199"
-       transform="translate(6.5529333,0)">
+       transform="translate(6.5529333,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="639.16034"
          x="678.97546"
@@ -1920,7 +2178,10 @@
     </g>
     <g
        id="g9204"
-       transform="translate(6.5529333,-174.13001)">
+       transform="translate(6.5529333,-174.13001)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="682.67639"
          x="678.97546"
@@ -1943,7 +2204,10 @@
     </g>
     <g
        id="g9214"
-       transform="translate(6.5529333,0)">
+       transform="translate(6.5529333,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="726.19244"
          x="678.97546"
@@ -1966,7 +2230,10 @@
     </g>
     <g
        id="g9224"
-       transform="translate(6.5529333,0)">
+       transform="translate(6.5529333,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="769.7085"
          x="678.97546"
@@ -1989,7 +2256,10 @@
     </g>
     <g
        id="g9234"
-       transform="translate(6.5529333,0)">
+       transform="translate(6.5529333,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="813.22461"
          x="678.97546"
@@ -2012,7 +2282,10 @@
     </g>
     <g
        id="g9244"
-       transform="translate(6.5529333,0)">
+       transform="translate(6.5529333,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="856.74066"
          x="678.97546"
@@ -2035,7 +2308,10 @@
     </g>
     <g
        id="g9259"
-       transform="translate(6.5529333,0)">
+       transform="translate(6.5529333,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="900.25677"
          x="678.97546"
@@ -2058,7 +2334,10 @@
     </g>
     <g
        id="g9264"
-       transform="translate(6.5529333,0)">
+       transform="translate(6.5529333,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="943.77283"
          x="678.97546"
@@ -2081,7 +2360,10 @@
     </g>
     <g
        id="g9274"
-       transform="translate(6.5529333,0)">
+       transform="translate(6.5529333,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="987.28888"
          x="678.97546"
@@ -2104,7 +2386,10 @@
     </g>
     <g
        id="g9219"
-       transform="translate(2.1899523,0)">
+       transform="translate(2.1899523,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="726.19244"
          x="762.85815"
@@ -2127,7 +2412,10 @@
     </g>
     <g
        id="g9229"
-       transform="translate(2.1899523,0)">
+       transform="translate(2.1899523,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="769.7085"
          x="762.85815"
@@ -2150,7 +2438,10 @@
     </g>
     <g
        id="g9239"
-       transform="translate(2.1899523,0)">
+       transform="translate(2.1899523,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="813.22461"
          x="762.85815"
@@ -2173,7 +2464,10 @@
     </g>
     <g
        id="g9249"
-       transform="translate(2.1899523,0)">
+       transform="translate(2.1899523,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="856.74066"
          x="762.85815"
@@ -2196,7 +2490,10 @@
     </g>
     <g
        id="g9254"
-       transform="translate(2.1899523,0)">
+       transform="translate(2.1899523,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="900.25677"
          x="762.85815"
@@ -2219,7 +2516,10 @@
     </g>
     <g
        id="g9269"
-       transform="translate(2.1899523,0)">
+       transform="translate(2.1899523,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="943.77283"
          x="762.85815"
@@ -2242,7 +2542,10 @@
     </g>
     <g
        id="g4646"
-       transform="translate(-12.499377,0)">
+       transform="translate(-12.499377,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="508.61215"
          x="777.54749"
@@ -2265,7 +2568,10 @@
     </g>
     <g
        id="g4651"
-       transform="translate(-12.499377,0)">
+       transform="translate(-12.499377,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="552.1283"
          x="777.54749"
@@ -2292,14 +2598,20 @@
        width="70.866142"
        height="35.433071"
        x="765.0481"
-       y="378.06396" />
+       y="378.06396"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
        x="794.66718"
        y="392.35965"
        id="text4972-5-4-4-8-1-7-7"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan4974-6-1-8-5-6-5-1"
          x="794.66718"
@@ -2307,7 +2619,10 @@
          style="font-weight:bold;-inkscape-font-specification:Nimbus Mono L Bold">q</tspan></text>
     <g
        id="g4656"
-       transform="translate(-12.499377,0)">
+       transform="translate(-12.499377,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="595.64429"
          x="777.54749"
@@ -2334,14 +2649,20 @@
        width="70.866142"
        height="35.433071"
        x="765.0481"
-       y="421.57999" />
+       y="421.57999"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
        x="794.85614"
        y="436.18323"
        id="text4972-5-4-4-8-1-7-3"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan4974-6-1-8-5-6-5-6"
          x="794.85614"
@@ -2349,7 +2670,10 @@
          style="font-weight:bold;-inkscape-font-specification:Nimbus Mono L Bold">r</tspan></text>
     <g
        id="g4661"
-       transform="translate(-12.499377,0)">
+       transform="translate(-12.499377,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="639.16034"
          x="777.54749"
@@ -2376,14 +2700,20 @@
        width="70.866142"
        height="35.433071"
        x="765.0481"
-       y="465.09604" />
+       y="465.09604"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
        x="795.08118"
        y="480.23154"
        id="text4972-5-4-4-8-1-7-0"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan4974-6-1-8-5-6-5-63"
          x="795.08118"
@@ -2391,7 +2721,10 @@
          style="font-weight:bold;-inkscape-font-specification:Nimbus Mono L Bold">s</tspan></text>
     <g
        id="g8927"
-       transform="translate(49.198179,43.443563)">
+       transform="translate(49.198179,43.443563)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="334.54788"
          x="511.21011"
@@ -2414,7 +2747,10 @@
     </g>
     <g
        id="g8794"
-       transform="translate(49.198179,43.443563)">
+       transform="translate(49.198179,43.443563)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="378.06396"
          x="511.21011"
@@ -2449,7 +2785,10 @@
     </g>
     <g
        id="g8801"
-       transform="translate(49.198179,43.443563)">
+       transform="translate(49.198179,43.443563)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="421.57999"
          x="511.21011"
@@ -2484,7 +2823,10 @@
     </g>
     <g
        id="g8942"
-       transform="translate(49.198179,43.443563)">
+       transform="translate(49.198179,43.443563)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="465.09604"
          x="511.21011"
@@ -2519,7 +2861,10 @@
     </g>
     <g
        id="g8949"
-       transform="translate(-30.54087,-130.62935)">
+       transform="translate(-30.54087,-130.62935)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="508.61215"
          x="511.21011"
@@ -2542,7 +2887,10 @@
     </g>
     <g
        id="g8956"
-       transform="translate(-30.54087,-130.62935)">
+       transform="translate(-30.54087,-130.62935)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="552.1283"
          x="511.21011"
@@ -2565,7 +2913,10 @@
     </g>
     <g
        id="g8963"
-       transform="translate(-30.54087,-130.62935)">
+       transform="translate(-30.54087,-130.62935)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="595.64429"
          x="511.21011"
@@ -2588,7 +2939,10 @@
     </g>
     <g
        id="g8970"
-       transform="translate(-30.54087,-130.62935)">
+       transform="translate(-30.54087,-130.62935)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="639.16034"
          x="511.21011"
@@ -2623,7 +2977,10 @@
     </g>
     <g
        id="g8977"
-       transform="translate(-30.54087,-348.09431)">
+       transform="translate(-30.54087,-348.09431)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="682.67639"
          x="511.21011"
@@ -2646,7 +3003,10 @@
     </g>
     <g
        id="g4699"
-       transform="translate(0,173.63072)">
+       transform="translate(0,173.63072)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="378.06396"
          x="560.1889"
@@ -2681,7 +3041,10 @@
     </g>
     <g
        id="g4706"
-       transform="translate(0,173.63072)">
+       transform="translate(0,173.63072)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="421.57999"
          x="560.1889"
@@ -2716,7 +3079,10 @@
     </g>
     <g
        id="g4681"
-       transform="translate(78.993824,-129.62944)">
+       transform="translate(78.993824,-129.62944)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="813.22461"
          x="480.66925"
@@ -2743,7 +3109,10 @@
     </g>
     <g
        id="g4713"
-       transform="translate(0,173.63072)">
+       transform="translate(0,173.63072)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="465.09604"
          x="560.1889"
@@ -2778,7 +3147,10 @@
     </g>
     <g
        id="g9071"
-       transform="translate(-114.6429,218.27717)">
+       transform="translate(-114.6429,218.27717)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="508.61215"
          x="595.09277"
@@ -2801,7 +3173,10 @@
     </g>
     <g
        id="g9043"
-       transform="translate(-114.6429,218.27717)">
+       transform="translate(-114.6429,218.27717)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="552.1283"
          x="595.09277"
@@ -2824,7 +3199,10 @@
     </g>
     <g
        id="g9064"
-       transform="translate(-114.6429,218.27717)">
+       transform="translate(-114.6429,218.27717)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="595.64429"
          x="595.09277"
@@ -2847,7 +3225,10 @@
     </g>
     <g
        id="g9057"
-       transform="translate(-114.6429,218.27717)">
+       transform="translate(-114.6429,218.27717)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="639.16034"
          x="595.09277"
@@ -2870,7 +3251,10 @@
     </g>
     <g
        id="g9050"
-       transform="translate(-114.6429,0.81220842)">
+       transform="translate(-114.6429,0.81220842)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="682.67639"
          x="595.09277"
@@ -2898,7 +3282,10 @@
        y="-17.774372"
        id="text8653"
        sodipodi:linespacing="125%"
-       transform="translate(0,287.36218)"><tspan
+       transform="translate(0,287.36218)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan8655"
          x="257.9689"
@@ -2910,7 +3297,10 @@
        y="271.56943"
        id="text4224-5-98"
        sodipodi:linespacing="125%"
-       transform="matrix(0,-1,1,0,0,0)"><tspan
+       transform="matrix(0,-1,1,0,0,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          x="-486.22211"
          y="271.56943"
@@ -2923,7 +3313,10 @@
        y="271.56943"
        id="text4224-5-98-5"
        sodipodi:linespacing="125%"
-       transform="matrix(0,-1,1,0,0,0)"><tspan
+       transform="matrix(0,-1,1,0,0,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          x="-660.11847"
          y="271.56943"
@@ -2936,7 +3329,10 @@
        y="271.56943"
        id="text4224-5-98-1"
        sodipodi:linespacing="125%"
-       transform="matrix(0,-1,1,0,0,0)"><tspan
+       transform="matrix(0,-1,1,0,0,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          x="-834.03815"
          y="271.56943"
@@ -2949,7 +3345,10 @@
        y="-846.9223"
        id="text4224-5-98-5-5-4"
        sodipodi:linespacing="125%"
-       transform="matrix(0,1,-1,0,0,0)"><tspan
+       transform="matrix(0,1,-1,0,0,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          x="783.94482"
          y="-846.9223"
@@ -2962,15 +3361,21 @@
        y="674.56116"
        id="text4224-5-98-5-5-8-5"
        sodipodi:linespacing="125%"
-       transform="matrix(0,-1,1,0,0,0)"><tspan
+       transform="matrix(0,-1,1,0,0,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          x="-579.94415"
          y="674.56116"
          style="font-size:16px;font-weight:bold;-inkscape-font-specification:DejaVu Sans Bold"
-         id="tspan4730-61-2-9-6-7">Basic Input Types</tspan></text>
+         id="tspan4730-61-2-9-6-7">Input Types</tspan></text>
     <g
        id="g9990"
-       transform="translate(16.107603,15.107656)">
+       transform="translate(16.107603,15.107656)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="362.06726"
          x="875.3363"
@@ -2998,7 +3403,10 @@
     </g>
     <g
        id="g9858"
-       transform="translate(22.335447,139.18618)">
+       transform="translate(22.335447,139.18618)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="410.94217"
          x="869.10846"
@@ -3021,7 +3429,10 @@
     </g>
     <g
        id="g6054"
-       transform="translate(43.494381,1.6973963)">
+       transform="translate(43.494381,1.6973963)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="591.66931"
          x="847.94952"
@@ -3049,7 +3460,10 @@
     </g>
     <g
        id="g10000"
-       transform="translate(12.866209,-30.586198)">
+       transform="translate(12.866209,-30.586198)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="494.23785"
          x="878.5777"
@@ -3077,7 +3491,10 @@
     </g>
     <g
        id="g9979"
-       transform="translate(18.362791,-43.26708)">
+       transform="translate(18.362791,-43.26708)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="550.1571"
          x="873.08112"
@@ -3100,7 +3517,10 @@
     </g>
     <g
        id="g9974"
-       transform="translate(6.5843475,-227.89783)">
+       transform="translate(6.5843475,-227.89783)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="648.31116"
          x="884.85956"
@@ -3123,7 +3543,10 @@
     </g>
     <g
        id="g10077"
-       transform="translate(12.08093,-293.17326)">
+       transform="translate(12.08093,-293.17326)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="627.10986"
          x="879.36298"
@@ -3155,7 +3578,10 @@
        x="112.07949"
        y="1048.2206"
        id="text4224-66"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan4226-01"
          x="112.07949"
@@ -3164,17 +3590,23 @@
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-       x="304.7804"
+       x="262.19647"
        y="1048.2206"
        id="text4224-66-4"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan4226-01-4"
-         x="304.7804"
+         x="262.19647"
          y="1048.2206"
-         style="font-size:24px;font-weight:bold;-inkscape-font-specification:DejaVu Sans Bold">Modifiers</tspan></text>
+         style="font-size:24px;font-weight:bold;-inkscape-font-specification:DejaVu Sans Bold">Output Modifiers</tspan></text>
     <g
-       id="g6000">
+       id="g6000"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="900.25677"
          x="288.01669"
@@ -3209,7 +3641,10 @@
     </g>
     <g
        id="g6060"
-       transform="translate(46.45495,-46.212325)">
+       transform="translate(46.45495,-46.212325)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="683.91656"
          x="840.82288"
@@ -3237,7 +3672,10 @@
     </g>
     <g
        id="g4666"
-       transform="translate(-12.499377,0)">
+       transform="translate(-12.499377,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="682.67639"
          x="777.54749"
@@ -3260,7 +3698,10 @@
     </g>
     <g
        id="g4687"
-       transform="translate(0,-216.53093)">
+       transform="translate(0,-216.53093)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="856.74066"
          x="480.66925"
@@ -3283,7 +3724,10 @@
     </g>
     <g
        id="g4678"
-       transform="translate(0,-0.07017153)">
+       transform="translate(0,-0.07017153)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="334.54788"
          x="560.1889"
@@ -3306,7 +3750,10 @@
     </g>
     <g
        id="g9123"
-       transform="translate(-34.903851,0.25720113)">
+       transform="translate(-34.903851,0.25720113)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="987.28888"
          x="595.09277"
@@ -3329,7 +3776,10 @@
     </g>
     <g
        id="g6267"
-       transform="translate(0,0.25720113)">
+       transform="translate(0,0.25720113)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="987.28888"
          x="480.66925"
@@ -3352,7 +3802,10 @@
     </g>
     <g
        id="g6272"
-       transform="translate(19.641877,0)">
+       transform="translate(19.641877,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="987.28888"
          x="745.40625"
@@ -3391,10 +3844,16 @@
        width="79.198303"
        height="346.8508"
        x="681.3623"
-       y="331.32736" />
+       y="331.32736"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <g
        id="g5684"
-       transform="translate(0,348.09879)">
+       transform="translate(0,348.09879)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="334.54788"
          x="685.52838"
@@ -3428,7 +3887,10 @@
            sodipodi:role="line">pointer</tspan></text>
     </g>
     <g
-       id="g5550">
+       id="g5550"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <text
          sodipodi:linespacing="125%"
          id="text4224-9"
@@ -3465,7 +3927,10 @@
       </g>
     </g>
     <g
-       id="g5587">
+       id="g5587"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <text
          sodipodi:linespacing="125%"
          id="text4224-57"
@@ -3503,7 +3968,10 @@
     </g>
     <g
        id="g5670"
-       transform="translate(0,-43.58775)">
+       transform="translate(0,-43.58775)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="421.57999"
          x="685.52838"
@@ -3538,7 +4006,10 @@
     </g>
     <g
        id="g5663"
-       transform="translate(0,-43.58775)">
+       transform="translate(0,-43.58775)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="465.09604"
          x="685.52838"
@@ -3573,7 +4044,10 @@
     </g>
     <g
        id="g5656"
-       transform="translate(0,-43.58775)">
+       transform="translate(0,-43.58775)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="508.61215"
          x="685.52838"
@@ -3608,7 +4082,10 @@
     </g>
     <g
        id="g5677"
-       transform="translate(0,-43.58775)">
+       transform="translate(0,-43.58775)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="378.06396"
          x="685.52838"
@@ -3630,7 +4107,10 @@
            sodipodi:role="line">`</tspan></text>
     </g>
     <g
-       id="g4521">
+       id="g4521"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="334.54788"
          x="765.0481"
@@ -3665,7 +4145,10 @@
     </g>
     <g
        id="g4528"
-       transform="translate(0,-174.06234)">
+       transform="translate(0,-174.06234)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="726.19244"
          x="480.66925"
@@ -3700,7 +4183,10 @@
     </g>
     <g
        id="g4535"
-       transform="translate(-79.739049,174.84418)">
+       transform="translate(-79.739049,174.84418)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="726.19244"
          x="560.1889"
@@ -3723,7 +4209,10 @@
     </g>
     <g
        id="g4609"
-       transform="translate(0,0.32025075)">
+       transform="translate(0,0.32025075)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="769.7085"
          x="560.1889"
@@ -3746,7 +4235,10 @@
     </g>
     <g
        id="g4602"
-       transform="translate(0,-174.06234)">
+       transform="translate(0,-174.06234)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          y="769.7085"
          x="480.66925"
@@ -3773,7 +4265,10 @@
        x="649.84253"
        y="1048.2206"
        id="text4224-66-4-8-2-9"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan4226-01-4-2-6-5"
          x="649.84253"
@@ -3785,7 +4280,10 @@
        y="844.4137"
        x="719.75055"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
          y="844.4137"
          x="719.75055"
@@ -3799,7 +4297,10 @@
        x="366.81149"
        y="764.92267"
        rx="0"
-       ry="0" />
+       ry="0"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
@@ -3807,7 +4308,10 @@
        y="-452.84384"
        id="text4224-5-98-1-4"
        sodipodi:linespacing="125%"
-       transform="matrix(0,1,-1,0,0,0)"><tspan
+       transform="matrix(0,1,-1,0,0,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          x="888.97748"
          y="-452.84384"
@@ -3819,7 +4323,10 @@
        width="79.198303"
        height="171.85078"
        x="283.85059"
-       y="853.80597" />
+       y="853.80597"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
@@ -3827,7 +4334,10 @@
        y="272.63248"
        id="text4224-5-98-1-1"
        sodipodi:linespacing="125%"
-       transform="matrix(0,-1,1,0,0,0)"><tspan
+       transform="matrix(0,-1,1,0,0,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          x="-964.20795"
          y="272.63248"
@@ -3839,7 +4349,10 @@
        width="79.198303"
        height="433.6109"
        x="366.81149"
-       y="331.69159" />
+       y="331.69159"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:none;stroke:#0000ff;stroke-width:3.54330707;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3.54330709, 3.54330709;stroke-dashoffset:0"
        id="rect5090-8-6-8-7-7"
@@ -3848,14 +4361,20 @@
        x="760.90118"
        y="679.44476"
        rx="0"
-       ry="0" />
+       ry="0"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        sodipodi:linespacing="125%"
        id="text4997-9-5-1-6-7-93-2"
        y="843.08331"
        x="378.33658"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          style="font-style:oblique;-inkscape-font-specification:Nimbus Mono L Oblique"
          y="843.08331"
          x="378.33658"
@@ -3867,7 +4386,10 @@
        y="801.59406"
        x="378.767"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          style="font-style:oblique;-inkscape-font-specification:Nimbus Mono L Oblique"
          y="801.59406"
          x="378.767"
@@ -3876,7 +4398,10 @@
     <flowRoot
        xml:space="preserve"
        id="flowRoot9389"
-       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Nimbus Mono L;font-style:normal;font-weight:bold;font-size:12px;line-height:125%;letter-spacing:0px;word-spacing:0px;-inkscape-font-specification:Sans Bold;font-stretch:normal;font-variant:normal"><flowRegion
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Nimbus Mono L;font-style:normal;font-weight:bold;font-size:12px;line-height:125%;letter-spacing:0px;word-spacing:0px;-inkscape-font-specification:Sans Bold;font-stretch:normal;font-variant:normal"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><flowRegion
          id="flowRegion9391"><rect
            id="rect9393"
            width="106.74606"
@@ -3889,7 +4414,10 @@
        y="757.30865"
        x="800.13086"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
          y="757.30865"
          x="800.13086"
@@ -3901,7 +4429,10 @@
        y="801.59406"
        x="720.7251"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
          y="801.59406"
          x="720.7251"
@@ -3913,7 +4444,10 @@
        y="409.29398"
        x="799.08136"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
          y="409.29398"
          x="799.08136"
@@ -3925,7 +4459,10 @@
        y="626.28424"
        x="722.65796"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
          y="626.28424"
          x="722.65796"
@@ -3937,7 +4474,10 @@
        y="668.83209"
        x="723.44397"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
          y="668.83209"
          x="723.44397"
@@ -3950,19 +4490,25 @@
        y="-844.14844"
        id="text4224-5-98-5-5-9"
        sodipodi:linespacing="125%"
-       transform="matrix(0,1,-1,0,0,0)"><tspan
+       transform="matrix(0,1,-1,0,0,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          x="421.88562"
          y="-844.14844"
          style="font-size:16px;font-weight:bold;-inkscape-font-specification:DejaVu Sans Bold"
-         id="tspan4730-61-2-9-68">Basic Input Sizes</tspan></text>
+         id="tspan4730-61-2-9-68">Input Sizes</tspan></text>
     <text
        sodipodi:linespacing="125%"
        id="text4997-9-5-2-9-5-3-8-9"
        y="757.01019"
        x="720.66168"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
          y="757.01019"
          x="720.66168"
@@ -3971,20 +4517,26 @@
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-       x="-835.48401"
+       x="-819.82819"
        y="674.33527"
        id="text4224-5-98-5-5-8-5-6"
        sodipodi:linespacing="125%"
-       transform="matrix(0,-1,1,0,0,0)"><tspan
+       transform="matrix(0,-1,1,0,0,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
-         x="-835.48401"
+         x="-819.82819"
          y="674.33527"
          style="font-size:16px;font-weight:bold;-inkscape-font-specification:DejaVu Sans Bold"
-         id="tspan4730-61-2-9-6-7-6">Basic Aux Flags</tspan></text>
+         id="tspan4730-61-2-9-6-7-6">Aux Flags 0</tspan></text>
     <flowRoot
        xml:space="preserve"
        id="flowRoot6267"
-       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Nimbus Mono L;font-style:normal;font-weight:bold;font-size:12px;line-height:125%;letter-spacing:0px;word-spacing:0px;-inkscape-font-specification:Sans Bold;font-stretch:normal;font-variant:normal"><flowRegion
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Nimbus Mono L;font-style:normal;font-weight:bold;font-size:12px;line-height:125%;letter-spacing:0px;word-spacing:0px;-inkscape-font-specification:Sans Bold;font-stretch:normal;font-variant:normal"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><flowRegion
          id="flowRegion6269"><rect
            id="rect6271"
            width="28"
@@ -3997,7 +4549,10 @@
        x="692.97852"
        y="696.94086"
        id="text6286-8"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan6288-1"
          x="692.97852"
@@ -4008,7 +4563,10 @@
        x="691.97852"
        y="348.77191"
        id="text6286-0"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan6288-19"
          x="691.97852"
@@ -4019,7 +4577,10 @@
        y="712.48016"
        x="697.20966"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
          y="712.48016"
          x="697.20966"
@@ -4029,14 +4590,17 @@
        sodipodi:linespacing="125%"
        id="text4997-9-5-2-9-5-3-8-9-3-4"
        y="366.83374"
-       x="698.97827"
+       x="721.52271"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
          y="366.83374"
-         x="698.97827"
+         x="721.52271"
          id="tspan4999-5-3-6-8-8-7-7-3-0-0"
-         sodipodi:role="line">000</tspan></text>
+         sodipodi:role="line">int,Amb</tspan></text>
     <rect
        style="fill:none;stroke:#0000ff;stroke-width:3.54330707;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3.54330709, 3.54330709;stroke-dashoffset:0"
        id="rect5090-8-6-8-7-2-9"
@@ -4045,27 +4609,36 @@
        x="681.52393"
        y="851.94403"
        rx="0"
-       ry="0" />
+       ry="0"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-       x="-1016.1915"
+       x="-984.2536"
        y="673.44403"
        id="text4224-5-98-5-5-8-5-6-7"
        sodipodi:linespacing="125%"
-       transform="matrix(0,-1,1,0,0,0)"><tspan
+       transform="matrix(0,-1,1,0,0,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
-         x="-1016.1915"
+         x="-984.2536"
          y="673.44403"
          style="font-size:16px;font-weight:bold;-inkscape-font-specification:DejaVu Sans Bold"
-         id="tspan4730-61-2-9-6-7-6-2">Basic Aux Flags 2</tspan></text>
+         id="tspan4730-61-2-9-6-7-6-2">Aux Flags 1</tspan></text>
     <text
        sodipodi:linespacing="125%"
        id="text4997-9-5-2-9-6-7-3-5-2"
        y="975.79333"
        x="799.5014"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
-       xml:space="preserve"><tspan
+       xml:space="preserve"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
          y="975.79333"
          x="799.5014"
@@ -4077,7 +4650,10 @@
        x="114.43853"
        y="365.52826"
        id="text4997-2"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan4999-56"
          x="114.43853"
@@ -4089,7 +4665,10 @@
        x="103.96091"
        y="393.00931"
        id="text4972-5-40-1"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan4974-6-7-4"
          x="103.96091"
@@ -4101,7 +4680,10 @@
        x="178.64888"
        y="393.00934"
        id="text4972-5-40-1-0"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan4974-6-7-4-6"
          x="178.64888"
@@ -4113,7 +4695,10 @@
        x="103.15808"
        y="409.46011"
        id="text4997-2-1"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan4999-56-7"
          x="103.15808"
@@ -4125,11 +4710,152 @@
        x="179.71518"
        y="408.83386"
        id="text4997-2-9"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan4999-56-5"
          x="179.71518"
          y="408.83386"
          style="font-style:oblique;-inkscape-font-specification:Nimbus Mono L Oblique">packed</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Sans Bold"
+       x="695.35571"
+       y="868.91437"
+       id="text6286-8-9"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan6288-1-7"
+         x="695.35571"
+         y="868.91437">ϵ</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4997-9-5-2-9-5-3-8-9-3-3"
+       y="885.64453"
+       x="699.99152"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
+       xml:space="preserve"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
+         y="885.64453"
+         x="699.99152"
+         id="tspan4999-5-3-6-8-8-7-7-3-0-09"
+         sodipodi:role="line">00</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4997-9-5-2-9-5-3-8-9-0"
+       y="930.7334"
+       x="719.87878"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
+       xml:space="preserve"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
+         y="930.7334"
+         x="719.87878"
+         id="tspan4999-5-3-6-8-8-7-7-3-7"
+         sodipodi:role="line">01</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4997-9-5-2-9-5-3-8-4-4"
+       y="975.8222"
+       x="721.51752"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
+       xml:space="preserve"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
+         y="975.8222"
+         x="721.51752"
+         id="tspan4999-5-3-6-8-8-7-7-8-6"
+         sodipodi:role="line">10</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4997-9-5-2-9-5-3-5-1"
+       y="1018.4601"
+       x="720.11279"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
+       xml:space="preserve"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
+         y="1018.4601"
+         x="720.11279"
+         id="tspan4999-5-3-6-8-8-7-6-1"
+         sodipodi:role="line">11</tspan></text>
+    <g
+       id="g9858-9"
+       transform="translate(23.537306,270.50748)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <g
+       id="g4643"
+       transform="translate(-1.2018605,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.0629921;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         id="rect2985-8-5-0-41-5-9"
+         width="70.866142"
+         height="35.433071"
+         x="869.10846"
+         y="410.94217"
+         transform="translate(23.537306,270.50748)" />
+      <text
+         xml:space="preserve"
+         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
+         x="881.24518"
+         y="431.86758"
+         id="text4997-9-5-1-6-7-9-7-9-6"
+         sodipodi:linespacing="125%"
+         transform="translate(23.537306,270.50748)"><tspan
+           sodipodi:role="line"
+           id="tspan4999-5-3-4-6-8-20-8-0-9"
+           x="881.24518"
+           y="431.86758"
+           style="font-style:oblique;-inkscape-font-specification:Nimbus Mono L Oblique">Default</tspan></text>
+      <text
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+         sodipodi:linespacing="125%"
+         id="text6286-8-98"
+         y="690.52197"
+         x="895.59406"
+         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Sans Bold"
+         xml:space="preserve"><tspan
+           y="690.52197"
+           x="895.59406"
+           id="tspan6288-1-4"
+           sodipodi:role="line">ϵ</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       x="472.00235"
+       y="-453.51846"
+       id="text4224-5-98-1-4-4"
+       sodipodi:linespacing="125%"
+       transform="matrix(0,1,-1,0,0,0)"
+       inkscape:export-filename="/stuff/dbender/src/reprint/doc/ascii_reprint.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         x="472.00235"
+         y="-453.51846"
+         style="font-size:16px;font-weight:bold;-inkscape-font-specification:DejaVu Sans Bold"
+         id="tspan4730-61-9-1-3">Register Values</tspan></text>
   </g>
 </svg>
