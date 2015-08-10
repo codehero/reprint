@@ -37,7 +37,7 @@
 /* FIXME this is not threadsafe... */
 static reprint_state s_rs;
 
-static int refprintf_helper(FILE* output, const char* fmt, const uint8_t* data){
+int refprintf_ptr(FILE* output, const char* fmt, const void* data){
 	/* lazy whitebox job from refprintsf...only changed 3rd parameter. */
 	reprint_init(&s_rs, fmt, data);
 	s_rs.reg_flags |= 0x80;
@@ -66,22 +66,8 @@ static int refprintf_helper(FILE* output, const char* fmt, const uint8_t* data){
 	return acc;
 }
 
-int resnprintf(uint8_t* dest, unsigned dest_len, const char* fmt, ...){
-	va_list ap;
-	va_start(ap, fmt);
-
-	/* Expect at least 1 char sized output. */
-	if(dest_len < 1)
-		return -1;
-
-	uint8_t data_buff[DATA_BUFFER_SIZE];
-	if(!reprint_pack_va(data_buff, DATA_BUFFER_SIZE, fmt, ap)){
-		va_end(ap);
-		return -1;
-	}
-	va_end(ap);
-
-	reprint_init(&s_rs, fmt, data_buff);
+int resnprintf_ptr(uint8_t* dest, unsigned dest_len, const char* fmt, const void* data){
+	reprint_init(&s_rs, fmt, data);
 	s_rs.reg_flags |= 0x80;
 
 	uint8_t* end = dest + dest_len - 1;
@@ -101,6 +87,24 @@ int resnprintf(uint8_t* dest, unsigned dest_len, const char* fmt, ...){
 	return o - dest;
 }
 
+int resnprintf(uint8_t* dest, unsigned dest_len, const char* fmt, ...){
+	va_list ap;
+	va_start(ap, fmt);
+
+	/* Expect at least 1 char sized output. */
+	if(dest_len < 1)
+		return -1;
+
+	uint8_t data_buff[DATA_BUFFER_SIZE];
+	if(!reprint_pack_va(data_buff, DATA_BUFFER_SIZE, fmt, ap)){
+		va_end(ap);
+		return -1;
+	}
+	va_end(ap);
+
+	return resnprintf(dest, dest_len, fmt, data_buff);
+}
+
 int refprintf(FILE* output, const char* fmt, ...){
 	va_list ap;
 	va_start(ap, fmt);
@@ -112,7 +116,7 @@ int refprintf(FILE* output, const char* fmt, ...){
 	}
 	va_end(ap);
 
-	return refprintf_helper(output, fmt, data_buff);
+	return refprintf_ptr(output, fmt, data_buff);
 }
 
 int reprintf(const char* fmt, ...){
@@ -126,5 +130,5 @@ int reprintf(const char* fmt, ...){
 	}
 	va_end(ap);
 
-	return refprintf_helper(stdout, fmt, data_buff);
+	return refprintf_ptr(stdout, fmt, data_buff);
 }

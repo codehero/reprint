@@ -136,8 +136,8 @@ Printing an array of 3 floats:
 
 	float vector[3] = {1.0, 2.0, 3.0};
 
-	/* Using reprint to print packed float data. */
-	reprintpf("Position at [\ffr,\ffr,\ffr]\n", vector);
+	/* Using reprint_ptr to print packed float data. */
+	reprintf_ptr("Position at [\f\rfr,\ffr,\ffr]\n", vector);
 
 	/* Using printf */
 	printf("Position at [%f,%f,%f]\n", vector[0], vector[1], vector[2]);
@@ -152,8 +152,8 @@ Printing a struct:
 		char* string;
 	} our_fine_struct;
 
-	/* Use reprintsf since our_fine_struct is well, struct aligned. */
-	reprintsf("\fcq \fcp \fcp \fbr \fdp\n", &our_fine_struct);
+	/* Use reprintf_ptr since we will not marshall data with va_args. */
+	reprintf_ptr("\fcq \fcp \fcp \fbr \fdp\n", &our_fine_struct);
 
 	/* Using printf. Curse the long variable name. */
 	printf("%hu %hhu %hhu %i %s\n"
@@ -170,10 +170,10 @@ Printing an <a href="http://en.wikipedia.org/wiki/IPv4#Header">IPV4 header:</a>
 	uint8_t *incoming_packet;
 
 	/* Using reprint. */
-	/* \f0=cq pulls 16 bits without printing them.
+	/* \f\r0=cq pulls 16 bits without printing them.
 		\fN;cw prints N bits of data from this pool (in decimal by default).  */
 	const char test_reprint_ipv4[] = 
-		"Version:           \f0=cq\f4;ncw\n"
+		"Version:           \f\r0=cq\f4;ncw\n"
 		"Header Words:      \f4;ncw\n"
 		"DSCP:              \f6;ncw\n"
 		"ECN:               \f2;cw\n"
@@ -187,7 +187,7 @@ Printing an <a href="http://en.wikipedia.org/wiki/IPv4#Header">IPV4 header:</a>
 		"Source IP:         \fcp.\fcp.\fcp.\fcp\n"
 		"Dest IP:           \fcp.\fcp.\fcp.\fcp\n";
 
-	reprintpf(test_reprint_ipv4, incoming_packet);
+	reprintf_ptr(test_reprint_ipv4, incoming_packet);
 
 	/* Using printf. The format string may appear simpler, but correctly extracting
 	the data from the packet just to put it on the stack is a painful task.

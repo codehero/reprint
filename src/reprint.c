@@ -35,6 +35,9 @@
 #include <assert.h>
 #endif
 
+#include <math.h>
+#include <stdlib.h>
+
 #ifdef CONFIG_USE_ENDIAN_H
 #define __USE_BSD
 #include <endian.h>

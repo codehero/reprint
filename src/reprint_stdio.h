@@ -45,4 +45,18 @@ int refprintf(FILE* output, const char* fmt, ...);
 /** @brief Print var args to stdout. */
 int reprintf(const char* fmt, ...);
 
+/*  */
+
+/** @brief Print marshalled args to string buffer. */
+int resnprintf_ptr(uint8_t* dest, unsigned dest_len, const char* fmt,
+	const void* data);
+
+/** @brief Print marshalled args to file. */
+int refprintf_ptr(FILE* output, const char* fmt, const void* data);
+
+/** @brief Print marshalled args to stdout. */
+static inline int reprintf_ptr(const char* fmt, const void* data){
+	return refprintf_ptr(stdout, fmt, data);
+}
+
 #endif

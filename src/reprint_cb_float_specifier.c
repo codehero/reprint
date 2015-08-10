@@ -7,9 +7,6 @@
  * */
 
 #ifdef REPRINT_GUARD_reprint_cb_FLOAT_SPECIFIER
-#include <math.h>
-#include <stdlib.h>
-
 static const char s_infinity[] = "-Infinity";
 static const char s_nan[] = "NaN";
 
