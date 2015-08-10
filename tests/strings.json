@@ -1,21 +1,21 @@
 {
 	"test_string_offset" :{
-		"expr":["\f5<dp", "TEST_STRING"]
+		"expr":["\f\r5<dp", "TEST_STRING"]
 		,"expected":"STRING"
 	}
 
 	,"test_string_length" :{
-		"expr":["\f4=dp", "TEST_STRING"]
+		"expr":["\f\r4=dp", "TEST_STRING"]
 		,"expected":"TEST"
 	}
 
 	,"test_string_offset_length" :{
-		"expr":["\f4=2<dp", "TEST_STRING"]
+		"expr":["\f\r4=2<dp", "TEST_STRING"]
 		,"expected":"ST_S"
 	}
 
 	,"test_string" :{
-		"expr":["\fdp", "TEST_STRING"]
+		"expr":["\f\rdp", "TEST_STRING"]
 		,"expected":"TEST_STRING"
 	}
 

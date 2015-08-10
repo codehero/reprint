@@ -20,7 +20,7 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 	unsigned size = 1 << (*(rs->fmt) & SFLAG_SIZE_MASK);
 
 	/* If using struct packing, then align the pointer to the datatype. */
-	if(rs->reg_flags & FLAG_REG_STRUCT_PACK)
+	if(!(FLAG_REG_TIGHT_PACK & rs->reg_flags))
 		rs->data = s_arch_align_ptr(rs->data, size);
 
 	copy_bytes(&rs->cur_data.binary, rs->data, size);

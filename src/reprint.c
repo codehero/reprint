@@ -40,6 +40,9 @@
 #include <endian.h>
 #endif
 
+#define PACK_MASK 0x09
+#define PACK_SELECT 0x04
+
 #define ESCAPE_MASK 0x08
 #define ESCAPE_SELECT 0x04
 #define REPRINTF_BCD_BUFF_SIZE 10
@@ -122,8 +125,8 @@ enum {
 /* These enums map selectors, flags, and register IDs to
  * bit masks and such.*/
 enum {
-	/* Data is packed as struct. */
-	FLAG_REG_STRUCT_PACK = FLAG_REG_RESERVED_80,
+	/* Data is tightly packed with no struct padding. */
+	FLAG_REG_TIGHT_PACK = FLAG_REG_RESERVED_80,
 
 	/* Whether user specified formatting '\f' vs '\b' */
 	FORMAT_BIT = FLAG_SELECTOR_RESERVED_4000
@@ -284,7 +287,7 @@ uint8_t s_arch_int_amb_size[8] = {
 };
 
 uint8_t s_arch_int_conc_size[32] = {
-	,sizeof(uint_fast8_t)
+	sizeof(uint_fast8_t)
 	,sizeof(uint_fast16_t)
 	,sizeof(uint_fast32_t)
 	,sizeof(uint_fast64_t)
@@ -322,14 +325,11 @@ static inline void copy_bytes(void* dest, const void* src, size_t size){
 		*(uint8_t*)(dest++) = *(const uint8_t*)(src++);
 }
 
-void reprint_init(reprint_state* rs, const char* fmt, const void* data
-	,uint8_t struct_pack)
+void reprint_init(reprint_state* rs, const char* fmt, const void* data)
 {
 	set_bytes(rs, 0, sizeof(reprint_state));
 	rs->fmt = (const uint8_t*)fmt;
 	rs->data = data;
-	if(struct_pack)
-		rs->reg_flags |= FLAG_REG_STRUCT_PACK;
 }
 
 __attribute__((__noinline__,__noclone__))
@@ -410,6 +410,13 @@ BEGIN:
 
 		/* Go onto next character. */
 		++i;
+
+		/* Check for packing change directive. */
+		if(PACK_MASK == (*i & ~PACK_SELECT)){
+			rs->reg_flags &= ~FLAG_REG_TIGHT_PACK;
+			rs->reg_flags |= (*i & PACK_SELECT) << 5;
+			++i;
+		}
 
 		/* Parse modifiers. */
 		{
@@ -558,12 +565,12 @@ BEGIN:
 						/* This is a string. */
 
 						/* Align to ptr and assign rs->cur_data.text. */
-						if(FLAG_REG_STRUCT_PACK & rs->reg_flags){
-							rs->data = s_arch_align_ptr(rs->data, sizeof(const uint8_t*));
-							rs->cur_data.text = (const uint8_t*)(rs->data);
+						if(FLAG_REG_TIGHT_PACK & rs->reg_flags){
+							copy_bytes(&rs->cur_data.text, rs->data, sizeof(rs->cur_data.text));
 						}
 						else{
-							copy_bytes(&rs->cur_data.text, rs->data, sizeof(rs->cur_data.text));
+							rs->data = s_arch_align_ptr(rs->data, sizeof(const uint8_t*));
+							rs->cur_data.text = (const uint8_t*)(rs->data);
 						}
 						rs->data += sizeof(rs->cur_data.text);
 

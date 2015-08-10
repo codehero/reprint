@@ -35,7 +35,18 @@ BEGIN:
 
 		if(!*fmt)
 			return NULL;
+
+		/* Check for double escaped sequences */
+		if(*fmt == *(fmt + 1)){
+			fmt += 2;
+			goto BEGIN;
+		}
+
 		++fmt;
+
+		/* Skip over packing directives. */
+		if(*fmt == '\t' || *fmt == '\r')
+			++fmt;
 	}
 
 	/* Find format character. */

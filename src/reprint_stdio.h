@@ -45,36 +45,4 @@ int refprintf(FILE* output, const char* fmt, ...);
 /** @brief Print var args to stdout. */
 int reprintf(const char* fmt, ...);
 
-
-/** @brief Print struct packed data to string. */
-int resnprintf_struct(uint8_t* dest, unsigned dest_len, const char* fmt,
-	const void* data);
-
-/** @brief Print struct packed data to file. */
-int refprintf_struct(FILE* output, const char* fmt, const void* data); 
-
-/** @brief Print struct packed data to stdout. */
-static int reprintf_struct(const char* fmt, const void* data);
-
-
-/** @brief Print byte packed data to string. */
-int resnprintf_packed(uint8_t* dest, unsigned dest_len, const char* fmt,
-	const uint8_t* data);
-
-/** @brief Print byte packed data to file. */
-int refprintf_packed(FILE* output, const char* fmt, const uint8_t* data); 
-
-/** @brief Print byte packed data to stdout. */
-static int reprintf_packed(const char* fmt, const uint8_t* data);
-
-
-/* Inlines. */
-static inline int reprintf_struct(const char* fmt, const void* data){
-	return refprintf_struct(stdout, fmt, data);
-}
-
-static inline int reprintf_packed(const char* fmt, const uint8_t* data){
-	return refprintf_packed(stdout, fmt, data);
-}
-
 #endif

@@ -57,7 +57,7 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 			/* First 8 are defined by format itself. */
 			index -= 8;
 
-			int_size = s_arch_int_conc_size[indexx];
+			int_size = s_arch_int_conc_size[index];
 		}
 		else{
 			/*  */
@@ -67,7 +67,7 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 
 	if(int_size){
 		/* If using struct packing, then align the pointer to the datatype. */
-		if(rs->reg_flags & FLAG_REG_STRUCT_PACK)
+		if(!(FLAG_REG_TIGHT_PACK & rs->reg_flags))
 			rs->data = s_arch_align_ptr(rs->data, int_size);
 
 		/* TODO apply endian transformation from EE flags if concrete. */
@@ -220,10 +220,10 @@ if(rs->selectors & FORMAT_BIT){
 
 	/* Default pad char is a '0' when formatting integers AND
 	 * the value is right aligned. */
-	if(!(rs->reg_flags & (1 << FS_REG_PAD_CHAR))
+	if(!(rs->reg_flags & (1 << F_REG_PAD_CHAR))
 		&& rs->selectors & F_FLAG_RIGHT_ALIGN)
 	{
-		rs->registers[FS_REG_PAD_CHAR] = '0';
+		rs->registers[F_REG_PAD_CHAR] = '0';
 	}
 
 	/* Count the number of significant digits. */

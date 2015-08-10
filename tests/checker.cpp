@@ -94,7 +94,7 @@ int main(int argc, const char* argv[]){
 										/* If integral process as signed or unsigned.
 										 * Otherwise process as float. */
 
-										if(((specifier >> 4) & 0x7) < 4){
+										if(((specifier >> REP_SPECIFIER_OFFSET_TYPE) & 0x7) < 4){
 											if(BNJ_VFLAG_NEGATIVE_SIGNIFICAND & v.type){
 												int x;
 												BNJ::Get(x, parser);
@@ -112,7 +112,7 @@ int main(int argc, const char* argv[]){
 													throw PullParser::invalid_value("Type mismatch!", parser);
 											}
 										}
-										else if(((specifier >> 4) & 0x7) == 6){
+										else if(((specifier >> REP_SPECIFIER_OFFSET_TYPE) & 0x7) == 6){
 											double d;
 											BNJ::Get(d, parser);
 											out = reprint_marshall_bin_floating_pt(out, specifier, d);
@@ -150,7 +150,7 @@ int main(int argc, const char* argv[]){
 									parser.ChunkRead8((char*)str, len + 1);
 
 									/* If character specifier, marshall the first char. */
-									if(((specifier >> 4) & 0x7) == 0x5){
+									if(((specifier >> REP_SPECIFIER_OFFSET_TYPE) & 0x7) == 0x5){
 										out = reprint_marshall_char(out, specifier, str[0]);
 									}
 									else{
@@ -181,26 +181,41 @@ int main(int argc, const char* argv[]){
 				}
 			}
 
-			uint8_t buffer[MAX_STRING];
-			memset(buffer, 0, MAX_STRING);
+			reprint_state rs;
+			reprint_init(&rs, exprbuffer, data);
+			size_t i;
 
-			/* Print to buffer */
-			int output_len =
-				resnprintf_packed(buffer, MAX_STRING, exprbuffer, data);
+			/* Output characters one by one, and each time compare the
+			 * output character to the expected character.
+			 * Iterate one extra time to be sure that 0 is return by reprint_cb;
+			 * this tells that there are no erroneous extra characters. */
+			for(i = 0; i <= expected_length; ++i){
+				uint8_t c;
+				int ret = reprint_cb(&rs, &c, 1);
+				if(ret < 0){
+					reprintf("reprint_cb error \fr at pos \fau: \f=dp\n\n",
+						ret, i, keylen, key);
+					break;
+				}
 
-			if(output_len < 0)
-				throw std::runtime_error("Error in resnprintpf!");
+				/* 0 indicates print operation is finished. */
+				if(0 == ret){
+					if(i < expected_length)
+						reprintf("FAILED SHORT: reprint_cb pos \fau: \f=dp\n\n",
+							i, keylen, key);
+					break;
+				}
 
-			if(expected_length != (unsigned)output_len
-				|| memcmp(buffer, expected, expected_length))
-			{
-				reprintf("FAILED: \f=dp\n'\f=dp'\n'\f=dp'\n\n",
-					keylen, key, output_len, buffer, expected_length, expected);
+				if(c != expected[i]){
+					reprintf("FAILED AT POS \fau:\n \f=dp\n \f=dp\fe\n\n",
+						i, keylen, key, i, key);
+					break;
+				}
 			}
-			else{
-				reprintf("PASSED: \f=dp\n'\f=dp'\n'\f=dp'\n\n",
-					keylen, key, output_len, buffer, expected_length, expected);
-			}
+
+			/* If we got through all the characters then output was correct. */
+			if(i == expected_length)
+				reprintf("PASSED: \f=dp\n\n", keylen, key);
 		}
 	}
 	catch(const std::exception& e){

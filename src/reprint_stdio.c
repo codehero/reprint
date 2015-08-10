@@ -34,77 +34,13 @@
  * a better solution...*/
 #define DATA_BUFFER_SIZE 512
 
+/* FIXME this is not threadsafe... */
 static reprint_state s_rs;
 
-int resnprintf(uint8_t* dest, unsigned dest_len, const char* fmt, ...){
-	va_list ap;
-	va_start(ap, fmt);
-
-	uint8_t data_buff[DATA_BUFFER_SIZE];
-	if(!reprint_pack_va(data_buff, DATA_BUFFER_SIZE, fmt, ap)){
-		va_end(ap);
-		return -1;
-	}
-	va_end(ap);
-
-	return resnprintf_packed(dest, dest_len, fmt, data_buff);
-}
-
-int refprintf(FILE* output, const char* fmt, ...){
-	va_list ap;
-	va_start(ap, fmt);
-
-	uint8_t data_buff[DATA_BUFFER_SIZE];
-	if(!reprint_pack_va(data_buff, DATA_BUFFER_SIZE, fmt, ap)){
-		va_end(ap);
-		return -1;
-	}
-	va_end(ap);
-
-	return refprintf_packed(output, fmt, data_buff);
-}
-
-int reprintf(const char* fmt, ...){
-	va_list ap;
-	va_start(ap, fmt);
-
-	uint8_t data_buff[DATA_BUFFER_SIZE];
-	if(!reprint_pack_va(data_buff, DATA_BUFFER_SIZE, fmt, ap)){
-		va_end(ap);
-		return -1;
-	}
-	va_end(ap);
-
-	return refprintf_packed(stdout, fmt, data_buff);
-}
-
-
-int resnprintf_struct(uint8_t* dest, unsigned dest_len, const char* fmt,
-	const void* data)
-{
-	/* Expect at least 1 char sized output. */
-	if(dest_len < 1)
-		return -1;
-
-	reprint_init(&s_rs, fmt, data, 1);
-	uint8_t* end = dest + dest_len - 1;
-	while(dest != end){
-		int ret = reprint_cb(&s_rs, dest, end - dest);
-		if(!ret)
-			break;
-		if(ret < 0)
-			return ret;
-		dest += ret;
-	}
-
-	/* Add null terminator. */
-	*dest = '\0';
-
-	return dest - end;
-}
-
-int refprintf_struct(FILE* output, const char* fmt, const void* data){
-	reprint_init(&s_rs, fmt, data, 1);
+static int refprintf_helper(FILE* output, const char* fmt, const uint8_t* data){
+	/* lazy whitebox job from refprintsf...only changed 3rd parameter. */
+	reprint_init(&s_rs, fmt, data);
+	s_rs.reg_flags |= 0x80;
 	uint8_t buffer[BUFFER_SIZE];
 	int acc = 0;
 	while(1){
@@ -130,15 +66,24 @@ int refprintf_struct(FILE* output, const char* fmt, const void* data){
 	return acc;
 }
 
+int resnprintf(uint8_t* dest, unsigned dest_len, const char* fmt, ...){
+	va_list ap;
+	va_start(ap, fmt);
 
-int resnprintf_packed(uint8_t* dest, unsigned dest_len, const char* fmt,
-	const uint8_t* data)
-{
 	/* Expect at least 1 char sized output. */
 	if(dest_len < 1)
 		return -1;
 
-	reprint_init(&s_rs, fmt, data, 0);
+	uint8_t data_buff[DATA_BUFFER_SIZE];
+	if(!reprint_pack_va(data_buff, DATA_BUFFER_SIZE, fmt, ap)){
+		va_end(ap);
+		return -1;
+	}
+	va_end(ap);
+
+	reprint_init(&s_rs, fmt, data_buff);
+	s_rs.reg_flags |= 0x80;
+
 	uint8_t* end = dest + dest_len - 1;
 	uint8_t* o = dest;
 	while(o != end){
@@ -156,30 +101,30 @@ int resnprintf_packed(uint8_t* dest, unsigned dest_len, const char* fmt,
 	return o - dest;
 }
 
-int refprintf_packed(FILE* output, const char* fmt, const uint8_t* data){
-	/* lazy whitebox job from refprintsf...only changed 3rd parameter. */
-	reprint_init(&s_rs, fmt, data, 0);
-	uint8_t buffer[BUFFER_SIZE];
-	int acc = 0;
-	while(1){
-		uint8_t *x = buffer;
-		const uint8_t* end = buffer + BUFFER_SIZE;
-		while(x != end){
-			int ret = reprint_cb(&s_rs, x, end - x);
-			if(!ret)
-				break;
-			if(ret < 0)
-				return ret;
+int refprintf(FILE* output, const char* fmt, ...){
+	va_list ap;
+	va_start(ap, fmt);
 
-			x += ret;
-		}
-		int ret = fwrite(buffer, 1, x - buffer, output);
-		if(ret < 0)
-			return ret;
-		acc += ret;
-		if(x != buffer + BUFFER_SIZE)
-			break;
+	uint8_t data_buff[DATA_BUFFER_SIZE];
+	if(!reprint_pack_va(data_buff, DATA_BUFFER_SIZE, fmt, ap)){
+		va_end(ap);
+		return -1;
 	}
+	va_end(ap);
 
-	return acc;
+	return refprintf_helper(output, fmt, data_buff);
+}
+
+int reprintf(const char* fmt, ...){
+	va_list ap;
+	va_start(ap, fmt);
+
+	uint8_t data_buff[DATA_BUFFER_SIZE];
+	if(!reprint_pack_va(data_buff, DATA_BUFFER_SIZE, fmt, ap)){
+		va_end(ap);
+		return -1;
+	}
+	va_end(ap);
+
+	return refprintf_helper(stdout, fmt, data_buff);
 }
