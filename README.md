@@ -3,9 +3,16 @@
 
 reprint is a fresh approach to the semantics and syntax of formatted I/O.
 
+Description
+---------
+
+![Special ASCII table](doc/ascii_reprint.png)
+
+While printf couples string formatting and data output, reprint considers these distinct operations. Developers should be able to specify the formatting and data needed for an operation, while a separate process can find buffer space for the output. reprint allows a developer to "pull" output characters from an initialized `struct reprint_state`.
+
 Semantics
 ---------
- * **Data Marshalling**: printf constrains the user to marshall the input data on the stack, using stdargs. reprint allows the user pass a single struct pointer or a pointer to tightly packed data.
+ * **Data Marshalling**: printf constrains the user to marshall the input data on the stack, using stdargs. reprint allows the user pass a single pointer to tightly packed or struct padded data.
  * **Output buffering**: printf only outputs data into string buffers. reprint exposes its internal callback, `reprint_cb`, allowing the user to "pull" output byte by byte.
  * **Format string**: Like printf, reprint format strings are a mixture of unformatted characters and *conversion specifiers*. There are two types of conversion specifiers: *formatted* translates data into human readable text and *binary* converts to a binary format.
  * **Interpreter**: Any sophisticated output formatting engine is a mini virtual machine. The user controls reprint output by setting flags and register values, much like a microprocessor peripheral.
@@ -37,8 +44,8 @@ Modifiers: Selectors
 
  * **Rounding Method** (Selector0): Select which rounding method to use when a quantitative value is formatted.
      * 'unset' : round to even.
-     * `00` : Round away from infinity
-     * `01` : Round toward infinity
+     * `00` : Round down
+     * `01` : Round up
      * `10` : Round away from zero 
      * `11` : Round toward zero
 
