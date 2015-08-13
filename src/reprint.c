@@ -129,7 +129,7 @@ enum {
  * bit masks and such.*/
 enum {
 	/* Data is tightly packed with no struct padding. */
-	FLAG_REG_TIGHT_PACK = FLAG_REG_RESERVED_80,
+	FLAG_REG_TIGHT_PACK = IFLAG_RES_B7,
 
 	/* Whether user specified formatting '\f' vs '\b' */
 	FORMAT_BIT = FLAG_SELECTOR_RESERVED_4000
@@ -416,8 +416,8 @@ BEGIN:
 
 		/* Check for packing change directive. */
 		if(PACK_MASK == (*i & ~PACK_SELECT)){
-			rs->reg_flags &= ~FLAG_REG_TIGHT_PACK;
-			rs->reg_flags |= (*i & PACK_SELECT) << 5;
+			rs->input_flags &= ~FLAG_REG_TIGHT_PACK;
+			rs->input_flags |= (*i & PACK_SELECT) << 5;
 			++i;
 		}
 
@@ -500,7 +500,7 @@ BEGIN:
 		}
 
 		/* Parse input specifier flags. */
-		rs->input_flags = 0;
+		rs->input_flags &= 0x80;
 		while(*i < 0x70){
 			/* This is an error. */
 			if(*i < 0x60)
@@ -568,7 +568,7 @@ BEGIN:
 						/* This is a string. */
 
 						/* Align to ptr and assign rs->cur_data.text. */
-						if(FLAG_REG_TIGHT_PACK & rs->reg_flags){
+						if(FLAG_REG_TIGHT_PACK & rs->input_flags){
 							copy_bytes(&rs->cur_data.text, rs->data, sizeof(rs->cur_data.text));
 						}
 						else{

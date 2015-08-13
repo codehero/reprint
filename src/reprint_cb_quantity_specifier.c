@@ -67,7 +67,7 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 
 	if(int_size){
 		/* If using struct packing, then align the pointer to the datatype. */
-		if(!(FLAG_REG_TIGHT_PACK & rs->reg_flags))
+		if(!(FLAG_REG_TIGHT_PACK & rs->input_flags))
 			rs->data = s_arch_align_ptr(rs->data, int_size);
 
 		/* TODO apply endian transformation from EE flags if concrete. */

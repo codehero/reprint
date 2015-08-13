@@ -40,7 +40,7 @@ static reprint_state s_rs;
 int refprintf_ptr(FILE* output, const char* fmt, const void* data){
 	/* lazy whitebox job from refprintsf...only changed 3rd parameter. */
 	reprint_init(&s_rs, fmt, data);
-	s_rs.reg_flags |= 0x80;
+	s_rs.input_flags |= 0x80;
 	uint8_t buffer[BUFFER_SIZE];
 	int acc = 0;
 	while(1){
@@ -68,7 +68,7 @@ int refprintf_ptr(FILE* output, const char* fmt, const void* data){
 
 int resnprintf_ptr(uint8_t* dest, unsigned dest_len, const char* fmt, const void* data){
 	reprint_init(&s_rs, fmt, data);
-	s_rs.reg_flags |= 0x80;
+	s_rs.input_flags |= 0x80;
 
 	uint8_t* end = dest + dest_len - 1;
 	uint8_t* o = dest;
