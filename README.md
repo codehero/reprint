@@ -6,7 +6,7 @@ reprint is a fresh approach to the semantics and syntax of formatted I/O.
 Description
 ---------
 
-![Special ASCII table](doc/ascii_reprint.png)
+![Special ASCII table](doc/reprint_model.png)
 
 While printf couples string formatting and data output, reprint considers these distinct operations. Developers should be able to specify the formatting and data needed for an operation, while a separate process can find buffer space for the output. reprint allows a developer to "pull" output characters from an initialized `struct reprint_state`.
 
