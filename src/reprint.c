@@ -174,8 +174,8 @@ enum {
 
 	/* Rounding. */
 
-	,FQ_S_ROUND_AWAY_INF = FLAG_SELECTOR_0_DEFINED
-	,FQ_S_ROUND_TOWARD_INF = FLAG_SELECTOR_0_DEFINED
+	,FQ_S_ROUND_DOWN_INF = FLAG_SELECTOR_0_DEFINED
+	,FQ_S_ROUND_UP_INF = FLAG_SELECTOR_0_DEFINED
 		| FLAG_SELECTOR_0_VAL_0
 	,FQ_S_ROUND_AWAY_ZERO = FLAG_SELECTOR_0_DEFINED
 		| FLAG_SELECTOR_0_VAL_1
@@ -341,8 +341,8 @@ BEGIN:
 	assert(dest);
 
 	/* If processing an input specifier then handle that. */
-	/* rs->cur_label is only assigned labels with ST_ prefixed. */
-	if(rs->cur_label){
+	/* rs->pc is only assigned labels with ST_ prefixed. */
+	if(rs->pc){
 
 		/* Decrement field width if non-zero */
 		if(rs->selectors & FORMAT_BIT){
@@ -357,7 +357,7 @@ BEGIN:
 			}
 		}
 
-		goto *rs->cur_label;
+		goto *rs->pc;
 	}
 
 	{
@@ -562,7 +562,7 @@ BEGIN:
 						 * Initialized to zero with user intervention. */
 						++rs->registers[FTC_REG_REPEAT];
 						total_len = rs->registers[FTC_REG_REPEAT];
-						rs->cur_label = &&ST_CHAR;
+						rs->pc = &&ST_CHAR;
 					}
 					else{
 						/* This is a string. */
@@ -600,7 +600,7 @@ BEGIN:
 							}
 						}
 
-						rs->cur_label = &&ST_TEXT;
+						rs->pc = &&ST_TEXT;
 					}
 				}
 			}
@@ -635,7 +635,7 @@ BEGIN:
 		}
 
 		/* Dispatch. */
-		goto *rs->cur_label;
+		goto *rs->pc;
 	}
 
 #define REPRINT_GUARD_reprint_cb_QUANTITY
@@ -664,7 +664,7 @@ ST_CHAR:
 
 ST_FIELD_DONE:
 	{
-		rs->cur_label = &&ST_WRITE_PAD;
+		rs->pc = &&ST_WRITE_PAD;
 ST_WRITE_PAD:
 		if(rs->selectors & FORMAT_BIT){
 			if(rs->registers[F_REG_FIELD_WIDTH]){
@@ -680,6 +680,6 @@ ST_WRITE_PAD:
 
 	/* Finished outputting the field!! */
 	++rs->fmt;
-	rs->cur_label = NULL;
+	rs->pc = NULL;
 	goto BEGIN;
 }

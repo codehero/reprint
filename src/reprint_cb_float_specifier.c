@@ -44,7 +44,7 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 					total_len = sizeof(s_nan) - 1;
 					rs->cur_data.text = (uint8_t*)s_nan;
 
-					rs->cur_label = &&ST_TEXT;
+					rs->pc = &&ST_TEXT;
 				}
 				else if(isinf(*x)){
 					/* Going to output string instead of number. */
@@ -56,7 +56,7 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 						--total_len;
 					}
 
-					rs->cur_label = &&ST_TEXT;
+					rs->pc = &&ST_TEXT;
 				}
 				else{
 					if(*x < 0){
@@ -219,7 +219,7 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 					total_len = sizeof(s_nan) - 1;
 					rs->cur_data.text = (uint8_t*)s_nan;
 
-					rs->cur_label = &&ST_TEXT;
+					rs->pc = &&ST_TEXT;
 				}
 				else if(isinf(*x)){
 					/* Going to output string instead of number. */
@@ -231,7 +231,7 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 						--total_len;
 					}
 
-					rs->cur_label = &&ST_TEXT;
+					rs->pc = &&ST_TEXT;
 				}
 				else{
 					if(*x < 0){
@@ -260,6 +260,6 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 	}
 }
 
-if(!rs->cur_label)
-	rs->cur_label = &&ST_QUANT_SIGN;
+if(!rs->pc)
+	rs->pc = &&ST_QUANT_SIGN;
 #endif

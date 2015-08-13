@@ -37,12 +37,12 @@ ST_QUANT_SIGN:
 	if(rs->selectors & _FQ_FLAG_INTERNAL_HACK_MINUS_FLAG){
 		*dest = '-';
 		rs->selectors &= ~_FQ_FLAG_INTERNAL_HACK_MINUS_FLAG;
-		rs->cur_label = &&ST_QUANT_CHECK_PREFIX;
+		rs->pc = &&ST_QUANT_CHECK_PREFIX;
 		return 1;
 	}
 	else if(rs->selectors & FQ_S_PREFIX_FORCE_SIGN){
 		*dest = '+';
-		rs->cur_label = &&ST_QUANT_CHECK_PREFIX;
+		rs->pc = &&ST_QUANT_CHECK_PREFIX;
 		return 1;
 	}
 
@@ -52,25 +52,25 @@ ST_QUANT_CHECK_PREFIX:
 
 		if(FQ_S_RADIX_2 == (rs->selectors & _FQ_S_RADIX_MASK)){
 			*dest = 'b';
-			rs->cur_label = &&ST_QUANT_LEAD_ZERO;
+			rs->pc = &&ST_QUANT_LEAD_ZERO;
 			return 1;
 		}
 
 		*dest = '0';
-		rs->cur_label = (FQ_S_RADIX_16 == (rs->selectors & _FQ_S_RADIX_MASK))
+		rs->pc = (FQ_S_RADIX_16 == (rs->selectors & _FQ_S_RADIX_MASK))
 			? &&ST_QUANT_PREFIX_x : &&ST_QUANT_LEAD_ZERO;
 		return 1;
 
 ST_QUANT_PREFIX_x:
 		*dest = 'x';
-		rs->cur_label = &&ST_QUANT_LEAD_ZERO;
+		rs->pc = &&ST_QUANT_LEAD_ZERO;
 		return 1;
 	}
 
 ST_QUANT_LEAD_ZERO:
 	if(rs->selectors & _FQW_REG_PRINT_LZ){
 		*dest = '0';
-		rs->cur_label = &&ST_QUANT_DECIMAL;
+		rs->pc = &&ST_QUANT_DECIMAL;
 		return 1;
 	}
 
@@ -81,12 +81,12 @@ ST_QUANT_DECIMAL:
 		/* Just added a dec point. If the break is nonzero, that means
 		 * will be breaking a sequence of zeros to insert the sigfigs.
 		 * Otherwise, finishing the sigfigs. */
-		rs->cur_label = (rs->registers[_FQW_REG_BREAK])
+		rs->pc = (rs->registers[_FQW_REG_BREAK])
 			? &&ST_QUANT_ZERO_PAD : &&ST_QUANT_SIGFIGS;
 		return 1;
 	}
 
-	rs->cur_label = &&ST_QUANT_SIGFIGS;
+	rs->pc = &&ST_QUANT_SIGFIGS;
 ST_QUANT_SIGFIGS:
 	{
 		/* Must have at least one sigfig to be in this section. */
@@ -172,7 +172,7 @@ ST_QUANT_SIGFIGS:
 				rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 
 				/* Printing decimal next. */
-				rs->cur_label = &&ST_QUANT_DECIMAL;
+				rs->pc = &&ST_QUANT_DECIMAL;
 			}
 		}
 		else if(0 == rs->registers[FQS_REG_SIGFIGS]){
@@ -180,7 +180,7 @@ ST_QUANT_SIGFIGS:
 
 			/* If there are zeros to print, then go to that point. */
 			if(rs->registers[_FQW_REG_ZEROS]){
-				rs->cur_label = &&ST_QUANT_ZERO_PAD;
+				rs->pc = &&ST_QUANT_ZERO_PAD;
 			}
 			else{
 				/* If just printing bit sequence, then done. */
@@ -196,7 +196,7 @@ ST_QUANT_SIGFIGS:
 						memcpy(&rs->cur_data.binary, rs->registers + 6 
 							,sizeof(rs->cur_data.binary));
 					}
-					rs->cur_label = &&ST_FIELD_DONE;
+					rs->pc = &&ST_FIELD_DONE;
 				}
 				else{
 					/* Unset shift, sigfig, and precision registers if not
@@ -208,7 +208,7 @@ ST_QUANT_SIGFIGS:
 							);
 
 					/* It may be exponent time. If not field is done. */
-					rs->cur_label = (rs->selectors & FQS_FLAG_EXPONENTIAL)
+					rs->pc = (rs->selectors & FQS_FLAG_EXPONENTIAL)
 						?  &&ST_EXPONENT : &&ST_FIELD_DONE;
 				}
 			}
@@ -243,13 +243,13 @@ ST_QUANT_ZERO_PAD:
 
 		/* If there are sigfigs to print, then go onto that state. */
 		if(rs->registers[FQS_REG_SIGFIGS]){
-			rs->cur_label = &&ST_QUANT_SIGFIGS;
+			rs->pc = &&ST_QUANT_SIGFIGS;
 			return 1;
 		}
 
 		/* If there are still zeros left, inserting decimal. */
 		if(rs->registers[_FQW_REG_ZEROS]){
-			rs->cur_label = &&ST_QUANT_DECIMAL;
+			rs->pc = &&ST_QUANT_DECIMAL;
 			return 1;
 		}
 
@@ -263,7 +263,7 @@ ST_QUANT_ZERO_PAD:
 				);
 
 		/* It may be time for an exponent. If not field is done. */
-		rs->cur_label = (rs->selectors & FQS_FLAG_EXPONENTIAL)
+		rs->pc = (rs->selectors & FQS_FLAG_EXPONENTIAL)
 			? &&ST_EXPONENT : &&ST_FIELD_DONE;
 		return 1;
 	}
@@ -276,12 +276,12 @@ ST_EXPONENT:
 			int* exp = (int*)(rs->registers + _FQW_REG_EXP);
 			if(*exp < 0){
 				rs->cur_data.binary = -*exp;
-				rs->cur_label = &&ST_QUANT_SIGN;
+				rs->pc = &&ST_QUANT_SIGN;
 				rs->selectors |= _FQ_FLAG_INTERNAL_HACK_MINUS_FLAG;
 			}
 			else{
 				rs->cur_data.binary = *exp;
-				rs->cur_label = &&ST_QUANT_SIGFIGS;
+				rs->pc = &&ST_QUANT_SIGFIGS;
 			}
 		}
 

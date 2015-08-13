@@ -388,10 +388,10 @@ if(rs->selectors & FORMAT_BIT){
 	/* If this is a bitfield and there leading zeros, then just go directly
 	 * to printing zeros. (bitfields cannot print negative or fractional) */
 	if((rs->input_flags & IFLAG_CONCRETE) && (*rs->fmt & SFLAG_SIZE_MASK) == SFLAG_UC_BITFIELD && pad_zeros){
-		rs->cur_label = &&ST_QUANT_ZERO_PAD;
+		rs->pc = &&ST_QUANT_ZERO_PAD;
 	}
 	else{
-		rs->cur_label = &&ST_QUANT_SIGN;
+		rs->pc = &&ST_QUANT_SIGN;
 	}
 
 	total_len +=

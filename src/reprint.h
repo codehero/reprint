@@ -43,12 +43,12 @@ typedef struct reprint_state_s {
 	/** @brief Format string. Points to current character. */
 	const uint8_t* fmt;
 
-	/** @brief Packed data for reprint */
+	/** @brief Data for reprint; packing is defined by flags */
 	const void* data;
 
-	/** @brief Where to jump into the reprint_cb function.
-	 * Only valid if nonzero. */
-	const void* cur_label;
+	/** @brief "Program Counter" Where to jump back into the reprint_cb function.
+	 * If zero then not processing an input specifier. */
+	const void* pc;
 
 	union {
 		const uint8_t* text;
