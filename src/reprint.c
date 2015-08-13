@@ -74,7 +74,7 @@ enum {
 	,FLAG_SELECTOR_2_VAL_0 = 0x0800
 	,FLAG_SELECTOR_2_VAL_1 = 0x1000
 
-	,FLAG_SELECTOR_RESERVED_2000 = 0x2000
+	,FLAG_FORMAT_BIT       = 0x2000
 	,FLAG_SELECTOR_RESERVED_4000 = 0x4000
 
 /* Avoid int enum warning. */
@@ -129,10 +129,7 @@ enum {
  * bit masks and such.*/
 enum {
 	/* Data is tightly packed with no struct padding. */
-	FLAG_REG_TIGHT_PACK = IFLAG_RES_B7,
-
-	/* Whether user specified formatting '\f' vs '\b' */
-	FORMAT_BIT = FLAG_SELECTOR_RESERVED_4000
+	FLAG_REG_TIGHT_PACK = IFLAG_RES_B7
 
 	/* Common formatted flags, registers */
 	,F_REG_FIELD_WIDTH = 0
@@ -170,7 +167,7 @@ enum {
 	,_FQW_REG_BREAK_FLAG_SIG = 0x80
 	,_FQW_REG_BREAK_MASK = 0x7F
 
-	,_FQW_REG_PRINT_LZ = FLAG_SELECTOR_RESERVED_2000
+	,_FQW_REG_PRINT_LZ = FLAG_SELECTOR_RESERVED_4000
 
 	/* Rounding. */
 
@@ -345,7 +342,7 @@ BEGIN:
 	if(rs->pc){
 
 		/* Decrement field width if non-zero */
-		if(rs->selectors & FORMAT_BIT){
+		if(rs->selectors & FLAG_FORMAT_BIT){
 			if(rs->registers[F_REG_FIELD_WIDTH]){
 				--rs->registers[F_REG_FIELD_WIDTH];
 
@@ -405,7 +402,7 @@ BEGIN:
 
 
 		if(*i & ESCAPE_SELECT){
-			rs->selectors |= FORMAT_BIT;
+			rs->selectors |= FLAG_FORMAT_BIT;
 
 			/* Default pad char is a ' '.*/
 			rs->registers[F_REG_PAD_CHAR] = ' ';
@@ -591,7 +588,7 @@ BEGIN:
 							total_len = rs->registers[TS_REG_LENGTH];
 						}
 
-						if(rs->selectors & FORMAT_BIT){
+						if(rs->selectors & FLAG_FORMAT_BIT){
 							if(rs->registers[F_REG_FIELD_WIDTH] && !total_len){
 								/* Calculate string length, determine if it exceeds padding.
 								 * Assuming UTF-8 string for now.
@@ -621,7 +618,7 @@ BEGIN:
 
 		/* If total length exceeds the fieldwidth then zero fieldwidth;
 		 * otherwise subtract the char count from fieldwidth. */
-		if(rs->selectors & FORMAT_BIT){
+		if(rs->selectors & FLAG_FORMAT_BIT){
 			if(rs->selectors & F_FLAG_RIGHT_ALIGN){
 				if(total_len < rs->registers[F_REG_FIELD_WIDTH]){
 					rs->registers[F_REG_FIELD_WIDTH] -= total_len;
@@ -666,7 +663,7 @@ ST_FIELD_DONE:
 	{
 		rs->pc = &&ST_WRITE_PAD;
 ST_WRITE_PAD:
-		if(rs->selectors & FORMAT_BIT){
+		if(rs->selectors & FLAG_FORMAT_BIT){
 			if(rs->registers[F_REG_FIELD_WIDTH]){
 	ST_WRITE_CHAR:
 				*dest = rs->registers[F_REG_PAD_CHAR];

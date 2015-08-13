@@ -75,7 +75,9 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 		rs->data += int_size;
 
 		/* Check if signed and negate if necessary. */
-		if((rs->selectors & FORMAT_BIT) && !(rs->input_flags & IFLAG_UNSIGNED)){
+		if((rs->selectors & FLAG_FORMAT_BIT)
+			&& !(rs->input_flags & IFLAG_UNSIGNED))
+		{
 			switch(*(rs->fmt) & SFLAG_SIZE_MASK){
 #if (RP_CFG_Q_INT_SIZE_MASK & RP_CFG_Q_INT_SIZE_8)
 				case 0:
@@ -216,7 +218,7 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 	}
 }
 
-if(rs->selectors & FORMAT_BIT){
+if(rs->selectors & FLAG_FORMAT_BIT){
 
 	/* Default pad char is a '0' when formatting integers AND
 	 * the value is right aligned. */
