@@ -8,6 +8,15 @@
 		,"expected":"1,12345,123456789"
 	}
 
+	,"test_conc_0" :{
+		"expr":["\f\r,cq", 0]
+		,"expected":"0"
+	}
+
+	,"test_conc_uint16" :{
+		"expr":["\f\r,cq", 32]
+		,"expected":"32"
+	}
 	,"test_pad_uint8_t" :{
 		"expr":["\f\r,4p", 12]
 		,"expected":"0012"
