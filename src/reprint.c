@@ -43,87 +43,7 @@
 #include <endian.h>
 #endif
 
-#define PACK_MASK 0x09
-#define PACK_SELECT 0x04
 
-#define ESCAPE_MASK 0x08
-#define ESCAPE_SELECT 0x04
-#define REPRINTF_BCD_BUFF_SIZE 10
-
-#define SPECIFIER_POINTER 0x78
-#define SPECIFIER_RECURSE 0x79
-
-/* These enums identify bits in the registers. */
-enum {
-
-	/* Flag/Selector word. */
-	FLAG_0 = 0x0001
-	,FLAG_1 = 0x0002
-	,FLAG_2 = 0x0004
-	,FLAG_3 = 0x0008
-
-	,FLAG_SELECTOR_0_DEFINED = 0x0010
-	,FLAG_SELECTOR_0_VAL_0 = 0x0020
-	,FLAG_SELECTOR_0_VAL_1 = 0x0040
-
-	,FLAG_SELECTOR_1_DEFINED = 0x0080
-	,FLAG_SELECTOR_1_VAL_0 = 0x0100
-	,FLAG_SELECTOR_1_VAL_1 = 0x0200
-
-	,FLAG_SELECTOR_2_DEFINED = 0x0400
-	,FLAG_SELECTOR_2_VAL_0 = 0x0800
-	,FLAG_SELECTOR_2_VAL_1 = 0x1000
-
-	,FLAG_FORMAT_BIT       = 0x2000
-	,FLAG_SELECTOR_RESERVED_4000 = 0x4000
-
-/* Avoid int enum warning. */
-#define FLAG_SELECTOR_RESERVED_8000  0x8000
-
-
-	/** @brief Flag 1 is the '-' character.
-	 * It's special in that if it immediately precedes a register value then
-	 * the FLAG_REG_MINUS_X is set, but does not affect FLAG_1. */
-
-	/* Register flags byte (fits into 8-bit value).
-	 * Whether register was supplied by the user. */
-	,FLAG_REG_0_DEFINED = 0x01
-	,FLAG_REG_1_DEFINED = 0x02
-	,FLAG_REG_2_DEFINED = 0x04
-	,FLAG_REG_3_DEFINED = 0x08
-	,FLAG_REG_4_DEFINED = 0x10
-	,FLAG_REG_5_DEFINED = 0x20
-	,FLAG_REG_6_DEFINED = 0x40
-	,FLAG_REG_RESERVED_80 = 0x80
-
-	/* Input flags */
-	,IFLAG_TYPE_B0 = 0x01
-	,IFLAG_TYPE_B1 = 0x02
-	,IFLAG_TYPE_B2 = 0x04
-	,IFLAG_AUX0_B0 = 0x08
-	,IFLAG_AUX0_B1 = 0x10
-	,IFLAG_AUX1_B0 = 0x20
-	,IFLAG_AUX1_B1 = 0x40
-	,IFLAG_RES_B7  = 0x80
-
-	,IFLAG_UNSIGNED = IFLAG_TYPE_B0
-	,IFLAG_CONCRETE = IFLAG_TYPE_B1
-	,IFLAG_NONINTEG = IFLAG_TYPE_B2
-
-	,IFLAG_STRING = IFLAG_NONINTEG | 0x0
-	,IFLAG_CHAR   = IFLAG_NONINTEG | 0x1
-	,IFLAG_FLOAT  = IFLAG_NONINTEG | 0x2
-
-	,IFLAG_TMASK  = IFLAG_TYPE_B2 | IFLAG_TYPE_B1 | IFLAG_TYPE_B0
-
-	/* Specifier flags */
-	,SFLAG_SPECIAL = 0x08
-
-	/* Unsigned concrete bitfield */
-	,SFLAG_UC_BITFIELD = 0x07
-
-	,SFLAG_SIZE_MASK = 0x07
-};
 
 /* These enums map selectors, flags, and register IDs to
  * bit masks and such.*/
@@ -315,6 +235,7 @@ uint8_t s_arch_int_conc_size[32] = {
 	,0
 };
 
+#if 0
 static inline void set_bytes(void* dest, uint8_t b, size_t size){
 	for(unsigned i = 0; i < size; ++i)
 		*(uint8_t*)(dest++) = b;
@@ -324,16 +245,36 @@ static inline void copy_bytes(void* dest, const void* src, size_t size){
 	for(unsigned i = 0; i < size; ++i)
 		*(uint8_t*)(dest++) = *(const uint8_t*)(src++);
 }
+#endif
 
+#ifndef REPRINT_SINGLETON
 void reprint_init(reprint_state* rs, const char* fmt, const void* data)
+#else
+static reprint_state s_rs;
+void reprint_init(const char* fmt, const void* data)
+#endif
 {
-	set_bytes(rs, 0, sizeof(reprint_state));
+	#ifdef REPRINT_SINGLETON
+	reprint_state* rs = &s_rs;
+	#endif
+
+	memset(rs, 0, sizeof(reprint_state));
 	rs->fmt = (const uint8_t*)fmt;
 	rs->data = data;
 }
 
 __attribute__((__noinline__,__noclone__))
+#ifndef REPRINT_SINGLETON
 int reprint_cb(reprint_state* rs, uint8_t* dest, unsigned dest_len){
+#else
+int reprint_cb(uint8_t* dest, unsigned dest_len){
+#endif
+
+	#ifdef REPRINT_SINGLETON
+	reprint_state* rs = &s_rs;
+	#endif
+
+
 BEGIN:
 	assert(dest);
 
@@ -469,6 +410,7 @@ BEGIN:
 					else{
 						/* Registers  without a preceding numeric value are to have 
 						 * their values loaded from the data. */
+						/* FIXME use packing rules as per FLAG_REG_TIGHT_PACK  */
 						if(*i < 0x40){
 							reprint_reg_t* u = (reprint_reg_t*)(rs->data);
 							reg_value = *u;
@@ -496,8 +438,9 @@ BEGIN:
 			}
 		}
 
-		/* Parse input specifier flags. */
-		rs->input_flags &= 0x80;
+		/* Parse input specifier flags.
+		 * Maintain the packing type. */
+		rs->input_flags &= FLAG_REG_TIGHT_PACK;
 		while(*i < 0x70){
 			/* This is an error. */
 			if(*i < 0x60)
@@ -566,7 +509,7 @@ BEGIN:
 
 						/* Align to ptr and assign rs->cur_data.text. */
 						if(FLAG_REG_TIGHT_PACK & rs->input_flags){
-							copy_bytes(&rs->cur_data.text, rs->data, sizeof(rs->cur_data.text));
+							memcpy(&rs->cur_data.text, rs->data, sizeof(rs->cur_data.text));
 						}
 						else{
 							rs->data = s_arch_align_ptr(rs->data, sizeof(const uint8_t*));

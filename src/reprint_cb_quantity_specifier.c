@@ -71,7 +71,7 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 			rs->data = s_arch_align_ptr(rs->data, int_size);
 
 		/* TODO apply endian transformation from EE flags if concrete. */
-		copy_bytes(&rs->cur_data.binary, rs->data, int_size);
+		memcpy(&rs->cur_data.binary, rs->data, int_size);
 		rs->data += int_size;
 
 		/* Check if signed and negate if necessary. */
@@ -156,7 +156,7 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 		 * use the normal numeric printing process, and after the bitfield
 		 * is done printing, restore the values in the registers to cur_data. */
 
-		/* Don't print bitfields in exponential form. Hust don't. */
+		/* Don't print bitfields in exponential form. just don't. */
 		if(rs->selectors & FQS_FLAG_EXPONENTIAL)
 			assert(0);
 
@@ -287,7 +287,8 @@ if(rs->selectors & FLAG_FORMAT_BIT){
 	{
 #if (RP_CFG_Q_RADIX & RP_CFG_Q_RADIX_10)
 		/* Determine number of base 10 digits. */
-		all_digits = s_arch_calc_r10_digits(rs->cur_data.binary);
+		all_digits = rs->cur_data.binary ?
+			s_arch_calc_r10_digits(rs->cur_data.binary) : 1;
 #endif
 	}
 

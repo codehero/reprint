@@ -20,7 +20,7 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 	if(!(FLAG_REG_TIGHT_PACK & rs->reg_flags))
 		rs->data = s_arch_align_ptr(rs->data, size);
 
-	copy_bytes(&rs->cur_data.binary, rs->data, size);
+	memcpy(&rs->cur_data.binary, rs->data, size);
 	rs->data += size;
 
 	/* TODO complex and decimal floating point. */

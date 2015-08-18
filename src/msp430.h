@@ -23,7 +23,7 @@
  * */
 
 
-typedef uint8_t reprint_reg_t;
+typedef uint16_t reprint_reg_t;
 typedef uint16_t reprint_uint_t;
 
 #undef RP_CFG_FEATURES
