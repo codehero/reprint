@@ -94,6 +94,7 @@ int reprint_cb(uint8_t* dest, unsigned dest_len);
 
 #define SPECIFIER_POINTER 0x78
 #define SPECIFIER_RECURSE 0x79
+#define SPECIFIER_CUSTOM  0x7F
 
 /* These enums identify bits in the registers. */
 enum {
@@ -169,5 +170,9 @@ enum {
 
 extern uint8_t s_arch_int_amb_size[8];
 extern uint8_t s_arch_int_conc_size[32];
+
+#ifdef ARCH_CUSTOM_SPECIFIER
+#include "reprint_cb_custom_specifier.h"
+#endif
 
 #endif

@@ -30,7 +30,7 @@
 #include "arch_internal.h"
 
 #ifdef NO_ASSERT
-#define assert(x)
+#define assert(x) do {if(x) return -1;} while(0)
 #else
 #include <assert.h>
 #endif
@@ -554,6 +554,13 @@ BEGIN:
 				/* TODO */
 				assert(0);
 			}
+#ifdef ARCH_CUSTOM_SPECIFIER
+			else if(*(rs->fmt) == SPECIFIER_CUSTOM){
+#define REPRINT_GUARD_reprint_cb_CUSTOM_SPECIFIER
+#include "reprint_cb_custom_specifier.c"
+#undef REPRINT_GUARD_reprint_cb_CUSTOM_SPECIFIER
+			}
+#endif
 			else{
 				assert(0);
 			}

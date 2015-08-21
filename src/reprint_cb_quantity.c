@@ -26,6 +26,8 @@
 /* This C file only has context within reprint.c:reprint_cb()
  * The inherited variables from the reprint_cb() context are
  *
+ * reprint_state* rs;   (reprint state)
+ * unsigned total_len;  (the number of characters required to print value)
  *
  * */
 #ifdef REPRINT_GUARD_reprint_cb_QUANTITY
