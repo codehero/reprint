@@ -30,7 +30,7 @@
 #include "arch_internal.h"
 
 #ifdef NO_ASSERT
-#define assert(x) do {if(x) return -1;} while(0)
+#define assert(x) do {if(!(x)) return -1;} while(0)
 #else
 #include <assert.h>
 #endif
@@ -588,6 +588,12 @@ BEGIN:
 #define REPRINT_GUARD_reprint_cb_QUANTITY
 #include "reprint_cb_quantity.c"
 #undef REPRINT_GUARD_reprint_cb_QUANTITY
+
+#ifdef ARCH_CUSTOM_SPECIFIER
+#define REPRINT_GUARD_reprint_cb_CUSTOM
+#include "reprint_cb_custom.c"
+#undef REPRINT_GUARD_reprint_cb_CUSTOM
+#endif
 
 ST_TEXT:
 	if(!*rs->cur_data.text)
