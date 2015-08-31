@@ -3,6 +3,10 @@
 		"expr":["\f\r2<r", 12345678]
 		,"expected":"123456.78"
 	}
+	,"test_fixed_1" :{
+		"expr":["\f\r1<r", 32]
+		,"expected":"3.2"
+	}
 	,"test_fixed_reg_pass" :{
 		"expr":["\f\r<r", 2, 12345678]
 		,"expected":"123456.78"
