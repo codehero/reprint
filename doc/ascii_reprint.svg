@@ -28,15 +28,15 @@
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
      inkscape:zoom="1.5968471"
-     inkscape:cx="487.68718"
+     inkscape:cx="769.87356"
      inkscape:cy="404.9408"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      units="mm"
-     inkscape:window-width="2560"
-     inkscape:window-height="1418"
-     inkscape:window-x="0"
+     inkscape:window-width="1200"
+     inkscape:window-height="1578"
+     inkscape:window-x="2560"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      showguides="true"
@@ -3830,7 +3830,7 @@
            y="1017.7192"
            x="758.50702"
            id="tspan4999-5-3-6-8-2-6-9-1"
-           sodipodi:role="line">custom</tspan></text>
+           sodipodi:role="line">user</tspan></text>
     </g>
     <rect
        style="fill:none;stroke:#0000ff;stroke-width:3.54330707;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3.54330709, 3.54330709;stroke-dashoffset:0"
@@ -4626,7 +4626,7 @@
     <text
        sodipodi:linespacing="125%"
        id="text4997-9-5-2-9-6-7-3-5-2"
-       y="975.79333"
+       y="963.26868"
        x="799.5014"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
        xml:space="preserve"
@@ -4634,10 +4634,15 @@
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"><tspan
          style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
-         y="975.79333"
+         y="963.26868"
          x="799.5014"
          id="tspan4999-5-3-6-8-2-6-9-1-7"
-         sodipodi:role="line">reg move</tspan></text>
+         sodipodi:role="line">platform</tspan><tspan
+         style="font-style:oblique;text-align:center;text-anchor:middle;-inkscape-font-specification:Nimbus Mono L Oblique"
+         y="978.26868"
+         x="799.5014"
+         sodipodi:role="line"
+         id="tspan3709">defined</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"

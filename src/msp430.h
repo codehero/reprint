@@ -54,3 +54,5 @@ typedef uint16_t reprint_uint_t;
 
 #undef  RP_CFG_P_FEATURES
 #define RP_CFG_P_FEATURES 0x0
+
+#undef RP_CFG_SPECIFIER_USER

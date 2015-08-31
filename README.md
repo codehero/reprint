@@ -1,5 +1,5 @@
 # reprint: redesigned printf #
-### Specification version: 0.1.1 ###
+### Specification version: 0.1.2 ###
 
 reprint is a fresh approach to the semantics and syntax of formatted I/O.
 
@@ -116,7 +116,32 @@ Modifiers: Registers
  * **Size** (Register 3): Input to the pointer offset calculation.
 
 
-Examples
+Input Specifiers: 
+-------------------------
+
+Input specifiers describe the type of data for reprint to process.
+At the most raw level, the input specifier is a combination of 11 bits:
+
+ * **Specifier** 0x70-0x7F: Lower 4 bits are contributed from the terminating specifier.
+ * **Type** 0x60-0x67: Lower 3 bits are contributed from the input type.
+ * **Aux Flags 0** 0x68-0x6B: Lower 2 bits are contributed from the aux flags 0.
+ * **Aux Flags 1** 0x6C-0x6F: Lower 2 bits are contributed from the aux flags 1.
+
+
+reprint aims to cover as many kinds of input as possible, but satisfying all situations is impossible.
+Consequently, there are 3 types of input specifiers:
+
+ * **reprint standard** 0x70-0x7D : Defined by the reprint specification; input 
+ * **reprint implementation** 0x7E : Defined by the reprint implementation; integrated as part of the reprint library build at compile time.
+ * **user defined** 0x7F : Defined by the user; exact mechanism to be defined but most likely will trigger a user callback with reprint state.
+
+All reprint implementations must be consistent with the reprint standard specifiers (within platform integer limits).
+However, as seen with printf, divergence will always be a problem.
+The reprint specification contains the divergence issue by defining the implementation defined and user specifiers, which give freedom for extensibility.
+Any sufficiently important and globally applicable implementation defined specifiers could eventually be integrated into a future reprint specification as well.
+
+
+printf Comparison
 --------
 
 Printing an integer:

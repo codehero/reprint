@@ -554,11 +554,16 @@ BEGIN:
 				/* TODO */
 				assert(0);
 			}
-#ifdef ARCH_CUSTOM_SPECIFIER
-			else if(*(rs->fmt) == SPECIFIER_CUSTOM){
-#define REPRINT_GUARD_reprint_cb_CUSTOM_SPECIFIER
-#include "reprint_cb_custom_specifier.c"
-#undef REPRINT_GUARD_reprint_cb_CUSTOM_SPECIFIER
+#ifdef ARCH_SPECIFIER_IMPLEMENTATION
+			else if(*(rs->fmt) == SPECIFIER_IMPLEMENTATION){
+#define REPRINT_GUARD_reprint_cb_IMPLEMENTATION_SPECIFIER
+#include "reprint_cb_implementation_specifier.c"
+#undef REPRINT_GUARD_reprint_cb_IMPLEMENTATION_SPECIFIER
+			}
+#endif
+#ifdef RP_CFG_SPECIFIER_USER
+			else if(*(rs->fmt) == SPECIFIER_USER){
+				/* FIXME determine callback specifics */
 			}
 #endif
 			else{
@@ -589,10 +594,10 @@ BEGIN:
 #include "reprint_cb_quantity.c"
 #undef REPRINT_GUARD_reprint_cb_QUANTITY
 
-#ifdef ARCH_CUSTOM_SPECIFIER
-#define REPRINT_GUARD_reprint_cb_CUSTOM
-#include "reprint_cb_custom.c"
-#undef REPRINT_GUARD_reprint_cb_CUSTOM
+#ifdef ARCH_SPECIFIER_IMPLEMENTATION
+#define REPRINT_GUARD_reprint_cb_IMPLEMENTATION
+#include "reprint_cb_implementation.c"
+#undef REPRINT_GUARD_reprint_cb_IMPLEMENTATION
 #endif
 
 ST_TEXT:

@@ -92,9 +92,15 @@ int reprint_cb(uint8_t* dest, unsigned dest_len);
 #define ESCAPE_SELECT 0x04
 #define REPRINTF_BCD_BUFF_SIZE 10
 
-#define SPECIFIER_POINTER 0x78
-#define SPECIFIER_RECURSE 0x79
-#define SPECIFIER_CUSTOM  0x7F
+/** @brief Input type is a pointer. */
+#define SPECIFIER_POINTER        0x78
+#define SPECIFIER_RECURSE        0x79
+
+/** @brief Input type is defined and handled by reprint implementation. */
+#define SPECIFIER_IMPLEMENTATION 0x7E
+
+/** @brief Input type is defined and handled by user. */
+#define SPECIFIER_USER           0x7F
 
 /* These enums identify bits in the registers. */
 enum {
@@ -171,8 +177,8 @@ enum {
 extern uint8_t s_arch_int_amb_size[8];
 extern uint8_t s_arch_int_conc_size[32];
 
-#ifdef ARCH_CUSTOM_SPECIFIER
-#include "reprint_cb_custom_specifier.h"
+#ifdef ARCH_SPECIFIER_IMPLEMENTATION
+#include "reprint_cb_implementation_specifier.h"
 #endif
 
 #endif

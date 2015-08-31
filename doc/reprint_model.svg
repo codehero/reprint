@@ -14,7 +14,10 @@
    id="svg3327"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="reprint_model.svg">
+   sodipodi:docname="reprint_model.svg"
+   inkscape:export-filename="/stuff/dbender/src/reprint/doc/reprint_model.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs3329" />
   <sodipodi:namedview
@@ -24,15 +27,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.63680722"
-     inkscape:cx="-348.31219"
-     inkscape:cy="258.51686"
+     inkscape:zoom="1.2736144"
+     inkscape:cx="397.12289"
+     inkscape:cy="474.87879"
      inkscape:current-layer="layer1"
      id="namedview3331"
      showgrid="false"
-     inkscape:window-width="2560"
-     inkscape:window-height="1418"
-     inkscape:window-x="0"
+     inkscape:window-width="1200"
+     inkscape:window-height="1578"
+     inkscape:window-x="2560"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      units="in" />
@@ -44,6 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
