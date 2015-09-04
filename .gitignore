@@ -1,6 +1,4 @@
-include
-lib
-bin
-build
+*.o
+*.s
+*.d
 .sconsign.dblite
-*.swp
