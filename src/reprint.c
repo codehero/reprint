@@ -522,6 +522,7 @@ BEGIN:
 						/* If start range is specified, add to the start pointer.
 						 * ASSUME user did not put start past actual string length!! */
 						if(rs->reg_flags & (1 << TS_REG_START)){
+							rs->reg_flags &= ~(1 << TS_REG_START);
 							rs->cur_data.text += rs->registers[TS_REG_START];
 						}
 
@@ -601,11 +602,16 @@ BEGIN:
 #endif
 
 ST_TEXT:
-	if(!*rs->cur_data.text)
+	if(!*rs->cur_data.text){
+		rs->reg_flags &= ~(1 << TS_REG_LENGTH);
 		goto ST_FIELD_DONE;
+	}
 	if(rs->reg_flags & (1 << TS_REG_LENGTH)){
-		if(0 == rs->registers[TS_REG_LENGTH])
+		if(0 == rs->registers[TS_REG_LENGTH]){
+			/* Clear the length flag. */
+			rs->reg_flags &= ~(1 << TS_REG_LENGTH);
 			goto ST_FIELD_DONE;
+		}
 		--rs->registers[TS_REG_LENGTH];
 	}
 
