@@ -207,8 +207,8 @@ int main(int argc, const char* argv[]){
 				}
 
 				if(c != expected[i]){
-					reprintf("FAILED AT POS \fau:\n \f=dp\n \f=dp\fe\n\n",
-						i, keylen, key, i, key);
+					reprintf("FAILED AT POS \fau:\n \f=dp\n \f<dp\nGot:'\fep'\n",
+						i, keylen, key, i, expected, c);
 					break;
 				}
 			}
