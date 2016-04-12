@@ -203,19 +203,21 @@ Printing an <a href="http://en.wikipedia.org/wiki/IPv4#Header">IPV4 header:</a>
 
 	/* Using reprint. */
 	/* \f\r0=cq pulls 16 bits without printing them.
-		\fN;cw prints N bits of data from this pool (in decimal by default).  */
+		\fN;ncw prints N bits of data from this pool (in decimal by default).  */
 	const char test_reprint_ipv4[] = 
-		"Version:           \f\r0=cq\f4;ncw\n"
+		"\f\r0=cq"
+		"Version:           \f4;ncw\n"
 		"Header Words:      \f4;ncw\n"
 		"DSCP:              \f6;ncw\n"
 		"ECN:               \f2;cw\n"
-		"Total Bytes:       \fcq\n"
-		"Identification:    \fcq\n"
-		"Flags:             \f0=cq\f&3;ncw\n"
+		"Total Bytes:       \fcnq\n"
+		"Identification:    \fcnq\n"
+		"\f0=cq"
+		"Flags:             \f&3;ncw\n"
 		"Fragment Offset:   \f13;cw\n"
 		"Protocol:          \fcp\n"
 		"TTL:               \fcp\n"
-		"Header Checksum:   \fcp\n"
+		"Header Checksum:   \fcnq\n"
 		"Source IP:         \fcp.\fcp.\fcp.\fcp\n"
 		"Dest IP:           \fcp.\fcp.\fcp.\fcp\n";
 
