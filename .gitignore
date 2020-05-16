@@ -2,3 +2,6 @@
 *.s
 *.d
 .sconsign.dblite
+include
+lib
+*.so
