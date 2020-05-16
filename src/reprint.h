@@ -37,6 +37,16 @@
  * This may be smaller than the * maximum size supported by the platform
  * (for efficiency reasons). */
 
+enum {
+	RE_EISPEC = 1
+	,RE_EFMT
+	,RE_EUNSUPPORTED
+	,RE_EBITFEXP
+	,RE_EDROPBIT
+	,RE_EBITCOUNT
+	,RE_ERESERVED
+	,RE_ETODO
+};
 
 /* TODO make this fit in 64 bytes (only occupy 1 cache line) */
 typedef struct reprint_state_s {

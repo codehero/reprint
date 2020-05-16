@@ -31,8 +31,7 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 #if (RP_CFG_Q_FLOAT_SIZE_MASK & RP_CFG_Q_FLOAT_SIZE_16)
 #error "16-bit float support not yet implemented"
 		case 1:
-			assert(0);
-			break;
+			return -RE_ETODO;
 #endif
 
 #if (RP_CFG_Q_FLOAT_SIZE_MASK & RP_CFG_Q_FLOAT_SIZE_32)
@@ -92,7 +91,7 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 									break;
 
 								default:
-									assert(0);
+									return -RE_ERESERVED;
 							}
 							rs->cur_data.binary = fabs(sig);
 						}
@@ -113,7 +112,7 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 						/* Subnormal number. Number of sigfigs depends on magnitude. */
 						/* Put into its equivalent exponential mode. */
 						/* TODO */
-						assert(0);
+						return -RE_ETODO;
 					}
 
 					if(rs->selectors & FQS_FLAG_EXPONENTIAL){
@@ -161,16 +160,15 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 					}
 					else{
 						/* TODO use that C++ backend that has the awesome algorithm?  */
-						assert(0);
+						return -RE_ETODO;
 
 						/* If significant digits defined by user, then choose the smaller
 						 * of the two. */
 						if(rs->reg_flags & (1 << FQS_REG_SIGFIGS)){
 							/* TODO */
-							assert(0);
 #if 0
 							if(!rs->registers[FQS_REG_SIGFIGS])
-								assert(0);
+								;
 
 							if(all_digits < rs->registers[FQS_REG_SIGFIGS]){
 								pad_zeros = rs->registers[FQS_REG_SIGFIGS] - all_digits;
@@ -249,14 +247,14 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 		case 4:
 			{
 				/* 128 bit integers, TODO someday; not important now. */
-				assert(0);
+				return -RE_ETODO;
 			}
 			break;
 #endif
 
 		default:
 			/* Unsupported type. */
-			assert(0);
+			return -RE_ETODO;
 	}
 }
 

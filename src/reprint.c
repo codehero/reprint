@@ -368,7 +368,7 @@ BEGIN:
 			/* Otherwise, found an escape character. Parse the field. */
 			while(*i < 0x40){
 				if(*i < 0x20)
-					assert(0);
+					return -RE_EFMT;
 
 				if(*i < 0x30){
 					/* In the 0x20 column. */
@@ -388,7 +388,8 @@ BEGIN:
 							 * */
 							while(*i <= 0x39){
 								/* Should not mix selectors and flags inside a reg value. */
-								assert(*i >= 0x30);
+								if(*i < 0x30)
+									return -RE_EFMT;
 
 								reg_value <<= 3;
 								reg_value += (*i & 0x7);
@@ -399,7 +400,9 @@ BEGIN:
 							/* Parse decimal value into reg_value. */
 							while(*i <= 0x39){
 								/* Should not mix selectors and flags inside a reg value. */
-								assert(*i >= 0x30);
+								if(*i < 0x30)
+									return -RE_EFMT;
+
 								reg_value *= 10;
 								reg_value += (*i & 0xF);
 
@@ -444,7 +447,7 @@ BEGIN:
 		while(*i < 0x70){
 			/* This is an error. */
 			if(*i < 0x60)
-				assert(0);
+				return -RE_EFMT;
 
 			if(*i < 0x68){
 				rs->input_flags |= (*i & 0x7);
@@ -549,11 +552,7 @@ BEGIN:
 		else{
 			if(*(rs->fmt) == SPECIFIER_POINTER){
 				/* TODO */
-				assert(0);
-			}
-			else if(*(rs->fmt) == SPECIFIER_RECURSE){
-				/* TODO */
-				assert(0);
+				return -RE_ETODO;
 			}
 #ifdef ARCH_SPECIFIER_IMPLEMENTATION
 			else if(*(rs->fmt) == SPECIFIER_IMPLEMENTATION){
@@ -565,10 +564,12 @@ BEGIN:
 #ifdef RP_CFG_SPECIFIER_USER
 			else if(*(rs->fmt) == SPECIFIER_USER){
 				/* FIXME determine callback specifics */
+				return -RE_ETODO;
 			}
 #endif
 			else{
-				assert(0);
+				/* Skip over unknown specifiers. */
+				return -RE_EISPEC;
 			}
 		}
 

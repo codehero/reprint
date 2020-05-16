@@ -127,7 +127,7 @@ ST_QUANT_SIGFIGS:
 #endif
 
 				default:
-					assert(0);
+					return -RE_ERESERVED;
 			}
 		}
 		else

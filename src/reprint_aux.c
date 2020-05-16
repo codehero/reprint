@@ -590,6 +590,7 @@ int reprint_buff(reprint_state* rs, uint8_t* dest, unsigned dest_length){
 
 		if(0 == ret)
 			break;
+		x += ret;
 	}
 	return x - dest;
 }

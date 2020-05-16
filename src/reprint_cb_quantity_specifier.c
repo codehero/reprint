@@ -136,14 +136,14 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 				case 4:
 					{
 						/* 128 bit integers, TODO someday; not important now. */
-						assert(0);
+						return -RE_ETODO;
 					}
 					break;
 #endif
 
 				default:
 					/* Unsupported type. */
-					assert(0);
+					return -RE_ETODO;
 			}
 		}
 
@@ -158,13 +158,13 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 
 		/* Don't print bitfields in exponential form. just don't. */
 		if(rs->selectors & FQS_FLAG_EXPONENTIAL)
-			assert(0);
+			return -RE_EBITFEXP;
 
 		/* Outputting bit field. First drop bits if necessary. */
 		if(rs->reg_flags & (1 << FQB_REG_BDROP)){
 			/* If dropping more bits than we have, this is an error. */
 			if(rs->registers[FQS_REG_SIGFIGS] < rs->registers[FQB_REG_BDROP]){
-				assert(0);
+				return -RE_EDROPBIT;
 			}
 			rs->registers[FQS_REG_SIGFIGS] -= rs->registers[FQB_REG_BDROP];
 			rs->cur_data.binary >>= rs->registers[FQB_REG_BDROP];
@@ -189,7 +189,7 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 
 			/* Make sure there are enough bits left for the count. */
 			if(rs->registers[FQS_REG_SIGFIGS] < rs->registers[FQB_REG_BCOUNT])
-				assert(0);
+				return -RE_EBITFEXP;
 
 			/* If bitcount is zero, then do not print this bitfield */
 			if(!rs->registers[FQB_REG_BCOUNT]){
@@ -278,8 +278,7 @@ if(rs->selectors & FLAG_FORMAT_BIT){
 #endif
 
 			default:
-				assert(0);
-				break;
+				return -RE_ERESERVED;
 		}
 	}
 	else
@@ -402,7 +401,7 @@ if(rs->selectors & FLAG_FORMAT_BIT){
 }
 else{
 	/* TODO Output is in binary */
-	assert(0);
+	return -RE_ETODO;
 }
 
 #endif
