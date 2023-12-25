@@ -100,7 +100,7 @@ rs->reg_flags &= ~(1 << _FQW_REG_BREAK);
 
 							/* Determine exponent and prep digits for decimal display. */
 							exp = floorf(log10f(*x));
-							*x *= pow10f(-exp + (int)(sigfigs));
+							*x *= exp10f(-exp + (int)(sigfigs));
 
 							/* TODO Select rounding method from oflags!
 							 * Defaulting to round to even. */
